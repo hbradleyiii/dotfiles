@@ -1,0 +1,42 @@
+# .inputrc
+# This file is sourced during readline initilization.
+# Any program that uses readline (including bash) sources it.
+
+
+set bind-tty-special-chars on
+set editing-mode vi
+set completion-ignore-case on
+set mark-symlinked-directories on
+set prefer-visible-bell on
+set expand-tilde off
+set bell-style visible
+
+
+## Custom Keys
+
+# glob expansion patterns (*)
+"\C-e":     glob-expand-word    # expands w/out executing
+"\C-t":     glob-list-expansions # lists possible expansions (similar to ls)
+"\C-xx":    glob-expand-word
+
+"\C-w": unix-filename-rubout
+"": unix-filename-rubout
+"\C-xv": show-bash-version
+
+# Cycle thru completions
+"\t":       menu-complete
+"\S-\t":    menu-complete-backward
+
+
+set keymap vi-command
+"gg":       beginning-of-history
+"G":        end-of-history
+"dd":	    clear-screen
+            
+set keymap vi-insert # Insert keymaps
+"\C-w":     backward-kill-word          # Ctrl + w
+"\C-l":	    clear-screen	            # Ctrl + l
+
+
+# Last Modified:        Wed 11 Apr 2012 11:50:23 AM EDT
+# vim:set ft=sh:

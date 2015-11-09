@@ -1,0 +1,8 @@
+[user]
+	name = Harold Bradley III
+	email = hbradleyiii@bradleystudio.net
+[core]
+	editor = vim
+	ui = true
+[push]
+	default = matching
