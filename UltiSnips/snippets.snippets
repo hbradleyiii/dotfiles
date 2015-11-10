@@ -1,0 +1,24 @@
+
+# Snippet (with variations)
+snippet snippet "Define a new snippet" b
+snippet $1 "${2:Description}" ${3}
+$0
+`!p snip.rv+="endsnippet" `
+endsnippet
+
+snippet snip "Define a new snippet" b
+snippet $1 "${2:Description}" ${3}
+$0
+`!p snip.rv+="endsnippet" `
+endsnippet
+
+snippet s "Define a new snippet" b
+snippet $1 "${2:Description}" ${3}
+$0
+`!p snip.rv+="endsnippet" `
+endsnippet
+
+snippet # "Snippet Header" b
+### ${1:Header} ###$0
+endsnippet
+
