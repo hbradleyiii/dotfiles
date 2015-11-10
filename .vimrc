@@ -3,8 +3,17 @@ set nocompatible
 " required
 filetype off
 
-" set the runtime path to include Vundle and initialize
+" set the runtime path to include Vundle 
 set rtp+=~/.vim/bundle/Vundle.vim
+
+" make sure Vundle is installed
+let g:InstallVundlePlugins = 0
+if empty(glob("~/.vim/bundle/Vundle.vim"))
+    execute "!git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
+    let g:InstallVundlePlugins = 1
+endif
+
+" initialize Vundle
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
@@ -43,6 +52,9 @@ Plugin 'joonty/vdebug.git'
 " All of your Plugins must be added before the following line
 call vundle#end()
 
+if g:InstallVundlePlugins == 1
+    execute 'VundleInstall'
+endif
 
 
 let g:syntastic_csslint_args="--ignore=universal-selector"
