@@ -1,0 +1,158 @@
+#!/bin/bash
+#
+# name:             log
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created:          Wed 02 Jan 2013 11:53:35 AM EST
+#
+# description:      A script for adding logging capabilities for bash scripts.
+#                   Messages are also printed to screen unless $_LOGTOSCREEN is
+#                   set as false.
+#
+# use examples: 
+#
+# Call log directly with log level flag:
+# $ log "This is my log message." $_LOG_NOTICE
+#
+# Call specific log function:
+# $ log_err "This is my log message."
+#
+# Call logx on a command:
+# $ logx "command" $_LOG_INFO $_LOG_WARN
+#
+
+## SECTION: Default variables {{{1
+_SCRIPTID=${_SCRIPTID:=`basename $0`}
+_VERBOSITY=${_VERBOSITY:=5} 
+_LOGTOSCREEN=${_LOGTOSCREEN:=true} 
+_DEFAULT_LOG_LEVEL=${_DEFAULT_LOG_LEVEL:=5}
+# }}}
+
+## SECTION: Log Levels {{{1
+readonly _LOG_EMERG=0    # System is unusable
+readonly _LOG_ALERT=1    # Action must be taken immediately
+readonly _LOG_CRIT=2     # Critical conditions
+readonly _LOG_ERR=3      # Error conditions
+readonly _LOG_WARNING=4  # Warning conditions
+readonly _LOG_NOTICE=5   # Normal, but significant condition
+readonly _LOG_INFO=6     # Informational message
+readonly _LOG_DEBUG=7    # Debug level message
+## }}}
+
+## SECTION: Specific logging functions {{{1
+# Shorthand functions for calling log()
+function log_emerg() { log "$1" $_LOG_EMERG ; }
+function log_alert() { log "$1" $_LOG_ALERT ; }
+function log_crit() { log "$1" $_LOG_CRIT ; }
+function log_err() { log "$1" $_LOG_ERR ; }
+function log_warning() { log "$1" $_LOG_WARNING ; }
+function log_notice() { log "$1" $_LOG_NOTICE ; }
+function log_info() { log "$1" $_LOG_INFO ; }
+function log_debug() { log "$1" $_LOG_DEBUG ; }
+## }}}
+
+# logx() {{{1
+#   First runs a command (first argument) and logs the output of that command
+#   at a log level of second argument if command succeeds or the log level of
+#   the third argument if command fails.
+function logx() {
+
+        # Fail if there are more than three arguments. This prevents forgetting
+        # to use quotes around command.
+    [[ -n $4 ]] && { echo "'logx()' received more than 3 arguments. Did you forget to use quotes around the first argument?" >&2 ; exit 1; }
+        # Fail if there are no arguments
+    [[ -z $1 ]] && { echo "'logx()' requires a command argument." >&2 ; exit 1; }
+
+        # execute the command in a subshell and return output to _msg. Route
+        # stderr to stdout so possible error messages are returned. Because
+        # this is done in a subshell, it does not affect the rest of the script
+    _msg=$(exec 2>&1 ; $1)
+    _return_status=$? # Must be done immediately after above execution!!
+
+    if [[ -n $3 ]] ; then
+            # Test the return value of the last command
+        [[ $_return_status = 0 ]] && _log_level=$2 || _log_level=$3
+    elif [[ -n $2 ]] ; then
+            # Use second argument as log level
+        _log_level=$2
+    else
+            # Otherwise, use default level
+        _log_level=$_DEFAULT_LOG_LEVEL
+    fi
+
+    log "$_msg" $_log_level
+
+        # Return the return status of the command
+    return $_return_status
+}
+## }}}
+
+# log() {{{1
+#   Logs messages (first argument) based on level (second argument).
+#   Messages will not be logged if their log level is greater than the
+#   verbosity level. Message is modified based on level.
+function log() {
+
+    [[ -n $3 ]] && { echo "'log()' received more than 2 arguments. Did you forget to use quotes?" >&2 ; exit 1 ; }
+    [[ -z $1 ]] && { log_debug "'log()' did not receive a message argument." ; return ; }
+
+    if [[ -n $2 ]] ; then
+            # Sanity checks
+        [[ ! "$2" =~ ^[0-9]+$ ]] || [[ $2 -lt 0 ]] || [[ $2 -gt 7 ]] && { echo "(!!) 'log()' must be passed an integer between 0 and 7 (inclusive) for log level." >&3 ; return ; }
+        _log_level=$2 # Use second argument as log level
+    else
+        _log_level=$_DEFAULT_LOG_LEVEL # Otherwise, use default level
+    fi
+
+        # Check if message needs to be logged based on current _VERBOSITY level
+        # If message is greater than verbosity level return (and do nothing)
+    [[ $_log_level -gt $_VERBOSITY ]] && return
+
+        # Customize the message based on message level:
+    case $_log_level in # Determine log level
+         $_LOG_EMERG) # System is unusable
+             _message="EMERGENCY: [!!] $1";
+            ;;
+         $_LOG_ALERT) # Action must be taken immediately
+            _message="ALERT: [!!] $1"
+            ;;
+         $_LOG_CRIT) # Critical conditions
+            _message="CRIT: (!!) $1"
+            ;;
+         $_LOG_ERR) # Error conditions
+            _message="ERROR: (!!) $1"
+            ;;
+         $_LOG_WARNING) # Warning conditions
+            _message="WARN: (!!) $1"
+            ;;
+         $_LOG_NOTICE) # Normal, but significant conditions
+             _message="$1"
+            ;;
+         $_LOG_INFO) # Informational message
+            _message="$1"
+            ;;
+         $_LOG_DEBUG) # Debug level message
+             _message="DEBUG: (..) $1"
+            ;;
+         *)
+             echo "(!!) log() function was called wrong with wrong _log_level."
+             logger -t "$_SCRIPTID log()" -p $_log_level "(!!) log() function was called wrong with wrong _log_level."
+             return
+            ;;
+    esac
+
+    # Log the message:
+    OLD_IFS=$IFS # Store Old IFS 
+    IFS=$'\n' # Use newline as IFS
+    for line in $_message ; do
+        logger -t "$_SCRIPTID" -p $_log_level "$line"
+        [[ $_LOGTOSCREEN = true ]] && echo $line
+    done
+    IFS=$OLD_IFS # Restore old IFS (not doing this can introduce some hard-to-find bugs)
+
+    return $_return_status
+}
+## }}}
+
+# Last Modified:        Thu 17 Jan 2013 03:13:08 PM EST
+# vim:set ft=sh sw=4 fdm=marker:

@@ -1,0 +1,86 @@
+#!/bin/bash
+#
+# name:             colors
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created:          Wed 02 Jan 2013 11:53:35 AM EST
+#
+# also see:         colors_ext
+#
+# description:      definitions for bash colors
+#                   When called directly, will print off a test of colors.
+#
+
+# Source file only once
+[[ -n $_COLORS_DEFINED ]] && return
+_COLORS_DEFINED=true
+
+# Only define colors if supported
+[[ $(tput colors) -lt 8 ]] && return
+
+## SECTION: Color Definitions {{{1
+_colorreset="\e[m"
+
+_dark_grey="\e[0;30m"
+_black="\e[1;30m"
+_blackU="\e[4;30m"
+_red="\e[0;31m"
+_redB="\e[1;31m"
+_redU="\e[4;31m"
+_green="\e[0;32m"
+_greenB="\e[1;32m"
+_greenU="\e[4;32m"
+_brown="\e[0;33m"
+_yellow="\e[1;33m"
+_yellowU="\e[4;33m"
+_blue="\e[0;34m"
+_blueB="\e[1;34m"
+_blueU="\e[4;34m"
+_magenta="\e[0;35m"
+_magentaB="\e[1;35m"
+_magentaU="\e[4;35m"
+_cyan="\e[0;36m"
+_cyanB="\e[1;36m"
+_cyanU="\e[4;36m"
+_grey="\e[0;37m"
+_white="\e[1;37m"
+_whiteU="\e[4;37m"
+# }}}
+
+# testcolors () {{{1
+#   testcolors prints a line in each color
+function testcolors() {
+    printf "${_dark_grey}%s${_colorreset}\n" "This is _dark_grey"
+    printf "${_black}%s${_colorreset}\n" "This is _black"
+    printf "${_blackU}%s${_colorreset}\n" "This is _blackU"
+    printf "${_red}%s${_colorreset}\n" "This is _red"
+    printf "${_redB}%s${_colorreset}\n" "This is _redB"
+    printf "${_redU}%s${_colorreset}\n" "This is _redU"
+    printf "${_green}%s${_colorreset}\n" "This is _green"
+    printf "${_greenB}%s${_colorreset}\n" "This is _greenB"
+    printf "${_greenU}%s${_colorreset}\n" "This is _greenU"
+    printf "${_brown}%s${_colorreset}\n" "This is _brown"
+    printf "${_yellow}%s${_colorreset}\n" "This is _yellow"
+    printf "${_yellowU}%s${_colorreset}\n" "This is _yellowU"
+    printf "${_blue}%s${_colorreset}\n" "This is _blue"
+    printf "${_blueB}%s${_colorreset}\n" "This is _blueB"
+    printf "${_blueU}%s${_colorreset}\n" "This is _blueU"
+    printf "${_magenta}%s${_colorreset}\n" "This is _magenta"
+    printf "${_magentaB}%s${_colorreset}\n" "This is _magentaB"
+    printf "${_magentaU}%s${_colorreset}\n" "This is _magentaU"
+    printf "${_cyan}%s${_colorreset}\n" "This is _cyan"
+    printf "${_cyanB}%s${_colorreset}\n" "This is _cyanB"
+    printf "${_cyanU}%s${_colorreset}\n" "This is _cyanU"
+    printf "${_grey}%s${_colorreset}\n" "This is _grey"
+    printf "${_white}%s${_colorreset}\n" "This is _white"
+    printf "${_whiteU}%s${_colorreset}\n" "This is _whiteU"
+}
+# }}}
+
+    # Run testcolors function if called directly
+if [[ $0 = */colors ]] ; then
+    testcolors
+fi
+
+# Last Modified:        Thu 10 Jan 2013 01:40:06 AM EST
+# vim:set ft=sh fdm=marker:

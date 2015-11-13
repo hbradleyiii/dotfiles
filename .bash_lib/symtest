@@ -1,0 +1,58 @@
+#!/bin/bash
+#
+# name:             symtest
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created:          Mon 02 Jan 2012 11:53:35 AM EST
+# dependencies:     msg, dirtest
+#
+# description:      Within a directory checks recursively for broken symlinks
+#                   and removes them interactively. After removing a link, it
+#                   checks recursively for empty directories and offers to
+#                   remove them.
+#
+# usage:            symtest {sudo} <dirs...>
+#
+
+source ~/.env/scripts/msg || { echo "'msg' does not exist!" ; exit 1 ; }
+
+_SUDO=""
+_ARGS_PROCESSED=false
+
+OLD_IFS=$IFS # Store Old IFS 
+IFS=$'\n' # Use newline as IFS in this script
+
+# SECTION: Test for cli arguments {{{1
+until [[ $_ARGS_PROCESSED = true ]] ; do
+    case $1 in
+        "sudo" ) # verbose and interactive with sudo
+            shift # Remove processed arg
+            _SUDO=sudo
+            ;;
+        * ) # Arguements have been processed and only dirs are left
+            _ARGS_PROCESSED=true
+            ;;
+    esac
+done
+# }}}
+
+# SECTION: Run the loop to check for broken symlinks {{{1
+[[ $_VERBOSE = true ]] && echo "Checking for broken symbolic links..."
+for i in $($_SUDO find $* -type l) ; do # Loop through all links in current dir
+    if [ ! -e "$i" ]; then # Link doesn't exist...
+        echo "'$i' is broken. It could be an orphaned link."
+        if msg_ask "Remove it?"; then 
+            dir=$(dirname "$i") # Save dirname before removing
+            $_SUDO rm -ifv "$i" && msg_ok "Action Completed" || msg_warn "Could not remove '$i'."
+                # Link is removed, so check if parent directory is empty (recursively)
+            dirtest $_SUDO $dir
+        fi
+    fi
+done
+msg_ok "Finished checking for broken links."
+# }}}
+
+IFS=$OLD_IFS # Restore old IFS (not doing this can introduce some hard-to-find bugs)
+
+# Last Modified:        Thu 10 Jan 2013 02:15:18 AM EST
+# vim:set ft=sh fdm=marker:

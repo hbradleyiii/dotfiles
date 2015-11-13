@@ -1,0 +1,83 @@
+#!/bin/bash
+#
+# name:             msg
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created:          Wed 02 Jan 2013 11:53:35 AM EST
+#
+# description:      Functions for printing Gentoo-like messages
+#
+
+[[ -z $_COLORS_DEFINED ]] && source ~/.envi/bin/colors || { echo "'colors' does not exist!" >&2 ; exit 1; }
+
+# msg_ok() {{{1
+function msg_ok() { # Prints ok message
+    let _MSGLNGTH=${#1}
+    let _PADRIGHT=_MSGLNGTH+6
+    let _COLS=`tput cols`-$_PADRIGHT
+    printf "%s${_blue}%${_COLS}s${_greenB}%s${_blue}%s${_colorreset}\n" "$1" "[" " ok " "] "
+}
+# }}}
+# msg_warn() {{{1
+function msg_warn() { # Prints warning message
+    let _MSGLNGTH=${#1}
+    let _PADRIGHT=_MSGLNGTH+8
+    let _COLS=`tput cols`-$_PADRIGHT
+    printf "%s${_blue}%${_COLS}s${_yellow}%s${_blue}%s${_colorreset}\n" "$1" "[" " warn " "] " >&2
+}
+# }}}
+# msg_failed() {{{1
+function msg_failed() { # Prints failed message
+    let _MSGLNGTH=${#1}
+    let _PADRIGHT=_MSGLNGTH+10
+    let _COLS=`tput cols`-$_PADRIGHT
+    printf "%s${_blue}%${_COLS}s${_redB}%s${_blue}%s${_colorreset}\n" "$1" "[" " failed " "] " >&2
+}
+# }}}
+# msg_error() {{{1
+function msg_error() { # Prints error message
+    let _MSGLNGTH=${#1}
+    let _PADRIGHT=_MSGLNGTH+9
+    let _COLS=`tput cols`-$_PADRIGHT
+    printf "%s${_blue}%${_COLS}s${_red}%s${_blue}%s${_colorreset}\n" "$1" "[" " error " "] " >&2
+}
+# }}}
+# msg_ask() {{{1
+function msg_ask() { # prints a message and prompts for yes or no interaction
+    echo -n $1
+    echo -n " (Y/N) "
+    while read -r -n 1 -s _ANSWER; do
+        if [[ $_ANSWER = [YyNn] ]]; then
+            [[ $_ANSWER = [Yy] ]] && _VALUE=0
+            [[ $_ANSWER = [Nn] ]] && _VALUE=1
+            break
+        fi
+    done
+    echo
+    return $_VALUE
+}
+# }}}
+# msg_choices() {{{1
+function msg_choices() { # prints a message and prompts for yes or no interaction
+    echo -en $1
+    while read -r -n 1 -s _ANSWER; do
+        if [[ $_ANSWER = [1234567890] ]]; then
+            [[ $_ANSWER = [0] ]] && CHOICE=0
+            [[ $_ANSWER = [1] ]] && CHOICE=1
+            [[ $_ANSWER = [2] ]] && CHOICE=2
+            [[ $_ANSWER = [3] ]] && CHOICE=3
+            [[ $_ANSWER = [4] ]] && CHOICE=4
+            [[ $_ANSWER = [5] ]] && CHOICE=5
+            [[ $_ANSWER = [6] ]] && CHOICE=6
+            [[ $_ANSWER = [7] ]] && CHOICE=7
+            [[ $_ANSWER = [8] ]] && CHOICE=8
+            [[ $_ANSWER = [9] ]] && CHOICE=9
+            break
+        fi
+    done
+    echo
+    return $_VALUE
+}
+# }}}
+# Last Modified:        Thu 10 Jan 2013 01:40:02 AM EST
+# vim:set ft=sh fdm=marker:

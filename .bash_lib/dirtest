@@ -1,0 +1,62 @@
+#!/bin/bash
+#
+# name:             dirtest
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created:          Mon 02 Jan 2012 11:53:35 AM EST
+# dependencies:     msg
+#
+# description:      Within a directory checks recursively upward for empty
+#                   directories and prompts for removal.  and removes them
+#                   interactively.
+#
+# usage:            dirtest {sudo} <dirs...>
+#
+
+source ~/.env/scripts/msg || { echo "'msg' does not exist!" ; exit 1 ; } # source message functions
+
+_SUDO=""
+_ARGS_PROCESSED=false
+
+# SECTION: Test for cli arguments {{{1
+until [[ $_ARGS_PROCESSED = true ]] ; do
+    case $1 in
+        "sudo" ) # verbose and interactive with sudo
+            shift # Remove processed arg
+            _SUDO=sudo
+            ;;
+        * ) # normal verbose and interactive
+            _ARGS_PROCESSED=true
+            ;;
+    esac
+done
+# }}}
+
+# SECTION: Program Loop {{{1
+# Run the loop to check each argument path for empty directories
+echo "Checking for empty directories..."
+for dir in $*; do # Loop through all arguments
+    if [[ -d $dir ]] ; then # dir is a dir 
+        if [[ ! $dir = "." ]] ; then # Make sure dir is not current directory (cannot delete current directory)
+            while true ; do # Recursively check for empty directories
+                if [[ ! "$($_SUDO ls -A $dir)" ]] ; then
+                    parent_dir="$(dirname "$dir")" # Get the parent directory before removing
+                    echo "'$dir' is empty. It could be an orphaned directory."
+                    if msg_ask "Remove it?"; then 
+                        $_SUDO rmdir -v "$dir" && msg_ok "Action Completed" || msg_warn "Could not remove '$dir'."
+                    fi
+                else
+                    break # directory is not empty, break from the loop
+                fi
+                dir=$parent_dir # Change to parent directory after removing
+            done
+        fi
+    else # dir is not a dir
+        msg_warn "'$dir' is not a directory."
+    fi
+done
+msg_ok "Finished checking for empty directories."
+# }}}
+
+# Last Modified:        Thu 17 Jan 2013 05:33:17 PM EST
+# vim:set ft=sh fdm=marker:

@@ -1,0 +1,765 @@
+#!/bin/bash
+#
+# name:             env
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created:          Thu 27 Dec 2012 10:23:58 AM EST
+# dependencies:     msg, symtest, dirtest, sudo, git
+# config file:      env.conf
+#
+# description:      A program for installing and maintaining my environment.
+#                   This script will pass through to /usr/bin/env if arguments
+#                   are not recognized.
+#
+
+# TODO:             + add a function to sync vim view directory
+#                   + better understand branches and what updates do to them
+#                     in order to prevent data loss from one branch to another
+#                     when updating
+#                   + trap ctrl-c to stop ssh
+#                   + Allow this to run for root user
+#                   + Allow script to run without interaction (dirtest and symtest too)
+
+## SECTION: Source Scripts & Sanity Checks {{{1
+# Source necessary dependencies
+source ~/.env/scripts/msg || { echo "'msg' does not exist!" >&2 ; exit 1; }
+source ~/.env/scripts/env.conf || { msg_failed "Failed to source 'env.conf'" ; exit 1; }
+source ~/.env/scripts/log || { msg_failed "Failed to source 'log'" ; exit 1; }
+# Check for necessary programs
+type -P sudo &>/dev/null || { msg_failed "'sudo' must be installed!" ; exit 1; }
+type -P git &>/dev/null || { msg_failed "'git' must be installed!" ; exit 1; }
+# }}}
+
+## SECTION: Program functions {{{1
+# install_env() {{{2
+#   installs git hook scripts, creates the necessary links to configuration
+#   files, sets executable flags where necessary
+function install_env() {
+
+        # Change working directory to env directory
+    cd $_DIR_ENV
+
+    if msg_ask "Reset files to current state of repository? Any current changes will be lost!!"; then
+        git checkout .
+    fi
+        # Pull any updates
+    logx "git pull $_REMOTE_REPO master" $_LOG_NOTICE $_LOG_ERROR
+        # Add remote 
+    git remote add $_REMOTE $_REMOTE_REPO
+
+        # Setup .sys_env directories and mount them
+    setup_sys_mounts       
+
+        # Initialize and update submodules
+    logx "git submodule update --init" $_LOG_NOTICE $_LOG_ERROR
+        # Make sure the submodules are on the master branch
+    git submodule foreach git checkout master || msg_failed "Submodule could not checkout master."
+
+        # Clean up the pre-installed sample hooks
+    logx "rm $_DIR_ENV/.git/hooks/*" $_LOG_INFO $_LOG_NOTICE
+        # Install git hooks and set their executable flag
+    install_git_hooks
+        # Install links to necessary configuration files in env
+        # Do this AFTER pulling all updates for submodules etc.
+
+    create_env_links
+
+    source $HOME/.bashrc
+
+    log_notice "Installation complete."
+}
+# }}}
+# uninstall() {{{2
+#   Uninstalls env by first removing links and replacing them with their files
+#   so the repository can be removed without breaking things.  Asks to remove
+#   env git repository.
+function uninstall() {
+        # Replace links with actual files
+    remove_env_links
+
+        # Unmount and remove .sys_env directories
+    remove_sys_mounts
+
+        # Check for orphaned links in system directories and home directory
+    orphaned_link_check
+    log_info "Link check complete."
+
+        # Prompt to remove .env repository
+    if msg_ask "Remove .env repository completely?"; then
+        log_notice "You really don't want to do that... but if you do, uncomment the following line"
+        #rm -Rf $_DIR_ENV
+    fi
+
+    log_notice "Uninstall complete."
+}
+# }}}
+# update() {{{2
+#   Updates the environment by checking for updates on remote repository and
+#   making changes accordingly
+function update() {
+
+    cd $_DIR_ENV
+ 
+    log_info  "Checking for updates at central repository..."
+        # retrieve any possible updates (They aren't merged at this time)
+
+    logx "git fetch $_REMOTE" $_LOG_NOTICE $_LOG_ERR
+ 
+    if [[ $(git log HEAD..$_REMOTE/master --oneline) != "" ]] ; then
+ 
+        log_info "Updating...."
+
+            # rebase on master branch (or current branch?)
+        logx "git rebase $_REMOTE/master master" $_LOG_INFO $_LOG_NOTICE
+
+            # Install git hooks and set their executable flag
+        install_git_hooks
+
+            # Make sure sys_env dirs are mounted
+        mount_sys_mounts
+
+            # Install links to necessary configuration files in env
+            # Do this AFTER pulling all updates for submodules etc.
+        create_env_links
+
+        log_notice  "Update complete."
+    fi
+}
+# }}}
+# update_submodules() {{{2
+#   Updates submodules installed in env
+function update_submodules() {
+        # Initialize and update submodules
+    logx "git submodule update --init" $_LOG_NOTICE $_LOG_ERROR
+        # Make sure the submodules are on the master branch
+        # Check for submodule updates and rebase any possible local updates on 
+        # top of external updates
+    git submodule foreach ' git checkout master 
+                            git pull --rebase origin master ' \
+        || msg_failed "Updating submodules failed."
+
+        # Make sure any updates are linked
+    create_env_links
+
+        # Prompt for checking orphaned links:
+        # (Updating a submodule has the potential to create orphaned links.)
+    if msg_ask "Check for orphaned links?" ; then orphaned_link_check ; fi
+}
+# }}}
+# repair() {{{2
+#   Repairs the state of installed env by making sure proper links exist and
+#   prompting for removal of broken links and empty directories that were
+#   created as a result of removing broken links.
+function repair() {
+    mount_sys_mounts
+    create_env_links
+    if msg_ask "Check for orphaned links?"; then
+        orphaned_link_check
+    fi
+}
+# }}}
+# add_file() {{{2
+#   This function loops through all of the file(s) (arguments) and copies them
+#   to one of three places in the env directory, and replaces the original file
+#   with a symlink to the newly copied file in the env directory (or .sys_env
+#   directory).
+#   The three possibilities:
+#       1a. File is in the home directory and will be installed globally in
+#           global user config dir (currently ~/.env/config/<files>).  A
+#           symlink is made in the home directory back to the file in the env
+#           directory.
+#       1b. File is in the home directory and will be installed in system user
+#           config dir (currently
+#           ~/.env/systems/<systemname>/home/<user>/<files>).  A symlink is
+#           made in the home directory back to the file in the env directory.
+#       2.  File is in one of the system specific configuration directories
+#           (currently ~/.env/systems/<systemname>/<dirs[]>/<files>). These
+#           files are handled differently than the above files.  Because the
+#           directory is mounted from .sys_env to system config dir, the
+#           folders are pointing to the exact same file. However, when booting
+#           the system before all partitions are mounted, home directory may
+#           not exist. If a symlink points to a file in the home directory
+#           before the home partition is mounted, the file will not be found.
+#           Therefore, the symlink MUST point to the .sys_env path.
+function add_file() {
+
+    # _link_original_path_to_env_path() {{{3
+    #   Creates a symlink and any necessary directories from
+    #   $original_path_and_filename to $env_path_and_filename. Both variables are
+    #   expected to exist and be set before calling this function. Both variables
+    #   are also unset at the end of this function.
+    #   cp arguments:
+    #       -f    force copy; if file exists in destination dir, overwrite
+    #       -s    make symbolic links instead of copying
+    #       -p    preserve=mode,ownership,timestamps
+    #       -v    verbose
+    function _link_original_path_to_env_path() {
+        [[ -z $original_path_and_filename ]] && { msg_error "ERROR: _link_original_path_to_env_path() was called and \$original_path_and_filename was not set!" ; exit 1; }
+        [[ -z $env_path_and_filename ]] && { msg_error "ERROR: _link_original_path_to_env_path() was called and \$env_path_and_filename was not set!" ; exit 1; }
+
+        log_info "Creating directories if necessary..."
+            # Create directories recursively if they do not already exist. (cp will NOT do this.)
+        logx "mkdir -vp $(dirname $env_path_and_filename)" $_LOG_INFO $_LOG_ERROR
+            # Copy original file to .env
+        log_info "Copying '$original_path_and_filename' to '$env_path_and_filename'..."
+        logx "cp -pv  $original_path_and_filename $env_path_and_filename" $_LOG_NOTICE $_LOG_ERROR \
+            && msg_ok "Copy Successful." \
+            || msg_failed "Copying error."
+            # Make a symbolic link in original location to newly copied file
+        log_info "Replacing file with symlink to installed env file..."
+        logx "$_SUDO cp -fspv $env_path_and_filename $original_path_and_filename" $_LOG_INFO $_LOG_ERROR \
+            && msg_ok "Link Successful" \
+            || msg_error "Linking error."
+
+        unset original_path_and_filename
+        unset env_path_and_filename
+    }
+    # }}}
+
+    _SUDO=""
+
+    for file in $* ; do # Loop through all arguments
+
+            # This argument has not yet been processed
+        processed=false
+            # Get original full path of $file; It is the path of the file that will become the symlink
+        original_path_and_filename=$(readlink -f "$file")
+
+            # Make sure file exists
+        [[ ! -f $original_path_and_filename ]] && { msg_failed "'$original_path_and_filename' is not a regular file" ; exit 1; }
+            # Don't allow spaces in filenames
+        [[ "$original_path_and_filename" =~ (\ ) ]] && { msg_warn "Warning: '$original_path_and_filename' has spaces. Spaces in filenames are bad." ; exit 1; }
+            # Make sure file is not already in env
+            # (This is testing to see if the file is a symlink to env directory or exists in env directory)
+        [[ $original_path_and_filename = $_DIR_ENV/* ]] && { msg_failed "'$original_path_and_filename' is installed or exists in env" ; exit 1; }
+            # (This is testing to see if the file is a symlink to .sys_env directory)
+        [[ $original_path_and_filename = */.sys_env/* ]] && { msg_failed "'$original_path_and_filename' is installed or exists in env" ; exit 1; }
+
+            # File exists and is not already in env, so adding it...
+        log_notice "Adding '$original_path_and_filename' to env..."
+
+        if [[ $original_path_and_filename = $HOME* ]] ; then # Possibility 1: file is in home directory
+
+            if msg_ask "Put '$original_path_and_filename' in global config directory?"; then # Possibility 1a
+                ## Put file in global config directory
+                env_path_and_filename=$_DIR_USER_CONFIG${original_path_and_filename#$HOME} 
+            else # Possibility 1b
+                ## Put file in system specific directory
+                env_path_and_filename=$_DIR_SYSTEM_USER_CONFIG${original_path_and_filename#$HOME} 
+            fi
+
+            _link_original_path_to_env_path
+            processed=true
+
+        else # check if file is in one of the system directories env manages
+            _SUDO="sudo" # Use sudo for system directories
+                # Loop through system config directories
+            for dir in ${_SYSTEM_CONFIG_DIRS[@]}; do
+                if [[ $original_path_and_filename = /$dir* ]] ; then # Possibility 2
+                        # Must be linked to .sys_env NOT $DIR_SYSTEM_CONFIG
+                    env_path_and_filename=/$dir/.sys_env${original_path_and_filename#\/$dir}
+                    _link_original_path_to_env_path
+                    processed=true
+                    break # File is in this particular sys dir ... no need to check others
+                fi
+            done
+        fi
+        # Will give the following error message if this particular file did
+        # not process, but will continue the loop trying to process other files.
+        [[ $processed = false ]] && msg_warn "I'm stumped. I don't know how to handle '$original_path_and_filename'"
+    done
+
+    msg_ok "Finished."
+}
+# rm_file() {{{2
+#   removes file(s) from env by removing file from .env dir and removing link
+#   and replacing it with the actual file Also asks to remove file from system
+#   completely.  Also checks for empty directories in env and in system if
+#   removing from system.  Can be called on the file in env or on the symlink
+#   or on the file in the .sys_env directory.
+function rm_file() {
+
+    # _rm_symlink_path_from_env_path() {{{3
+    #   Prompts to remove $symlink_path_and_filename completely, and if given
+    #   yes, removes from both system and env and checks for possible orphaned
+    #   directories. Otherwise replaces $symlink_path_and_filename with
+    #   $env_path_and_filename.  Both $symlink_path_and_filename and
+    #   $env_path_and_filename are expected to exist and be set before calling
+    #   this function. Both variables are also unset at the end of this
+    #   function.
+    #   cp arguments:
+    #       -f    force copy; if file exists in destination dir, overwrite
+    #       --remove-destination    the opposite of -f, removes file in destination before writing
+    #       -s    make symbolic links instead of copying
+    #       -p    preserve=mode,ownership,timestamps
+    #       -v    verbose
+    function _rm_symlink_path_from_env_path() {
+        [[ -z $symlink_path_and_filename ]] && { msg_error "ERROR: _rm_symlink_path_from_env_path() was called and \$symlink_path_and_filename was not set!" ; exit 1; }
+        [[ -z $env_path_and_filename ]] && { msg_error "ERROR: _rm_symlink_path_from_env_path() was called and \$env_path_and_filename was not set!" ; exit 1; }
+
+        if msg_ask "Remove '$symlink_path_and_filename' from system completely?"; then # Remove file from system
+            log_notice "Removing '$symlink_path_and_filename' completely..." 
+            log_info "Removing '$symlink_path_and_filename' symlink..." 
+            logx "$_SUDO rm -fv $symlink_path_and_filename" $_LOG_NOTICE $_LOG_ERROR \
+                && msg_ok "Action Completed" \
+                || msg_error "Deletion error."
+            log_info "Checking for orphaned directories..."
+            dirtest $_SUDO $(dirname $symlink_path_and_filename)
+        else # Replace link with actual file
+            log_info "Replacing link to '$env_path_and_filename' with actual file..." 
+            logx "$_SUDO cp -pv --remove-destination $env_path_and_filename $symlink_path_and_filename" $_LOG_NOTICE $_LOG_ERROR \
+                && msg_ok "Unlink/Replace Successful." \
+                || msg_error "Linking error."
+        fi
+
+        log_info "Removing '$env_path_and_filename' from env..." 
+        logx "rm -fv $env_path_and_filename" $_LOG_NOTICE $_LOG_ERROR \
+            && msg_ok "Action Completed" \
+            || msg_error "Deletion error."
+            # Recursively check for and prompt removal of empty directories after having removed this file from env dir
+        log_info "Checking for orphaned directories in env..."
+        dirtest $(dirname "$env_path_and_filename")
+
+        unset symlink_path_and_filename
+        unset env_path_and_filename
+    }
+    # }}}
+
+    _SUDO=""
+
+    for file in $*; do # Loop through all arguments
+        if [ -e $file ]; then # File exists and is a regular file
+                # This argument has not yet been processed
+            processed=false
+                # Get original full path of $file; It is the path of the file that will become the symlink
+            env_path_and_filename=$(readlink -f "$file")
+
+                # Make sure file exists
+            [[ ! -f $env_path_and_filename ]] && { msg_failed "'$env_path_and_filename' is not a regular file" ; exit 1; }
+                # Don't allow spaces in filenames
+            [[ "$env_path_and_filename" =~ (\ ) ]] && { msg_warn "Warning: '$env_path_and_filename' has spaces. Spaces in filenames are bad." ; exit 1; }
+
+            if [[ $env_path_and_filename = $_DIR_USER_CONFIG/* ]] ; then # File is global config
+                symlink_path_and_filename=$HOME${env_path_and_filename#$_DIR_USER_CONFIG}
+                _rm_symlink_path_from_env_path
+                processed=true
+            elif [[ $env_path_and_filename = $_DIR_SYSTEM_USER_CONFIG/* ]] ; then # File is user config
+                symlink_path_and_filename=$HOME${env_path_and_filename#$_DIR_SYSTEM_USER_CONFIG}
+                _rm_symlink_path_from_env_path
+                processed=true
+            else # check if file is in one of the system directories env manages
+                _SUDO="sudo" # Use sudo for system directories
+                for dir in ${_SYSTEM_CONFIG_DIRS[@]}; do
+                    if [[ $env_path_and_filename = /$dir/.sys_env/* ]] ; then # File is system specific config
+                        symlink_path_and_filename=/$dir${env_path_and_filename#\/$dir\/.sys_env}
+                        _rm_symlink_path_from_env_path
+                        processed=true
+                        break # File is in this particular sys dir ... no need to check others
+                    fi
+                done
+            fi
+                # Will give the following error message if this particular file did
+                # not process, but will continue the loop trying to process other files.
+            [[ $processed = false ]] && msg_warn "I'm stumped. I don't know how to handle '$env_path_and_filename'"
+        else
+            msg_error "'$env_path_and_filename' does not exist"
+        fi
+    done
+    msg_ok "Finished."
+}
+# }}}
+# help() {{{2
+#   prints off help for this command
+function help() {
+    cat $_DIR_SCRIPTS/env.help
+}
+# }}}
+## }}}
+
+## SECTION: Helper functions {{{1
+# create_env_links() {{{2
+#   This function loops through all of the files in three locations within the
+#   env directory and then copies symlinks back to the file under the env
+#   directory.
+#   The three possibilities:
+#       1a. Files in global user config dir (currently ~/.env/config/<files>).
+#           A symlink is made in the home directory back to the file in the env
+#           directory.
+#       1b. Files in system user config dir (currently
+#           ~/.env/systems/<systemname>/home/<user>/<files>). A symlink is made
+#           in the home directory back to the file in the env directory. This
+#           linking must be done after global config because system specific
+#           home files always overwrite global ones. Note that the logic is in
+#           place to prevent files from being copied from global config
+#           directory if a system specific file exists. 
+#       2.  Files in system specific configuration directories (currently
+#           ~/.env/systems/<systemname>/<dirs[]>/<files>). These files are
+#           handled differently than the above files.  Because the directory is
+#           mounted from .sys_env to system config dir, the folders are
+#           pointing to the exact same file. However, when booting the system
+#           before all partitions are mounted, home directory may not exist. If
+#           a symlink points to a file in the home directory before the home
+#           partition is mounted, the file will not be found. Therefore, the
+#           symlink MUST point to the .sys_env path.
+function create_env_links() {
+
+    # _link_full_path_to_symlink_path() {{{3
+    #   Creates a symlink and any necessary directories from
+    #   $symlink_path_and_filename to $full_path_and_filename. Both variables are
+    #   expected to exist and be set before calling this function. Both variables
+    #   are also unset at the end of this function.
+    #   cp arguments:
+    #       -f    force copy; if file exists in destination dir, overwrite
+    #       -s    make symbolic links instead of copying
+    #       -p    preserve=mode,ownership,timestamps
+    #       -v    verbose
+    function _link_full_path_to_symlink_path() {
+        [[ -z $symlink_path_and_filename ]] && { msg_error "ERROR: _link_full_path_to_symlink_path() was called and \$symlink_path_and_filename was not set!" ; exit 1; }
+        [[ -z $full_path_and_filename ]] && { msg_error "ERROR: _link_full_path_to_symlink_path() was called and \$full_path_and_filename was not set!" ; exit 1; }
+            # Don't allow spaces in paths or filenames
+        [[ "$full_path_and_filename" =~ (\ ) ]] && { msg_warn "Warning: '$full_path_and_filename' has spaces. Spaces in filenames are bad." ; exit 1; }
+            # If symlink links back to file already, its already installed, so do nothing and return 
+        [[ $full_path_and_filename = $(readlink -f "$symlink_path_and_filename") ]] && return
+        
+        log_notice "Installing '$full_path_and_filename'... "
+        log_info "Creating directories if necessary..."
+            # Create directories recursively if they do not already exist (cp does NOT do this)
+        logx "$_SUDO mkdir -vp $(dirname $symlink_path_and_filename)" $_LOG_INFO $_LOG_ERROR
+            # Create symlink $symlink_path_and_filename -> $full_path_and_filename
+        logx "$_SUDO cp -fspv $full_path_and_filename $symlink_path_and_filename" $_LOG_NOTICE $_LOG_WARNING \
+            && msg_ok \
+            || msg_warn
+
+        unset symlink_path_and_filename
+        unset full_path_and_filename
+    }
+    # }}}
+
+    log_info "Creating links to env files..."
+
+    # the following lines are needed for proper handling of spaces in filnames
+    OLD_IFS=$IFS # Store Old IFS 
+    IFS=$'\n' # Use newline as IFS in this script
+
+    _SUDO=""
+        
+            # 1a. Files in global usr config dir 
+        for file in $(find $_DIR_USER_CONFIG -type f)
+        do
+            IFS=$OLD_IFS # Restore old IFS inside loop
+
+                # Get full path of $file (more of a sanity check)
+            full_path_and_filename=$(readlink -f "$file")
+                # remove "$_DIR_USER_CONFIG" from path+file to get relative path+file and add $HOME to get symlink_path
+            symlink_path_and_filename=$HOME${full_path_and_filename#$_DIR_USER_CONFIG} 
+               # Skip this $file and continue iterating if a more specific file exists in system config directory 
+            [[ -f $_DIR_SYSTEM_CONFIG$symlink_path_and_filename ]] && continue
+                # Create the link
+            _link_full_path_to_symlink_path
+
+            IFS=$'\n' # Use newline as IFS for loop only
+        done
+
+            # 1b. Files in system usr config dir
+        for file in $(find $_DIR_SYSTEM_USER_CONFIG -type f)
+        do
+            IFS=$OLD_IFS # Restore old IFS inside loop
+ 
+                # Get full path of $file (more of a sanity check)
+            full_path_and_filename=$(readlink -f "$file")
+                # remove "$_DIR_SYSTEM_CONFIG" from path+file to get relative path+file ($HOME is already in this)
+            symlink_path_and_filename=${full_path_and_filename#$_DIR_SYSTEM_CONFIG} 
+                # Create the link
+            _link_full_path_to_symlink_path
+ 
+            IFS=$'\n' # Use newline as IFS for loop only
+        done
+
+            # 2.  Files in system specific configuration directories.
+        for dir in ${_SYSTEM_CONFIG_DIRS[@]}; do # Loop through system config directories
+            for file in $(find $_DIR_SYSTEM_CONFIG/$dir -type f) ; do # Loop through files in this directory
+                IFS=$OLD_IFS # Restore old IFS inside loop
+
+                    # Make sure .sys_env directory exists
+                [[ ! -d "/$dir/.sys_env" ]] && { msg_failed "/$dir/.sys_env does not exist!" ; exit 1; }
+                    
+                    # Make sure .sys_env is mounted properly
+                [[ $(mount | grep "/$dir/.sys_env on $_DIR_SYSTEM_CONFIG/$dir") = "" ]] && { msg_failed "/$dir/.sys_env is not binded to $_DIR_SYSTEM_CONFIG/$dir!" ; exit 1; }
+
+                    # Get full path of $file (more of a sanity check)
+                full_path_and_filename=$(readlink -f "$file")
+                    # remove "$_DIR_SYSTEM_CONFIG" from path+file to get relative path+file ($dir is included)
+                symlink_path_and_filename=${full_path_and_filename#$_DIR_SYSTEM_CONFIG} 
+                    # AFTER symlink_path_and_filename is assigned (!!):
+                    # modify full path to point to the same file from .sys_env directory
+                full_path_and_filename=/$dir/.sys_env${full_path_and_filename#$_DIR_SYSTEM_CONFIG/$dir} 
+
+                    # use sudo for system files
+                _SUDO="sudo"
+                    # Create the link
+                _link_full_path_to_symlink_path
+
+                IFS=$'\n' # Use newline as IFS for loop only
+            done
+        done
+
+    IFS=$OLD_IFS # Restore old IFS (not doing this can introduce some hard-to-find bugs)
+}
+# }}}
+# setup_sys_mounts() {{{2
+#   Creates a .sys_env dir under each of the system config directories, copies
+#   the necessary files to this directory, then mounts the newly created
+#   directory back to its respective ~/.env directory.  This directory is to
+#   ensure system files are actually on the proper partition and not just their
+#   link. (i.e. grub.conf must be on /boot partition, fstab must be on root
+#   partition... )
+function setup_sys_mounts() {
+        # Loop through all system config directories
+    for dir in ${_SYSTEM_CONFIG_DIRS[@]}; do
+            # Only do if system directory is not yet mounted
+        if [[ $(mount | grep /$dir/.sys_env) = "" ]] ; then 
+                # Create system specific top-level folders if it doesn't already exist
+            logx "mkdir -vp $_DIR_SYSTEM_CONFIG/$dir" $_LOG_INFO $_LOG_ERROR
+                # Create .env directory inside directory
+            log_notice "Creating /$dir/.sys_env..."
+            logx "sudo mkdir -vp /$dir/.sys_env" $_LOG_NOTICE $_LOG_ERROR
+                # Change the owner of this folder to $USER
+            logx "sudo chown $USER:$USER /$dir/.sys_env" $_LOG_INFO $_LOG_ERROR
+                # If directory is not empty
+            if [[ "$(ls -A $_DIR_SYSTEM_CONFIG/$dir)" ]] ; then
+                log_notice "Copying files into /$dir/.sys_env/..."
+                    # Copy system configuration files into .sys_env
+                logx "cp -frpv $_DIR_SYSTEM_CONFIG/$dir/* /$dir/.sys_env/" $_LOG_NOTICE $_LOG_ERROR
+                    # Empty ~/.env system directory to prepare for mounting
+                logx "rm -fr $_DIR_SYSTEM_CONFIG/$dir/*" $_LOG_INFO $_LOG_ERROR
+            fi
+                # Mount --bind system directory back on ~/.env
+            log_notice "Mounting /$dir/.sys_env..."
+            logx "sudo mount --bind /$dir/.sys_env $_DIR_SYSTEM_CONFIG/$dir" $_LOG_INFO $_LOG_ERROR \
+                && msg_ok "Mounted /$dir/.sys_env to $_DIR_SYSTEM_CONFIG/$dir" \
+                || { msg_error "Failed to mount /$dir/.sys_env" ; exit 1; }
+        fi
+    done
+}
+# }}}
+# mount_sys_mounts() {{{2
+#   Mounts each of the .sys_env directories back under its respective ~/.env
+#   directory if it is not already mounted. (see notes for setup_sys_mounts)
+function mount_sys_mounts() {
+        # For every directory, mount back to env
+    for dir in ${_SYSTEM_CONFIG_DIRS[@]}; do
+            # Only do if system directory is not yet mounted
+        if [[ $(mount | grep /$dir/.sys_env) = "" ]] ; then 
+                # Create directories if necessary
+            logx "sudo mkdir -vp /$dir/.sys_env" $_LOG_INFO $_LOG_NOTICE
+            log_notice "Mounting /$dir/.sys_env..."
+            logx "sudo mount --bind /$dir/.sys_env $_DIR_SYSTEM_CONFIG/$dir" $_LOG_NOTICE $_LOG_ERROR \
+                && msg_ok "Mounted /$dir/.sys_env to $_DIR_SYSTEM_CONFIG/$dir" \
+                || { msg_error "Failed to mount /$dir/.sys_env" ; exit 1; }
+        fi
+    done
+}
+# }}}
+# remove_sys_mounts() {{{2
+#   partition... )
+function remove_sys_mounts() {
+        # Loop through all system config directories
+    for dir in ${_SYSTEM_CONFIG_DIRS[@]}; do
+            # If directory is mounted, unmount it
+        if [[ $(mount | grep /$dir/.sys_env) != "" ]] ; then 
+            log_notice "Unmounting /$dir/.sys_env..."
+            logx "sudo umount /$dir/.sys_env" $_LOG_NOTICE $_LOG_ERROR \
+                && msg_ok "Unmounted /$dir/.sys_env to $_DIR_SYSTEM_CONFIG/$dir" \
+                || { msg_error "Failed to unmount /$dir/.sys_env" ; exit 1; }
+        fi
+        logx "sudo rm -fr /$dir/.sys_env" $_LOG_NOTICE $_LOG_ERROR
+    done
+}
+# }}}
+# remove_env_links() {{{2
+#   removes symlinks and replaces them with the actual files
+#   possibilities:
+#       1. Files in global home config dir
+#       2. Files in system specific configuration directories. This will
+#          include system specific home files. It does not matter what
+#          directories are included in $_SYSTEM_CONFIG_DIRS[]. This must be
+#          second: system specific home files overwrite global home files.
+#   This function is almost exactly the same as create_env_links. The primary
+#   difference is the cp argument --remove-destination and the lack of the -s
+#   (symbolic link) argument. The destination file must be removed since copy
+#   will not copy over the file itself (infinite recursion).
+function remove_env_links() {
+
+    # --------------------------------------------------------------------------
+    # cp arguments:
+    # -v    verbose
+    # --remove-destination  removes the destination file before reading it
+    #       (contrast with -f)
+    # -p    preserve=mode,ownership,timestamps
+    # --------------------------------------------------------------------------
+
+    log_info "Replacing links with their actual files..."
+
+    # the following lines are needed for proper handling of spaces in filnames
+    OLD_IFS=$IFS # Store Old IFS 
+    IFS=$'\n' # Use newline as IFS in this script
+        
+            # 1a. Loop through files in global home config dir
+        for file in $(find $_DIR_USER_CONFIG -type f)
+        do
+            IFS=$OLD_IFS # Restore old IFS inside loop
+            full_path=$(readlink -f "$file")
+                # remove "$_DIR_USER_CONFIG" from path to get relative path
+            rel_path=${file#$_DIR_USER_CONFIG} 
+
+                # Don't allow spaces in filenames
+            [[ "$full_path" =~ (\ ) ]] && { msg_warn "Warning: '$full_path' has spaces. Spaces in filenames are bad." ; exit 1; }
+
+                # If file has a link back to the env folder, replace it with the actual file
+            if [[ $file = $(readlink -f "$HOME$rel_path") ]] ; then
+                log_notice "Copying '$file'... "
+                logx "cp -pv --remove-destination $file $HOME$rel_path" $_LOG_NOTICE $_LOG_WARNING \
+                    && msg_ok \
+                    || msg_warn
+            fi
+            IFS=$'\n' # Use newline as IFS for loop only
+        done
+
+            # 2.  Loop through files in system specific configuration
+            #     directories. This will include system specific home files. It
+            #     does not matter what directories are included in
+            #     $_SYSTEM_CONFIG_DIRS[]. This must be second: system specific
+            #     home files overwrite global home files.
+        for file in $(find $_DIR_SYSTEM_CONFIG -type f)
+        do
+            IFS=$OLD_IFS # Restore old IFS inside loop
+            full_path=$(readlink -f "$file")
+                # remove "$_DIR_SYSTEM_CONFIG" from path to get relative path
+            rel_path=${file#$_DIR_SYSTEM_CONFIG} 
+
+                # Don't allow spaces in filenames
+            [[ "$full_path" =~ (\ ) ]] && { msg_warn "Warning: '$full_path' has spaces. Spaces in filenames are bad." ; exit 1; }
+
+                # If file is in Home dir, don't use sudo; otherwise, use sudo.
+            [[ $rel_path = $HOME* ]] && _SUDO="" || _SUDO="sudo"
+
+                # If file has a link back to the env folder, replace it with the actual file
+            if [[ $file = $(readlink -f "$rel_path") ]] ; then
+                log_info "Copying $file... "
+                logx "$_SUDO cp -pv --remove-destination $file $rel_path" $_LOG_NOTICE $_LOG_WARNING \
+                    && msg_ok \
+                    || msg_warn
+            fi
+            IFS=$'\n' # Use newline as IFS for loop only
+        done
+
+    IFS=$OLD_IFS # Restore old IFS (not doing this can introduce some hard-to-find bugs)
+}
+# }}}
+# install_git_hooks() {{{2
+#   Copies git hooks to their proper directory and sets their executable flag.
+#   This function copies only when the directories differ. It is only a one way
+#   copy, but it will warn if there are files in the .git directory that are
+#   not in the repository.
+function install_git_hooks() {
+        # Only do this if there is a difference between the two dirs
+    if [[ $(diff $_DIR_HOOKS/ $_DIR_ENV/.git/hooks/) != "" ]] ; then 
+            # Install Git hooks and make executable
+        log_notice "Installing git hooks..."
+        logx "cp -rv $_DIR_HOOKS/* $_DIR_ENV/.git/hooks/" $_LOG_INFO $_LOG_NOTICE \
+            && msg_ok \
+            || msg_warn
+        _fdiff=$(diff $_DIR_HOOKS/ $_DIR_ENV/.git/hooks/) 
+        if [[ $_fdiff != "" ]] ; then 
+            log_warning "The .git/hooks directory has a file(s) that does not exist in the env repository."
+            log_notice "$_fdiff"
+        fi
+        log_info "Setting executable flag for git hooks..."
+        logx "chmod -Rv 700 $_DIR_ENV/.git/hooks/*" $_LOG_INFO $_LOG_NOTICE \
+            && msg_ok \
+            || msg_warn
+    fi
+}
+# }}}
+# orphaned_link_check() {{{2
+function orphaned_link_check() {
+    log_notice "Checking for orphaned links:"
+    log_info "in 'HOME'..."
+    $_DIR_SCRIPTS/symtest $HOME
+
+    for dir in ${_SYSTEM_CONFIG_DIRS[@]}; do
+        log_info "in '$dir'..."
+        $_DIR_SCRIPTS/symtest sudo /$dir
+    done
+}
+# }}}
+# test_function() {{{2 
+#   test function for testing junk
+function test_function() {
+    echo "This is a test function..."
+}
+# }}}
+## }}}
+
+# main() {{{1
+#   starts the script and parses the command line arguments
+function main() {
+
+    case "$1" in
+         "install" )
+                install_env
+                ;;
+
+         "uninstall" )
+                uninstall
+                ;;
+
+         "update" )
+                update
+                ;;
+
+         "update-all" )
+                update
+                update_submodules
+                ;;
+
+         "update-subs" )
+                update_submodules
+                ;;
+
+         "repair" )
+                repair
+                ;;
+
+         "add" )
+                shift # remove first argument
+                add_file $*
+                ;;
+
+         "rm" )
+                shift # remove first argument
+                rm_file $*
+                ;;
+
+         "help" )
+                help
+                ;;
+
+         "test" )
+                shift
+                test_function $*
+                ;;
+
+         * )
+                # Call system env
+                /usr/bin/env $*
+                ;;
+    esac
+}
+# }}}
+
+## Start the program
+main $*
+
+# Last Modified:        Wed 23 Jan 2013 12:49:39 PM EST
+# vim:set ft=sh sw=4 fdm=marker:

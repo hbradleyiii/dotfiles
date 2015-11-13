@@ -1,0 +1,122 @@
+#!/bin/bash
+#
+# name:             gen-update
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created:          Mon 29 Dec 2014 04:49:39 PM EST
+#
+# description:      This is a script to update gentoo.
+#
+#                   see: https://forums.gentoo.org/viewtopic-t-807345.html
+
+# TODO:             
+#                   + no prompt
+#                   + 
+
+#                   + create a tmux environment
+#                     setup some tails etc...
+
+
+
+# Source necessary dependencies
+source ~/.envi/bin/msg || { echo "'msg' does not exist!" >&2 ; exit 1; }
+
+
+function select_option() { # Select your option before moving on
+    echo "__________________________________________________________________"
+    msg_choices "\nExit [1] | Portage Log [1] | Read News [3] | Continue [5] \n\
+                   Emerge World [9] \n\n"
+
+    case $CHOICE in
+        0)
+            exit
+            ;;
+        1)
+            less +G /var/log/portage/elog/summary.log
+            select_option
+            ;;
+        2)
+            less +G /var/log/emerge.log
+            select_option
+            ;;
+        3)
+            eselect news read
+            select_option
+            ;;
+        4)
+            eselect news read all
+            select_option
+            ;;
+        5)
+            ;;
+        9) 
+            emerge -aquDN world
+            select_option
+            ;;
+    esac
+}
+
+
+echo -e "${_blue}                                           ."
+echo -e "${_blue}     .vir.                                d\$b"
+echo -e "${_blue}  .d\$\$\$\$\$\$b.    .cd\$\$b.     .d\$\$b.   d\$\$\$\$\$\$\$\$\$\$\$b  .d\$\$b.      .d\$\$b."
+echo -e "${_blue}  \$\$\$\$( )\$\$\$b d\$\$\$()\$\$\$.   d\$\$\$\$\$\$\$b Q\$\$\$\$\$\$\$P\$\$\$P.\$\$\$\$\$\$\$b.  .\$\$\$\$\$\$\$b."
+echo -e "${_blue}  Q\$\$\$\$\$\$\$\$\$\$B\$\$\$\$\$\$\$\$P^  d\$\$\$PQ\$\$\$\$b.   \$\$\$\$.   .\$\$\$P' \`\$\$\$ .\$\$\$P' \`\$\$\$"
+echo -e "${_blue}    ^\$\$\$\$\$\$\$P Q\$\$\$\$\$\$\$b  d\$\$\$P   Q\$\$\$\$b  \$\$\$\$b   \$\$\$\$b..d\$\$\$ \$\$\$\$b..d\$\$\$"
+echo -e "${_blue}   d\$\$\$\$\$\$P^   ^\$\$\$\$\$\$\$\$ Q\$\$\$     Q\$\$\$\$  \$\$\$\$\$   \`Q\$\$\$\$\$\$\$P  \`Q\$\$\$\$\$\$\$P"
+echo -e "${_blue}  \$\$\$\$\$\$\$P       \`^^^^^   ^^        ^^   Q\$\$\$P     ^Q\$\$\$P^     ^Q\$\$\$P^"
+echo -e "${_blue}  \`Q\$\$P^                                  ^^^\n${_colorreset}"
+
+    # Prompt to remove .env repository
+if msg_ask "Update repositories? "; then
+    # TODO: check if layman exists
+    layman -S 
+    emerge -q --sync
+    select_option
+fi
+
+
+if msg_ask "Emerge Portage? "; then
+    emerge -1v portage
+    select_option
+fi
+
+
+if msg_ask "Rebuild entire toolkit? "; then
+#rebuild the entire toolkit?
+    emerge -ae system && emerge -ae system && emerge -ae world
+    select_option
+else
+
+    $_MESSAGE = "Update system? "
+
+    while msg_ask $_MESSAGE; do
+        emerge -auDN system
+        select_option
+        emerge -auDN --with-bdeps y --keep-going world
+        select_option
+        msg_ask $_MESSAGE = "Run another emerge world? "
+    done
+fi
+
+
+if msg_ask "Update configuration files? "; then
+    dispatch-conf
+    select_option
+fi
+
+
+if msg_ask "Clean old dependencies and rebuild reverse dependencies?"; then
+    emerge -av --depclean
+    revdep-rebuild -i
+    select_option
+fi
+
+if msg_ask "Clean old distfiles?"; then
+    eclean -d distfiles
+fi
+
+echo 'Finished.'
+
+# Last Modified:        Mon 29 Dec 2014 04:49:39 PM EST
+# vim:set ft=sh sw=4 fdm=marker:
