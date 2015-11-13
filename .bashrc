@@ -83,7 +83,8 @@ PS3=" ->> "
 PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():} line ${LINENO}: '
     # PROMPT_COMMAND is executed before displaying $PS1
     # Log all commands:
-PROMPT_COMMAND='history -a >(tee -a ~/.bash_history | logger -t "$USER [$$] $SSH_CONNECTION")'
+# PROMPT_COMMAND='history -a >(tee -a ~/.bash_history | logger -t "$USER [$$] $SSH_CONNECTION")'
+PROMPT_COMMAND='history -a ~/.bash_history'
 # }}}
 
 # path() {{{1
