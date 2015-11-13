@@ -42,8 +42,8 @@
 #
 
 ## SECTION: Exports {{{1
-export PYTHONPATH='${PYTHONPATH}:/usr/local/lib/:'
-export PATH='${PATH}:~/.envi/bin:'
+export PATH=$PATH:~/.envi/bin
+export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
 # }}}
 
 ## SECTION: SSH keychain {{{1
