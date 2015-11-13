@@ -160,7 +160,7 @@ function extract() {
 
 ## SECTION: Source .bashrc {{{1
 #   Leave this at the bottom
-if [ -f ~/.bashrc ]; then
+if [ "$BASH" ] && [ -f ~/.bashrc ]; then
     source ~/.bashrc
 fi
 # }}}
