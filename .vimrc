@@ -37,6 +37,7 @@ Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tommcdo/vim-exchange'
+Plugin 'vim-scripts/timestamp.vim'
 
 Plugin 'joonty/vdebug.git'
 
