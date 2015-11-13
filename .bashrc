@@ -58,6 +58,7 @@ function git_prompt() {
 }
 # }}}
 
+# TODO: Modify for if colors script doesn't exist
 #   Prompt must have double quotes for variable expansion, but single quotes to
 #   prevent expansion for commands until expansion in realtime on the prompt.
 if [[ ${EUID} == 0 ]] ; then # must be root:
