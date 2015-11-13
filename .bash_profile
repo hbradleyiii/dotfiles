@@ -11,12 +11,33 @@
 # NOTES:
 # Order of execution:
 #
-# /etc/profile
-# ~/.bash_profile
-# ~/.bashrc (if pulled in by the above file)
-# ~/.bash_login
-# ~/.profile
+# Login Shells:
+#       A login shell is when you first login to a computer, when you log in
+#       from a tty, or when you login remotely, as in SSH.
+# 1. /etc/profile
+#       This is the system wide bash profile used for interactive login shells.
+# 2. ~/.bash_profile
+#       This file is executed for login shells. It is only run the first time
+#       you log into a shell. By convention, this file often sources ~/.bashrc.
+#       This helps to prevent code duplication.
 #
+# Non-login Shells:
+#       A non-login shell would be opening a terminal from Gnome or KDE or run
+#       a new shell after having already logged in.  
+# 1. /etc/bash.bashrc
+#       This is the system wide bash profile used for interactive non-login
+#       shells.
+#
+#       Only the first existing file of the next files is executed:
+# 2(a). ~/.bashrc
+#       This file is executed for interactive non-login shells. This is where
+#       most configuration should be done.
+# 2(b). ~/.bash_login
+# 2(c). ~/.profile
+#       It's probably best to not use the previous files. They exist primarily
+#       for historical reasons.
+#
+# Logout:
 # Upon logout ~/.bash_logout is executed
 #
 
