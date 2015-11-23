@@ -1,7 +1,9 @@
 ;; This is a work in progress
+;; Start here: https://www.masteringemacs.org/reading-guide
 ;; See: http://nathantypanski.com/blog/2014-08-03-a-vim-like-emacs-config.html
 ;;      http://nathantypanski.com/blog/2014-07-02-switching-to-emacs.html
 ;;      http://bling.github.io/blog/2013/10/27/emacs-as-my-leader-vim-survival-guide/
+;;      http://pragmaticemacs.com/
 ;; See also: http://juanjoalvarez.net/es/detail/2014/sep/19/vim-emacsevil-chaotic-migration-guide/
 ;;
 
