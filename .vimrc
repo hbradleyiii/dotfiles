@@ -25,6 +25,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'alvan/vim-php-manual'
 Plugin 'ap/vim-css-color'
 Plugin 'ervandew/supertab'
+Plugin 'jceb/vim-orgmode'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 "Plugin 'scrooloose/nerdtree'
@@ -133,8 +134,26 @@ match OverLength /\%81v.\+/
 """"""""""""""""""""""""
 " FILE SETTINGS
 
-set nobackup
-set noswapfile
+if !isdirectory("~/.vim/.backup")
+    call mkdir("~/.vim/.backup", "p")
+endif
+if !isdirectory("~/.vim/.swap")
+    call mkdir("~/.vim/.swap", "p")
+endif
+if !isdirectory("~/.vim/.undo")
+    call mkdir("~/.vim/.undo", "p")
+endif
+
+set backup
+set writebackup
+set swapfile
+set undofile
+set undolevels=1000
+set undoreload=10000
+set backupdir=~/.vim/.backup//
+set directory=~/.vim/.swap//
+set undodir=~/.vim/.undo//
+
 set encoding=utf8
 set ffs=unix,dos,mac
 set hidden
@@ -200,6 +219,9 @@ set ruler
 " set columns=90
 
 
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
 
 """"""""""""""""""""""""
 " KEY MAPPINGS
@@ -257,9 +279,13 @@ map <F2> :NERDTreeToggle <CR>
 " Option Toggles
 nmap <leader>l :set list!<CR>
 nmap <leader>w :set wrap!<CR>
-nmap <Space> :set invhls<CR>:set hls?<CR>
+nmap <Space> :set hlsearch!<CR>
+nmap <leader><Space> :set paste!<CR>
     " Spellcheck
 map <F8> :set invspell<CR>
+
+" Highlight last inserted text
+nmap gV `[v`]
 
 " Shortcut Keymaps
     " Remove trailing spaces
@@ -284,13 +310,19 @@ nmap <silent> <leader>m :b#<CR>
 
 " Let's make it easy to edit this file (mnemonic for the key sequence is
 " 'e'dit 'v'imrc)
-nmap <silent> <leader>sv :so ~/.vimrc<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
 nmap <silent> <leader>ev :tabedit ~/.vimrc<CR>
 nmap <silent> <leader>en :tabedit ~/env.not<CR>
 nmap <silent> <leader>nv :tabedit ~/vim/index.not<CR>
 nmap <silent> <leader>ni :tabedit ~/index.not<cr>
 
+" Install and clean plugins
+nmap <silent> <leader>pi :PluginClean<CR>:q<CR>:PluginInstall<CR>:q<CR>
+
 nmap <silent> <leader>es :UltiSnipsEdit<cr>
 
 cmap eval :VdebugEval<cr>
 cmap vd VdebugStart<cr>
+
+" Automatically reload this file after saving
+"autocmd BufWritePost .vimrc source $MYVIMRC
