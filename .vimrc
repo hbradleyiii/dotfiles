@@ -292,6 +292,5 @@ nmap <silent> <leader>ni :tabedit ~/index.not<cr>
 
 nmap <silent> <leader>es :UltiSnipsEdit<cr>
 
-
-cmap : :VdebugEval 
-cmap ; VdebugStart<cr>
+cmap eval :VdebugEval<cr>
+cmap vd VdebugStart<cr>
