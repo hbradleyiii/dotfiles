@@ -97,6 +97,19 @@ function path(){
 }
 # }}}
 
+## Search Program
+# s() {{{1
+function s() {
+    if [[ -n "$2" ]]; then
+        DIR=$2
+    else
+        DIR='./*'
+    fi
+
+    grep -rnI $1 $DIR
+}
+# }}}
+
 ## Extract Program
 # extract() {{{1
 function extract() {
