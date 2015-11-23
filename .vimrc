@@ -134,14 +134,14 @@ match OverLength /\%81v.\+/
 """"""""""""""""""""""""
 " FILE SETTINGS
 
-if !isdirectory("~/.vim/.backup")
-    call mkdir("~/.vim/.backup", "p")
+if !isdirectory($HOME . "/.vim/.backup")
+    call mkdir($HOME . "/.vim/.backup", "p")
 endif
-if !isdirectory("~/.vim/.swap")
-    call mkdir("~/.vim/.swap", "p")
+if !isdirectory($HOME . "/.vim/.swap")
+    call mkdir($HOME . "/.vim/.swap", "p")
 endif
-if !isdirectory("~/.vim/.undo")
-    call mkdir("~/.vim/.undo", "p")
+if !isdirectory($HOME . "/.vim/.undo")
+    call mkdir($HOME . "/.vim/.undo", "p")
 endif
 
 set backup
