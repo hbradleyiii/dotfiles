@@ -46,7 +46,7 @@ alias ssagent='eval `ssh-agent` && ssh-add ~/.ssh/id_rsa'
 
 # git_prompt() {{{2
 function git_prompt() {
-    if [[ -d ".git" ]] ; then 
+    if [[ $(git status 2>/dev/null) != "" ]] ; then 
         _branch="$(git symbolic-ref HEAD 2>/dev/null)" || _branch="(unnamed branch)"
         _branch=${_branch:11} # Clean up "/refs/heads/"
         if [[ $(git status -s 2>/dev/null) != "" ]] ; then
