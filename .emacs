@@ -117,3 +117,4 @@
 ;; Keep this at the bottom of the file.
 (require 'evil)
 (evil-mode 1)
+(set-background-color "#000010")
