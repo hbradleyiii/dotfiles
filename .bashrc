@@ -83,7 +83,8 @@ PS3=" ->> "
 PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():} line ${LINENO}: '
     # PROMPT_COMMAND is executed before displaying $PS1
     # Log all commands:
-PROMPT_COMMAND='history -a >(tee -a ~/.bash_history | logger -t "$USER [$$] $SSH_CONNECTION")'
+# PROMPT_COMMAND='history -a >(tee -a ~/.bash_history | logger -t "$USER [$$] $SSH_CONNECTION")'
+PROMPT_COMMAND='history -a ~/.bash_history'
 # }}}
 
 # path() {{{1
@@ -93,6 +94,19 @@ function path(){
     IFS=:
     printf "%s\n" $PATH
     IFS=$old
+}
+# }}}
+
+## Search Program
+# s() {{{1
+function s() {
+    if [[ -n "$2" ]]; then
+        DIR=$2
+    else
+        DIR='./*'
+    fi
+
+    grep -rnI $1 $DIR
 }
 # }}}
 

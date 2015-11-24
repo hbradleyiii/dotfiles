@@ -1,0 +1,114 @@
+! --
+! file:     ~/.Xdefaults
+! author:   Mike reDD | http://m-redd.com
+! modified: Wed Sep  2 18:52:43 PDT 2009
+! vim:enc=utf-8:nu:ai:si:et:ts=4:sw=4:ft=xdefaults:
+! --
+
+Xcursor.theme:Vanilla-DMZ
+
+! Xft settings --
+
+!Xft.dpi:                          120
+!Xft.antialias:                    true
+!Xft.rgba:                         rgb
+!Xft.hinting:                      true
+!Xft.hintstyle:                    hintslight
+!Xft.lcdfilter:                    lcddefault
+
+
+URxvt*termName:                  rxvt-unicode-256color
+URxvt*font:                      xft:Pragmata:pixelsize=16:antialias=true:hinting=true
+
+
+URxvt*geometry:                   100x40
+URxvt*borderless:                 true
+URxvt*internalBorder:             2
+
+!fade text n% upon unfocus
+URxvt*fading:                     10
+!darken=(0 to 100) lighten=(-1 to -100)
+URxvt*shading:                    15
+
+
+!tint background with this color
+URxvt*tintColor:                  grey
+!URxvt*tintColor:                  #080b0a
+!set to 32-bit for real transparency (compositing required)
+URxvt*depth:                      32
+URxvt*transparency:               true
+urxvt*background: rgba:0000/0000/0100/e900
+wterm*transparency:               true
+!save n lines of scrollback buffer
+URxvt*saveLines:                  32767
+!flash screen for attention
+URxvt*visualBell:                 true
+!jump to bottom (prompt) on keypress
+URxvt*scrollTtyKeypress:          true
+!jump to bottom (prompt) when tty gets new lines
+URxvt*scrollWithBuffer:           false
+!jump to bottom (prompt) on tty output
+URxvt*scrollTtyOutput:            false
+URxvt*scrollBar:                  false
+!scrollbar styles: rxvt, plain, next or xterm
+URxvt*scrollstyle:                plain
+!scrollbar alignment
+URxvt*scrollBar_right:            true
+URxvt*scrollColor:                #080b0a
+!transparency
+!URxvt*transparent:                true
+!is this a login shell?
+URxvt*loginShell:                 true
+
+
+URxvt*cutchars:                   BACKSLASH '"'&()*,;<=>?@[]{|}
+!screen dump settings
+URxvt*print-pipe:                 cat > $(echo urxvt.dump.$(date +'%Y%M%d%H%m%S'))
+!secondary screen scroll (default enabled)
+URxvt*secondaryScroll:            true
+!de-iconify (map) on receipt of a bell character
+URxvt*mapAlert:                   true
+!inhibit writing record into the system log file utmp
+
+URxvt*underlineURLs:              true
+URvxt*urlButton:                  2
+
+URxvt*urlLauncher:                google-chrome
+
+!!*fading: 40
+URxvt*fadeColor: #002b36
+URxvt*cursorColor: #93a1a1
+URxvt*pointerColorBackground: #586e75
+URxvt*pointerColorForeground: #93a1a1
+
+!urxvt color scheme:
+
+URxvt*background: #2B2B2B
+URxvt*foreground: #DEDEDE
+
+URxvt*colorUL: #86a2b0
+
+!black
+*color0:    #353535
+*color8:    #101010
+!red
+*color1:    #DD2929
+*color9:    #D40000
+!green
+*color2:    #00AA00
+*color10:   #009200
+!yellow
+*color3:    #DD7B29
+*color11:   #D46000
+!blue
+*color4:    #1D9A9A
+*color12:   #007F7F
+!magenta
+*color5:    #BC1373
+*color13:   #930053
+!cyan
+*color6:    #394745
+*color14:   #393E38
+!white
+*color7:    #BBBBBB
+*color15:   #AAAAAA
