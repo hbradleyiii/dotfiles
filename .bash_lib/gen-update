@@ -19,7 +19,7 @@
 
 
 # Source necessary dependencies
-source ~/.envi/bin/msg || { echo "'msg' does not exist!" >&2 ; exit 1; }
+source ~/.bash_lib/msg || { echo "'msg' does not exist!" >&2 ; exit 1; }
 
 
 function select_option() { # Select your option before moving on
@@ -118,5 +118,5 @@ fi
 
 echo 'Finished.'
 
-# Last Modified:        Mon 29 Dec 2014 04:49:39 PM EST
+# Last Modified:        Tue 24 Nov 2015 12:31:14 AM EST
 # vim:set ft=sh sw=4 fdm=marker:

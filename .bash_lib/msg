@@ -8,7 +8,7 @@
 # description:      Functions for printing Gentoo-like messages
 #
 
-[[ -z $_COLORS_DEFINED ]] && source ~/.envi/bin/colors || { echo "'colors' does not exist!" >&2 ; exit 1; }
+[[ -z $_COLORS_DEFINED ]] && source ~/.bash_lib/colors || { echo "'colors' does not exist!" >&2 ; exit 1; }
 
 # msg_ok() {{{1
 function msg_ok() { # Prints ok message
@@ -79,5 +79,5 @@ function msg_choices() { # prints a message and prompts for yes or no interactio
     return $_VALUE
 }
 # }}}
-# Last Modified:        Thu 10 Jan 2013 01:40:02 AM EST
+# Last Modified:        Tue 24 Nov 2015 12:32:27 AM EST
 # vim:set ft=sh fdm=marker:
