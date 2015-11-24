@@ -19,12 +19,12 @@
 
 
 # Source necessary dependencies
-source ~/.envi/bin/msg || { echo "'msg' does not exist!" >&2 ; exit 1; }
+source ~/.bash_lib/msg || { echo "'msg' does not exist!" >&2 ; exit 1; }
 
 
 function select_option() { # Select your option before moving on
     echo "__________________________________________________________________"
-    msg_choices "\nExit [1] | Portage Log [1] | Read News [3] | Continue [5] \n\
+    msg_choices "\nExit [0] | Portage Log [1] | Read News [3] | Continue [5] \n\
                    Emerge World [9] \n\n"
 
     case $CHOICE in
@@ -118,5 +118,5 @@ fi
 
 echo 'Finished.'
 
-# Last Modified:        Mon 29 Dec 2014 04:49:39 PM EST
+# Last Modified:        Tue 24 Nov 2015 12:48:24 AM EST
 # vim:set ft=sh sw=4 fdm=marker:
