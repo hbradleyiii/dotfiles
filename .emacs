@@ -45,7 +45,7 @@
 (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
 (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
 
-(require 'elisp-slime-nav)
+(use-package elisp-slime-nav :ensure t)
 (defun my-lisp-hook ()
   (elisp-slime-nav-mode)
   (turn-on-eldoc-mode)
