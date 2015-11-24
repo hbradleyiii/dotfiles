@@ -36,7 +36,6 @@ URxvt*tintColor:                  grey
 !set to 32-bit for real transparency (compositing required)
 URxvt*depth:                      32
 URxvt*transparency:               true
-urxvt*background: rgba:0000/0000/0100/e900
 wterm*transparency:               true
 !save n lines of scrollback buffer
 URxvt*saveLines:                  32767
@@ -112,7 +111,7 @@ URxvt*urlLauncher:                google-chrome
 #define S_bcyan         #5dd0c8
 #define S_bgreen        #bbcc33
 
-#define S_black         #2d2d2d
+#define S_black         #000010
 
 ! To only apply colors to your terminal, for example, prefix
 ! the color assignment statement with its name. Example:
