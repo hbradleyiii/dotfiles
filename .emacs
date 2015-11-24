@@ -26,6 +26,7 @@
 (use-package color-theme-solarized :ensure t)
 (color-theme-solarized)
 
+(require 'iso-transl)
 
 (use-package evil-leader
       :commands (evil-leader-mode)
@@ -39,6 +40,12 @@
 	(evil-leader/set-key "q" 'kill-buffer-and-window)
 	)
       )
+
+(use-package evil-tabs :ensure t)
+(global-evil-tabs-mode t) 
+
+(use-package evil-search-highlight-persist :ensure t)
+(global-evil-search-highlight-persist t)
 
 (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
 (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
@@ -84,6 +91,24 @@
     (setq deft-use-filename-as-title t)
     (setq deft-recursive t)))
 
+(use-package helm :ensure t)
+(use-package projectile :ensure t)
+(use-package project-explorer :ensure t)
+
+(use-package yasnippet :ensure t)
+
+(use-package smex :ensure t)
+
+(use-package multiple-cursors :ensure t)
+
+
+(use-package flycheck :ensure t)
+
+(use-package smooth-scrolling :ensure t)
+(setq scroll-margin 5
+scroll-conservatively 9999
+scroll-step 1)
+
 (use-package magit
   :ensure magit
   :config
@@ -102,12 +127,18 @@
         "j" 'magit-goto-next-section
         "k" 'magit-goto-previous-section)))
 
-;; TODO:This doesn't seem to work
-(custom-set-faces
-  '(default ((t (:family "Pragmata" :foundry "outline" :slant normal :weight normal)))))
+(set-frame-font "Pragmata TT 14" nil t)
+(setq-default tab-width 4 indent-tabs-mode nil)
+(define-key global-map (kbd "RET") 'newline-and-indent)
+(show-paren-mode t)
 
+
+(scroll-bar-mode -1)
 (tool-bar-mode -1)
+(menu-bar-mode -1)
 (visual-line-mode 1)
+
+(linum-mode)
 
 ;; Run a shell in emacs
 (global-set-key [f2] 'ansi-term)
