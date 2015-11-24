@@ -326,3 +326,16 @@ cmap vd VdebugStart<cr>
 
 " Automatically reload this file after saving
 "autocmd BufWritePost .vimrc source $MYVIMRC
+
+" Press F4 to toggle the diff of currently open buffers/splits.
+noremap <F4> :call DiffMe()<CR>
+let $diff_me=0
+function! DiffMe()
+    windo diffthis
+    if $diff_me>0
+        let $diff_me=0
+    else
+        windo diffoff
+    let $diff_me=1
+    endif
+endfunction
