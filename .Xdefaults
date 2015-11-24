@@ -120,7 +120,7 @@ URxvt*urlLauncher:                google-chrome
 
 *background:              S_black
 *foreground:              S_base0
-*fading:                  30
+*fading:                  15
 *fadeColor:               S_base03
 *cursorColor:             S_base1
 *pointerColorBackground:  S_base01
