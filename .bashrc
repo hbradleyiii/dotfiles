@@ -41,7 +41,6 @@ alias rsync='rsync -vv'
 alias ssagent='eval `ssh-agent` && ssh-add ~/.ssh/id_rsa'
 # }}}
 
-
 ## SECTION: Bash Prompts {{{1
 
 # git_prompt() {{{2
@@ -94,6 +93,61 @@ function path(){
     IFS=:
     printf "%s\n" $PATH
     IFS=$old
+}
+# }}}
+
+## webmux: web dev tmux setup
+# webmux() {{{1
+function webmux() {
+    tmux has-session -t webmux 2>/dev/null
+
+    if [ $? != 0 ] 
+    then
+
+        tmux new-session -s webmux -d
+
+        tmux set -g base-index 1
+        tmux setw -g pane-base-index 1
+
+        tmux split-window -v -l 5 -t webmux
+        tmux select-pane -t webmux:1.1
+
+        tmux send-keys -t webmux:1.2 'clear && compass watch' C-m
+    fi
+
+    tmux attach -t webmux
+}
+# }}}
+
+## emux: tmux setup for emerge
+# emux() {{{1
+function emux() {
+    tmux has-session -t emux 2>/dev/null
+
+    if [ $? != 0 ] 
+    then
+
+        tmux new-session -s emerge -d
+
+        tmux set -g base-index 1
+        tmux setw -g pane-base-index 1
+
+        tmux split-window -v -l 5 -t emerge
+        tmux select-pane -t emerge:1.1
+        tmux split-window -v -l 3 -t emerge
+        tmux select-pane -t emerge:1.1
+        tmux split-window -h -p 50 -t emerge
+        tmux select-pane -t emerge:1.1
+
+        tmux send-keys -t emerge:1.1 'cd ~ && clear' C-m
+        tmux send-keys -t emerge:1.2 'cd /etc/portage && clear' C-m
+        tmux send-keys -t emerge:1.2 'vim -p make.conf package.use package.accept_keywords package.license' C-m
+        tmux send-keys -t emerge:1.3 'clear && tail -f /var/log/emerge-fetch.log' C-m
+        tmux send-keys -t emerge:1.4 'clear && tail -f /var/log/emerge.log' C-m
+
+    fi
+
+    tmux attach -t emerge
 }
 # }}}
 
