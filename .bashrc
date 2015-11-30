@@ -62,15 +62,15 @@ function git_prompt() {
 #   prevent expansion for commands until expansion in realtime on the prompt.
 if [[ ${EUID} == 0 ]] ; then # must be root:
     if [ -n "$SSH_CLIENT" ] && [ -n "$SSH_CONNECTION" ] ; then # root using ssh:
-        PS1="\[${_red}\][ssh] \H\[${_blue}\]"' $( pwd ) $( git_prompt )'"\n#\[${_colorreset}\] "
+        PS1="\[${_red}\][ssh] \H\[${_blue}\]"' $( pwd ) $( git_prompt )'"\n\[${_blue}\] #\[${_colorreset}\] "
     else # root local
-        PS1="\[${_red}\]\h\[${_blue}\]"' $( pwd ) $( git_prompt )'"\n#\[${_colorreset}\] "
+        PS1="\[${_red}\]\h\[${_blue}\]"' $( pwd ) $( git_prompt )'"\n\[${_blue}\] #\[${_colorreset}\] "
     fi
 else
     if [ -n "$SSH_CLIENT" ] && [ -n "$SSH_CONNECTION" ] ; then # user using ssh
-        PS1="\[${_green}\]ssh://\u@\H\[${_blue}\]"' $( pwd ) $( git_prompt )'"\n\$\[${_colorreset}\] "
+        PS1="\[${_green}\]ssh://\u@\H\[${_blue}\]"' $( pwd ) $( git_prompt )'"\n\[${_blue}\] \$\[${_colorreset}\] "
     else # user local
-        PS1="\[${_green}\]\u\[${_blue}\]"' $( pwd ) $( git_prompt ) '"\n \$\[${_colorreset}\] "
+        PS1="\[${_green}\]\u\[${_blue}\]"' $( pwd ) $( git_prompt ) '"\n\[${_blue}\] \$\[${_colorreset}\] "
     fi
 fi
 
