@@ -1,0 +1,12 @@
+.*
+._*
+*.part
+*.crdownload
+*~
+.*.swp
+.Trashes
+desktop.ini
+Thumbs.db
+Auth-Sort/
+lost+found/
+zotero/
