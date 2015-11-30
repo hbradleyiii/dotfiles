@@ -47,11 +47,11 @@ function select_option() { # Select your option before moving on
             eselect news read all
             select_option
             ;;
-        5)
-            ;;
         9) 
             emerge -aquDN world
             select_option
+            ;;
+        5)
             ;;
     esac
 }
@@ -88,14 +88,14 @@ if msg_ask "Rebuild entire toolkit? "; then
     select_option
 else
 
-    $_MESSAGE = "Update system? "
+    _MESSAGE="Update system? "
 
     while msg_ask $_MESSAGE; do
         emerge -auDN system
         select_option
         emerge -auDN --with-bdeps y --keep-going world
         select_option
-        msg_ask $_MESSAGE = "Run another emerge world? "
+        msg_ask $_MESSAGE="Run another emerge world? "
     done
 fi
 
@@ -118,5 +118,5 @@ fi
 
 echo 'Finished.'
 
-# Last Modified:        Tue 24 Nov 2015 12:48:24 AM EST
+# Last Modified:        Mon 30 Nov 2015 12:42:53 AM EST
 # vim:set ft=sh sw=4 fdm=marker:
