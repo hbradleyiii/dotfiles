@@ -11,8 +11,25 @@ set prefer-visible-bell on
 set expand-tilde off
 set bell-style visible
 
+set visible-stats on
+
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+
+set completion-map-case on # treat - and _ as the same
+
+$if Bash
+  Space: magic-space
+$endif
+
 
 ## Custom Keys
+
+# Arrow keys
+"\e[A"      history-search-backward
+"\e[B"      history-search-forward
+"\e[C"      forward-char
+"\e[D"      backward-char
 
 # glob expansion patterns (*)
 "\C-e":     glob-expand-word    # expands w/out executing
@@ -27,16 +44,15 @@ set bell-style visible
 "\t":       menu-complete
 "\S-\t":    menu-complete-backward
 
-
 set keymap vi-command
 "gg":       beginning-of-history
 "G":        end-of-history
-"dd":	    clear-screen
+"dd":       kill-whole-line
             
 set keymap vi-insert # Insert keymaps
 "\C-w":     backward-kill-word          # Ctrl + w
 "\C-l":	    clear-screen	            # Ctrl + l
 
 
-# Last Modified:        Wed 11 Apr 2012 11:50:23 AM EDT
+# Last Modified:        Fri 04 Dec 2015 12:13:12 PM EST
 # vim:set ft=sh:
