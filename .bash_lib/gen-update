@@ -118,5 +118,4 @@ fi
 
 echo 'Finished.'
 
-# Last Modified:        Mon 30 Nov 2015 12:42:53 AM EST
 # vim:set ft=sh sw=4 fdm=marker:

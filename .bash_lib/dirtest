@@ -58,5 +58,4 @@ done
 msg_ok "Finished checking for empty directories."
 # }}}
 
-# Last Modified:        Thu 17 Jan 2013 05:33:17 PM EST
 # vim:set ft=sh fdm=marker:

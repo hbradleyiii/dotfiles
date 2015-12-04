@@ -378,5 +378,4 @@ if [[ $0 = */colors_ext ]] ; then
     testextcolors
 fi
 
-# Last Modified:        Sat 05 Jan 2013 11:38:24 AM EST
 # vim:set ft=sh fdm=marker:

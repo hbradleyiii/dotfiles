@@ -82,5 +82,4 @@ if [[ $0 = */colors ]] ; then
     testcolors
 fi
 
-# Last Modified:        Thu 10 Jan 2013 01:40:06 AM EST
 # vim:set ft=sh fdm=marker:

@@ -90,5 +90,4 @@ if [ "$BASH" ] && [ -f ~/.bashrc ]; then
 fi
 # }}}
 
-# Last Modified:        Fri 04 Dec 2015 11:40:53 AM EST
 # vim:set ft=sh sw=4 fdm=marker:

@@ -54,5 +54,4 @@ set keymap vi-insert # Insert keymaps
 "\C-l":	    clear-screen	            # Ctrl + l
 
 
-# Last Modified:        Fri 04 Dec 2015 12:13:12 PM EST
 # vim:set ft=sh:

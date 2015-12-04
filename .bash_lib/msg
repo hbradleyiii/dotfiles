@@ -79,5 +79,4 @@ function msg_choices() { # prints a message and prompts for yes or no interactio
     return $_VALUE
 }
 # }}}
-# Last Modified:        Tue 24 Nov 2015 12:32:27 AM EST
 # vim:set ft=sh fdm=marker:

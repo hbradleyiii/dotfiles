@@ -761,5 +761,4 @@ function main() {
 ## Start the program
 main $*
 
-# Last Modified:        Wed 23 Jan 2013 12:49:39 PM EST
 # vim:set ft=sh sw=4 fdm=marker:

@@ -54,5 +54,4 @@ msg_ok "Finished checking for broken links."
 
 IFS=$OLD_IFS # Restore old IFS (not doing this can introduce some hard-to-find bugs)
 
-# Last Modified:        Thu 10 Jan 2013 02:15:18 AM EST
 # vim:set ft=sh fdm=marker:

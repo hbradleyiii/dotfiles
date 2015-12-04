@@ -154,5 +154,4 @@ function log() {
 }
 ## }}}
 
-# Last Modified:        Thu 17 Jan 2013 03:13:08 PM EST
 # vim:set ft=sh sw=4 fdm=marker:
