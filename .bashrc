@@ -14,9 +14,9 @@ if ! [[ $- =~ "i" ]] ; then return; fi
 # Check if terminal supports colors, if so, source colors
 [[ $(tput colors) -ge 8 ]] && [[ -z $_COLORS_DEFINED ]] && source $HOME/.bash_lib/colors
 
-## SECTION: Bash Aliases {{{1
-set editing-mode vi
-set completion-ignore-case yes
+## SECTION: Bash Settings {{{1
+set -o vi
+shopt -s cdspell # Correct directory typos (cd)
 # }}}
 
 ## SECTION: Bash Aliases {{{1
@@ -29,8 +29,11 @@ alias df='df -h'
 alias edbash='vim --remote-silent -o2 ~/.bashrc ~/.bash_profile'
 alias edgrub='vim /boot/grub/grub.conf'
 alias eixt='exit'
+alias google-chrome='google-chrome &'
 alias gitlog='git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short'
+alias gimp='gimp &'
 alias grep='grep --colour=auto'
+alias gvim='gvim &'
 alias inchroot='env-update && source /etc/profile && export PS1="(chroot) $PS1"'
 alias ls='ls -A --color --group-directories-first'
 alias lsg='ls -A --color --group-directories-first -g -h'
@@ -83,9 +86,9 @@ PS3=" ->> "
     # PS4 is used before debug lines (when using /bin/bash -x)
 PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():} line ${LINENO}: '
     # PROMPT_COMMAND is executed before displaying $PS1
-    # Log all commands:
-# PROMPT_COMMAND='history -a >(tee -a ~/.bash_history | logger -t "$USER [$$] $SSH_CONNECTION")'
+shopt -s histappend
 PROMPT_COMMAND='history -a ~/.bash_history'
+HISTIGNORE='clear:ls:ls *:mutt:[bf]g:exit'
 # }}}
 
 # path() {{{1

@@ -44,6 +44,7 @@
 ## SECTION: Exports {{{1
 export PATH=$PATH:~/.envi/bin
 export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
+export CDPATH='.:..:../..:~/'
 # }}}
 
 ## SECTION: SSH keychain {{{1
@@ -89,5 +90,5 @@ if [ "$BASH" ] && [ -f ~/.bashrc ]; then
 fi
 # }}}
 
-# Last Modified:        Fri 13 Nov 2015 02:50:11 PM EST
+# Last Modified:        Fri 04 Dec 2015 11:40:53 AM EST
 # vim:set ft=sh sw=4 fdm=marker:
