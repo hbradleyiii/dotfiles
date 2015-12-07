@@ -159,6 +159,18 @@ function emux() {
 ## Search Program
 # s() {{{1
 function s() {
+    if [[ "$1" == "" ]]; then
+        echo 's is a search program.'
+        echo ''
+        echo 'uses:'
+        echo '    grep -rnI "string" /the/path'
+        echo ''
+        echo 'usage:'
+        echo '    s 'string' /the/path'
+        echo ''
+        return
+    fi
+
     if [[ -n "$2" ]]; then
         DIR=$2
     else
