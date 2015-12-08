@@ -24,7 +24,6 @@ alias catw='cat /var/lib/portage/world'
 alias cd..='cd ..'
 alias cdenv='cd ~/.envi'
 alias cls='clear'
-alias cp='cp -vri'
 alias df='df -h'
 alias edbash='vim --remote-silent -o2 ~/.bashrc ~/.bash_profile'
 alias edgrub='vim /boot/grub/grub.conf'
@@ -181,6 +180,45 @@ function s() {
     fi
 
     grep -rnI $1 $DIR
+}
+# }}}
+
+## Copy Wrapper
+# cp() {{{1
+function cp() {
+    if [[ "$1" == "" ]] || [[ "$2" == "" ]]; then
+        echo '[!] cp requires 2 arguments.'
+        return
+    fi
+
+    if [[ -d $1 ]]; then # Is first arg a directory?
+        path=$2
+    elif [[ -f $1 ]]; then  # First arg is a file
+        possible_path=`expr match "$2" '\(.*\)\/[^/]*'`
+        possible_file=`expr match "$2" '.*\/\(.*\)'`
+        if [[ $possible_file == "" ]]; then
+            path=$possible_path
+        else
+            echo -n "[?] Copy to file '$2'? Answering no will treat it as a directory. (Y/N) "
+            while read -r -n 1 -s _ANSWER; do
+                if [[ $_ANSWER = [Yy] ]]; then
+                    path=$possible_path
+                    break
+                elif [[ $_ANSWER = [Nn] ]]; then
+                    path=$2
+                    break
+                fi
+            done
+        fi
+    else # First arg is invalid
+        echo "[!] '$1' does not exist."
+    fi
+
+    if [[ ! -d "$path" ]]; then
+        mkdir -p $path
+    fi
+
+    /bin/cp -vri $1 $2
 }
 # }}}
 
