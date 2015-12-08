@@ -339,3 +339,6 @@ function! DiffMe()
     let $diff_me=1
     endif
 endfunction
+
+" Remove all trailing whitespace before saving
+autocmd BufWritePre * :%s/\s\+$//e
