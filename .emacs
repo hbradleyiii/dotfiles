@@ -42,7 +42,7 @@
       )
 
 (use-package evil-tabs :ensure t)
-(global-evil-tabs-mode t) 
+(global-evil-tabs-mode t)
 
 (use-package evil-search-highlight-persist :ensure t)
 (global-evil-search-highlight-persist t)

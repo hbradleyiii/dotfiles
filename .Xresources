@@ -126,7 +126,7 @@ URxvt*urlLauncher:                google-chrome
 *pointerColorBackground:  S_base01
 *pointerColorForeground:  S_base1
 
-! black 
+! black
 *color0:                  S_base02
 *color8:                  S_base03
 

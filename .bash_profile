@@ -23,7 +23,7 @@
 #
 # Non-login Shells:
 #       A non-login shell would be opening a terminal from Gnome or KDE or run
-#       a new shell after having already logged in.  
+#       a new shell after having already logged in.
 # 1. /etc/bash.bashrc
 #       This is the system wide bash profile used for interactive non-login
 #       shells.
@@ -64,8 +64,8 @@ fi
 # TODO: Finish this:
 ## SECTION: Update env {{{1
 # _UPDATE_INTERVAL=5000 # Only update if more than this interval has passed
-# _UPDATE_SUB_INTERVAL=500000 
-# _CUR_TIME=$(date +%s) 
+# _UPDATE_SUB_INTERVAL=500000
+# _CUR_TIME=$(date +%s)
 # source $HOME/.env/.last_update # Get last update timestamp (contains the vars $_LAST_UPDATE and $_LAST_SUB_UPDATE)
 
 # if [ $(($_LAST_UPDATE + $_UPDATE_INTERVAL)) -lt "$_CUR_TIME" ] ; then

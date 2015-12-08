@@ -3,7 +3,7 @@ set nocompatible
 " required
 filetype off
 
-" set the runtime path to include Vundle 
+" set the runtime path to include Vundle
 set rtp+=~/.vim/bundle/Vundle.vim
 
 " make sure Vundle is installed
@@ -68,9 +68,9 @@ let g:syntastic_html_tidy_exec = 'tidy5'
 " UltiSnips
 let g:UltiSnipsEditSplit="vertical"
 
-let g:UltiSnipsExpandTrigger="<tab>"                                            
-let g:UltiSnipsJumpForwardTrigger="<tab>"                                       
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"  
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 
 set shellslash
