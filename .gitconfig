@@ -1,8 +1,45 @@
 [user]
 	name = Harold Bradley III
 	email = hbradleyiii@bradleystudio.net
+[alias]
+    ac = !git add . && git commit -m
+    amend = commit --amend -m
+    br = branch
+    c = commit -m
+    co = checkout
+    d = diff
+    dc = diff --cached
+    s = status
+    l = log
+    ls = ls-files
+[apply]
+    whitespace = fix
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    ui = auto
+[color "branch"]
+    current = green
+    local = green
+    remote = red
+[color "diff"]
+    meta = blue
+    frag = magenta ul
+    old = red
+    new = green
+[color "status"]
+    added = green
+    changed = yellow
+    untracked = red
 [core]
 	editor = vim
 	ui = true
+	whitespace = cr-at-eol
+[diff]
+	renames = copies
+    mnemonicprefix = true
 [push]
 	default = matching
+[url "https://github.com/"]
+    insteadOf = gh:
