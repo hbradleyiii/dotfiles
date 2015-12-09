@@ -20,6 +20,10 @@ shopt -s cdspell # Correct directory typos (cd)
 # }}}
 
 ## SECTION: Bash Aliases {{{1
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
 alias catw='cat /var/lib/portage/world'
 alias cd..='cd ..'
 alias cdenv='cd ~/.envi'
