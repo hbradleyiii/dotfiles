@@ -323,6 +323,7 @@ nmap <silent> <leader>es :UltiSnipsEdit<cr>
 
 cmap eval :VdebugEval<cr>
 cmap vd VdebugStart<cr>
+cmap t tabnew
 
 " Automatically reload this file after saving
 "autocmd BufWritePost .vimrc source $MYVIMRC
