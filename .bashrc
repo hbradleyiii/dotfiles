@@ -254,6 +254,13 @@ function cp() {
 }
 # }}}
 
+## what (which)
+# what() {{{1
+function what() {
+    which $1 | xargs ls -la
+}
+# }}}
+
 ## Extract Program
 # extract() {{{1
 function extract() {
