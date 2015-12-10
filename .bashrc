@@ -67,6 +67,13 @@ alias ssagent='eval `ssh-agent` && ssh-add ~/.ssh/id_rsa'
 alias skim="(head -5; tail -5) <"
 # }}}
 
+## SECTION: Tab Completion {{{1
+# tab completion for ssh hosts
+if [ -f ~/.ssh/known_hosts ]; then
+    complete -W "$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;)" ssh
+fi
+# }}}
+
 ## SECTION: Bash Prompts {{{1
 
 # git_prompt() {{{2
