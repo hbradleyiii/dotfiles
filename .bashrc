@@ -17,6 +17,11 @@ if ! [[ $- =~ "i" ]] ; then return; fi
 ## SECTION: Bash Settings {{{1
 set -o vi
 shopt -s cdspell # Correct directory typos (cd)
+shopt -s histappend
+    # PROMPT_COMMAND is executed before displaying $PS1
+PROMPT_COMMAND='history -a ~/.bash_history'
+HISTIGNORE='clear:ls:ls *:mutt:[bf]g:exit'
+HISTCONTROL=ignoredups:ignorespace
 # }}}
 
 ## SECTION: Bash Aliases {{{1
@@ -91,10 +96,6 @@ PS2="\[${_blue}\] -> \[${_colorreset}\]"
 PS3=" ->> "
     # PS4 is used before debug lines (when using /bin/bash -x)
 PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():} line ${LINENO}: '
-    # PROMPT_COMMAND is executed before displaying $PS1
-shopt -s histappend
-PROMPT_COMMAND='history -a ~/.bash_history'
-HISTIGNORE='clear:ls:ls *:mutt:[bf]g:exit'
 # }}}
 
 # path() {{{1
