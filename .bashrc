@@ -261,6 +261,12 @@ function what() {
 }
 # }}}
 
+## cl - cd && ls
+# cl() {{{1
+function cl() {
+    cd "$@" && ls;
+}
+
 ## Extract Program
 # extract() {{{1
 function extract() {
