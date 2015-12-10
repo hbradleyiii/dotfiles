@@ -194,6 +194,27 @@ function s() {
 }
 # }}}
 
+## mans - search man page $1 for term $2
+# mans() {{{1
+function mans() {
+    man $1 | grep -iC2 "$2" | less
+}
+# }}}
+
+## manf - search man page $1 for flag $2
+# manf() {{{1
+function manf() {
+    if [[ $2 == '' ]] ; then
+        echo 'Please provide a flag to search for.' && return
+    elif [[ ${#2} == 1 ]] ; then
+        dash='\-'
+    else
+        dash='\-\-'
+    fi
+    man $1 | sed -n "/^[ ]*$dash$2/,/^$/p" | less
+}
+# }}}
+
 ## Copy Wrapper
 # cp() {{{1
 function cp() {
