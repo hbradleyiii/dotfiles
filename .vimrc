@@ -21,12 +21,14 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
+Plugin 'alfredodeza/pytest.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'alvan/vim-php-manual'
 Plugin 'ap/vim-css-color'
 Plugin 'ervandew/supertab'
 Plugin 'jceb/vim-orgmode'
 Plugin 'kien/ctrlp.vim'
+Plugin 'klen/python-mode'
 Plugin 'majutsushi/tagbar'
 "Plugin 'scrooloose/nerdtree'
 Plugin 'SirVer/ultisnips'
