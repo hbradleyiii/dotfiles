@@ -45,7 +45,7 @@
 if [[ $EXPORTS_SET != 1 ]] ; then
     export PATH=$PATH:~/.envi/bin
     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
-    export CDPATH='.:..:../..:~/'
+    export CDPATH='.:..:~/'
     export EXPORTS_SET=1
 fi
 # }}}
