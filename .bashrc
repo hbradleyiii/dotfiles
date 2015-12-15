@@ -20,7 +20,7 @@ shopt -s cdspell # Correct directory typos (cd)
 shopt -s histappend
     # PROMPT_COMMAND is executed before displaying $PS1
 PROMPT_COMMAND='history -a ~/.bash_history'
-HISTIGNORE='clear:ls:ls *:mutt:[bf]g:exit'
+HISTIGNORE='clear:ls:mutt:[bf]g:exit'
 HISTCONTROL=ignoredups:ignorespace
 # }}}
 
