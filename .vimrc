@@ -352,5 +352,23 @@ function! DiffMe()
     endif
 endfunction
 
+" Follow symlinked file
+" Adapted from:
+" http://inlehmansterms.net/2014/09/04/sane-vim-working-directories/
+" Changes the working directory to be that of the actual file.
+function! FollowSymlink()
+  let current_file = expand('%:p')
+  " Check if file type is a symlink
+  if getftype(current_file) == 'link'
+    " If it is a symlink resolve to the actual file path and open it.
+    let actual_file = resolve(current_file)
+    silent! execute 'file ' . actual_file
+    " Write itself with itself; else, you'd have to :w! for the first write.
+    silent! execute 'w!'
+  end
+endfunction
+
+autocmd BufRead * call FollowSymlink()
+
 " Remove all trailing whitespace before saving
 autocmd BufWritePre * :%s/\s\+$//e
