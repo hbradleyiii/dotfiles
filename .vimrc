@@ -318,6 +318,14 @@ nmap <silent> <leader>en :tabedit ~/env.not<CR>
 nmap <silent> <leader>nv :tabedit ~/vim/index.not<CR>
 nmap <silent> <leader>ni :tabedit ~/index.not<cr>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" Git (fugitive) Keybindings
+nmap <silent> <leader>ga :Git add %<cr>
+nmap <silent> <leader>gc :Gcommit<cr>
+nmap <silent> <leader>gl :Git log<cr>
+nmap <silent> <leader>gs :Gstatus<cr>
+nmap <silent> <leader>gp :Gpull<cr>:Gpush<cr>
+
 " Install and clean plugins
 nmap <silent> <leader>pi :PluginClean<CR>:q<CR>:PluginInstall<CR>:q<CR>
 
