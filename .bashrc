@@ -235,6 +235,13 @@ function cp() {
         return
     fi
 
+    # If the files have chars that are not valid filename chars,
+    # let cp handle them, to allow passing globs through.
+    if [[ ! '$1' =~ ^[a-zA-Z0-9_-]*$ ]] || [[ ! '$2' =~ ^[a-zA-Z0-9_-]*$ ]]; then
+        /bin/cp -vri $1 $2
+        return
+    fi
+
     if [[ -d $1 ]]; then # Is first arg a directory?
         path=$2
     elif [[ -f $1 ]]; then  # First arg is a file
