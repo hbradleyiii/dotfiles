@@ -242,7 +242,7 @@ function cp() {
         if [[ $possible_file == "" ]]; then
             path=$possible_path
         else
-            echo -n "[?] Copy to file '$2'? Answering no will treat it as a directory. (Y/N) "
+            echo -n "[?] Copy to file '$2'? Answering no will treat '$2' as a directory. (Y/N) "
             while read -r -n 1 -s _ANSWER; do
                 if [[ $_ANSWER = [Yy] ]]; then
                     path=$possible_path
