@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# name:             dot.install
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created:          12/21/2015
+#
+# description:      Creates a symlink in the home directory for each
+#                   appropriate dotfile in this repo.
+#
+
+source ./msg || { echo "'msg' does not exist!" >&2 ; exit 1; }
+
+for file in ~/.dotfiles/.[^.]* ; do
+    filename=${file##*/}
+    if [[ $filename != '.git' ]] ; then
+        if [[ -f ~/$filename || -d ~/$filename ]] ; then
+            if [[ -L ~/$filename && $(readlink -f ~/$filename) == ~/.dotfiles/$filename ]] ; then
+                echo Skipping $filename. Already linked.
+            elif msg_ask "$filname already exists but does not link to dotfiles. Remove it?"; then
+                rm ~/$filename
+                echo Linking $filename...
+                ln -s ~/.dotfiles/$filename ~/$filname
+            fi
+        else
+            echo Linking $filename...
+            ln -s ~/.dotfiles/$filename ~/$filname
+        fi
+    fi;
+done;
+
+# vim:set ft=sh fdm=marker:
