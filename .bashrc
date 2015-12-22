@@ -37,6 +37,7 @@ alias .6='cd ../../../../../../'
 alias ~="cd ~"
 alias bh='cat ~/.bash_history | grep'
 alias catw='cat /var/lib/portage/world'
+alias cd='cd -P'
 alias cd..='cd ..'
 alias cdenv='cd ~/.envi'
 alias cls='clear'
@@ -230,10 +231,16 @@ function manf() {
 ## Copy Wrapper
 # cp() {{{1
 function cp() {
+        echo $1
+        echo $2
+        echo $3
+        echo $4
     if [[ "$1" == "" ]] || [[ "$2" == "" ]]; then
         echo '[!] cp requires 2 arguments.'
         return
     fi
+
+    #This doesn't work, globbing happens BeFORE this script.
 
     # If the files have chars that are not valid filename chars,
     # let cp handle them, to allow passing globs through.
@@ -241,6 +248,8 @@ function cp() {
         /bin/cp -vri $1 $2
         return
     fi
+
+    echo 'hi'
 
     if [[ -d $1 ]]; then # Is first arg a directory?
         path=$2
