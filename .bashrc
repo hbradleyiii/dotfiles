@@ -117,119 +117,16 @@ PS3=" ->> "
 PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():} line ${LINENO}: '
 # }}}
 
-# path() {{{1
-#   prints the order of the path in human readable format
-function path(){
-    old=$IFS
-    IFS=:
-    printf "%s\n" $PATH
-    IFS=$old
+## SECTION: Bash Functions {{{1
+### cl - cd && ls
+# cl() {{{2
+function cl() {
+    cd "$@" && ls;
 }
 # }}}
 
-## webmux: web dev tmux setup
-# webmux() {{{1
-function webmux() {
-    tmux has-session -t webmux 2>/dev/null
-
-    if [ $? != 0 ]
-    then
-
-        tmux new-session -s webmux -d
-
-        tmux set -g base-index 1
-        tmux setw -g pane-base-index 1
-
-        tmux split-window -v -l 5 -t webmux
-        tmux select-pane -t webmux:1.1
-
-        tmux send-keys -t webmux:1.2 'clear && compass watch' C-m
-    fi
-
-    tmux attach -t webmux
-}
-# }}}
-
-## emux: tmux setup for emerge
-# emux() {{{1
-function emux() {
-    tmux has-session -t emux 2>/dev/null
-
-    if [ $? != 0 ]
-    then
-
-        tmux new-session -s emerge -d
-
-        tmux set -g base-index 1
-        tmux setw -g pane-base-index 1
-
-        tmux split-window -v -l 5 -t emerge
-        tmux select-pane -t emerge:1.1
-        tmux split-window -v -l 3 -t emerge
-        tmux select-pane -t emerge:1.1
-        tmux split-window -h -p 50 -t emerge
-        tmux select-pane -t emerge:1.1
-
-        tmux send-keys -t emerge:1.1 'cd ~ && clear' C-m
-        tmux send-keys -t emerge:1.2 'cd /etc/portage && clear' C-m
-        tmux send-keys -t emerge:1.2 'vim -p make.conf package.use package.accept_keywords package.license' C-m
-        tmux send-keys -t emerge:1.3 'clear && tail -f /var/log/emerge-fetch.log' C-m
-        tmux send-keys -t emerge:1.4 'clear && tail -f /var/log/emerge.log' C-m
-
-    fi
-
-    tmux attach -t emerge
-}
-# }}}
-
-## Search Program
-# s() {{{1
-function s() {
-    if [[ "$1" == "" ]]; then
-        echo 's is a search program.'
-        echo ''
-        echo 'uses:'
-        echo '    grep -rnI "string" /the/path'
-        echo ''
-        echo 'usage:'
-        echo '    s 'string' /the/path'
-        echo ''
-        return
-    fi
-
-    if [[ -n "$2" ]]; then
-        DIR=$2
-    else
-        DIR='./*'
-    fi
-
-    grep -rnI $1 $DIR
-}
-# }}}
-
-## mans - search man page $1 for term $2
-# mans() {{{1
-function mans() {
-    man $1 | grep -iC2 "$2" | less
-}
-# }}}
-
-## manf - search man page $1 for flag $2
-# manf() {{{1
-function manf() {
-    if [[ $2 == '' ]] ; then
-        echo 'Please provide a flag to search for.' && return
-    elif [[ ${#2} == 1 ]] ; then
-        dash='\-'
-    else
-        dash='\-\-'
-    fi
-    man $1 | sed -n "/^[ ]*$dash$2/,/^$/p" | less
-}
-# }}}
-
-## Copy Wrapper
-# cp() {{{1
+### Copy Wrapper
+# cp() {{{2
 function cp() {
         echo $1
         echo $2
@@ -282,21 +179,8 @@ function cp() {
 }
 # }}}
 
-## what (which)
-# what() {{{1
-function what() {
-    which $1 | xargs ls -la
-}
-# }}}
-
-## cl - cd && ls
-# cl() {{{1
-function cl() {
-    cd "$@" && ls;
-}
-
-## Extract Program
-# extract() {{{1
+### Extract Program
+# extract() {{{2
 function extract() {
     if [ -f $1 ] ; then
         case $1 in
@@ -323,6 +207,139 @@ function extract() {
         echo "'$1' is not a valid file."
     fi
 }
+# }}}
+
+### manf - search man page $1 for flag $2
+# manf() {{{2
+function manf() {
+    if [[ $2 == '' ]] ; then
+        echo 'Please provide a flag to search for.' && return
+    elif [[ ${#2} == 1 ]] ; then
+        dash='\-'
+    else
+        dash='\-\-'
+    fi
+    man $1 | sed -n "/^[ ]*$dash$2/,/^$/p" | less
+}
+# }}}
+
+### mans - search man page $1 for term $2
+# mans() {{{2
+function mans() {
+    man $1 | grep -iC2 "$2" | less
+}
+# }}}
+
+### path: displays path order in human readable format
+# path() {{{2
+function path(){
+    old=$IFS
+    IFS=:
+    printf "%s\n" $PATH
+    IFS=$old
+}
+# }}}
+
+### Search Program
+# s() {{{2
+function s() {
+    if [[ "$1" == "" ]]; then
+        echo 's is a search program.'
+        echo ''
+        echo 'uses:'
+        echo '    grep -rnI "string" /the/path'
+        echo ''
+        echo 'usage:'
+        echo '    s 'string' /the/path'
+        echo ''
+        return
+    fi
+
+    if [[ -n "$2" ]]; then
+        DIR=$2
+    else
+        DIR='./*'
+    fi
+
+    grep -rnI $1 $DIR
+}
+# }}}
+
+### emux: tmux setup for emerge
+# emux() {{{2
+function emux() {
+    tmux has-session -t emux 2>/dev/null
+
+    if [ $? != 0 ]
+    then
+
+        tmux new-session -s emerge -d
+
+        tmux set -g base-index 1
+        tmux setw -g pane-base-index 1
+
+        tmux split-window -v -l 5 -t emerge
+        tmux select-pane -t emerge:1.1
+        tmux split-window -v -l 3 -t emerge
+        tmux select-pane -t emerge:1.1
+        tmux split-window -h -p 50 -t emerge
+        tmux select-pane -t emerge:1.1
+
+        tmux send-keys -t emerge:1.1 'cd ~ && clear' C-m
+        tmux send-keys -t emerge:1.2 'cd /etc/portage && clear' C-m
+        tmux send-keys -t emerge:1.2 'vim -p make.conf package.use package.accept_keywords package.license' C-m
+        tmux send-keys -t emerge:1.3 'clear && tail -f /var/log/emerge-fetch.log' C-m
+        tmux send-keys -t emerge:1.4 'clear && tail -f /var/log/emerge.log' C-m
+
+    fi
+
+    tmux attach -t emerge
+}
+# }}}
+
+#### webmux: web dev tmux setup
+# webmux() {{{2
+function webmux() {
+    tmux has-session -t webmux 2>/dev/null
+
+    if [ $? != 0 ]
+    then
+
+        tmux new-session -s webmux -d
+
+        tmux set -g base-index 1
+        tmux setw -g pane-base-index 1
+
+        tmux split-window -v -l 5 -t webmux
+        tmux select-pane -t webmux:1.1
+
+        tmux send-keys -t webmux:1.2 'clear && compass watch' C-m
+    fi
+
+    tmux attach -t webmux
+}
+# }}}
+
+### what (which)
+# what() {{{2
+function what() {
+    which $1 | xargs ls -la
+}
+# }}}
+
+### whois
+# whois() {{{2
+function whois() {
+    local domain=$(echo "$1" | awk -F/ '{print $3}') # get domain from URL
+    if [ -z $domain ] ; then
+        domain=$1
+    fi
+    echo "Getting whois record for: $domain ."
+
+    /usr/bin/whois -h whois.internic.net $domain | sed '/NOTICE:/q'
+}
+# }}}
+
 # }}}
 
 #TODO: Fix this:
