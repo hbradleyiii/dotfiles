@@ -65,7 +65,6 @@ alias q='type -all'
 alias reapache='/etc/init.d/apache2 restart'
 alias rebash='source ~/.bash_profile'
 alias rm='rm -i'
-alias rsync='rsync -vv'
 alias ssagent='eval `ssh-agent` && ssh-add ~/.ssh/id_rsa'
 alias skim="(head -5; tail -5) <"
 # }}}
