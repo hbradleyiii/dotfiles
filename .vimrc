@@ -257,9 +257,6 @@ imap hh <Esc>^i
 imap kk <Esc>$a
 map <Enter> o<Esc>
 
-" Sudo to write
-cmap w!! w !sudo tee % >/dev/null
-
 " Do this only for notes and things with wrapping text
 " This makes the natural up and down without skipping to next real line
 nnoremap j gj
@@ -267,6 +264,17 @@ nnoremap k gk
 
 " Make tg the opposite of gt
 map tg :tabprevious <CR>
+
+
+
+"" Mapping to sudo write
+cnoremap ws exec SudoWrite()
+function SudoWrite()
+    :set bt=nowrite
+    :w !sudo tee % >/dev/null
+    :e
+    :set bt=
+endfunction
 
 
 " Forces creation of a file if it doesn't exist, and do it in a new tab
