@@ -1,4 +1,14 @@
+" ~/.vimrc
+"
+" created by:       Harold Bradley III
+" email:            hbradleyiii@bradleystudio.net
+"
+
 set nocompatible
+
+    """""""""""
+    " Plugins "
+    """""""""""
 
 " required
 filetype off
@@ -6,14 +16,14 @@ filetype off
 " set the runtime path to include Vundle
 set rtp+=~/.vim/bundle/Vundle.vim
 
-" make sure Vundle is installed
+"" Install Vundle if it isn't already installed
 let g:InstallVundlePlugins = 0
 if empty(glob("~/.vim/bundle/Vundle.vim"))
     execute "!git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
     let g:InstallVundlePlugins = 1
 endif
 
-" initialize Vundle
+"" Vundle Initialization
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
@@ -27,6 +37,7 @@ Plugin 'alvan/vim-php-manual'
 Plugin 'ap/vim-css-color'
 Plugin 'ervandew/supertab'
 Plugin 'jceb/vim-orgmode'
+Plugin 'joonty/vdebug.git'
 Plugin 'kien/ctrlp.vim'
 Plugin 'klen/python-mode'
 Plugin 'majutsushi/tagbar'
@@ -41,9 +52,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'vim-scripts/timestamp.vim'
-
-Plugin 'joonty/vdebug.git'
-
 
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
@@ -60,27 +68,123 @@ if g:InstallVundlePlugins == 1
     execute 'VundleInstall'
 endif
 
+"" Plugin Options
 
+" Syntastic
 let g:syntastic_csslint_args="--ignore=universal-selector"
 "let g:syntastic_css_checkers=["recess"]
 let g:syntastic_css_checkers=["csslint"]
 let g:syntastic_html_tidy_exec = 'tidy5'
 
-
 " UltiSnips
 let g:UltiSnipsEditSplit="vertical"
-
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
+" CtrlP
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
+
+
+    """""""""""""""""""""""
+    " General Vim Options "
+    """""""""""""""""""""""
+
+set title
+set showcmd
+set history=1000
+set showmode
+set wildmenu
+set ofu=syntaxcomplete#Complete
+set lazyredraw
+set scrolloff=2
+set virtualedit=all
+set fillchars="" " separator chars
+set mousehide
 
 set shellslash
-
 set visualbell t_vb=
 
-""""""""""""""""""""""""
-" FILETYPE & SYNTAX HIGHLIGHTING
+
+" Session options
+set sessionoptions=buffers,curdir,folds,globals,help,localoptions,options,resize,tabpages,winsize,winpos
+
+" Fold options
+set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
+
+" Status Line
+set stl=%h%w%m\ %f\ %r\ (b:%n)\ %=%30(Line:\ %l/%L\ [%p%%]\ %)%8(Col:%3c\ %)%13([%b][0x%B]%)
+set laststatus=2
+set number
+set ruler
+
+" set lines=42
+" set columns=90
+"
+
+    """""""""""""""""
+    " File Settings "
+    """""""""""""""""
+
+if !isdirectory($HOME . "/.vim/.backup")
+    call mkdir($HOME . "/.vim/.backup", "p")
+endif
+if !isdirectory($HOME . "/.vim/.swap")
+    call mkdir($HOME . "/.vim/.swap", "p")
+endif
+if !isdirectory($HOME . "/.vim/.undo")
+    call mkdir($HOME . "/.vim/.undo", "p")
+endif
+
+set backup
+set writebackup
+set swapfile
+set undofile
+set undolevels=1000
+set undoreload=10000
+set backupdir=~/.vim/.backup//
+set directory=~/.vim/.swap//
+set undodir=~/.vim/.undo//
+
+set encoding=utf8
+set ffs=unix,dos,mac
+set hidden
+set autochdir
+set cryptmethod=blowfish
+
+
+    """""""""""""""""""
+    " Indent Settings "
+    """""""""""""""""""
+
+set autoindent
+set smartindent " TODO: I'm not sure about this one...
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set smarttab
+set backspace=2
+set showbreak=»»
+" TODO: fix for terminals:
+set listchars=tab:>-,eol:¬,trail:•,extends:»,precedes:«,nbsp:·
+
+
+    """""""""""""
+    " Searching "
+    """""""""""""
+
+set wrapscan
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+
+    """"""""""""""""""""""""""""""""""
+    " Filetype & Syntax Highlighting "
+    """"""""""""""""""""""""""""""""""
 
 " colorscheme must be AFTER this!
 filetype plugin indent on
@@ -88,8 +192,9 @@ filetype plugin indent on
 syntax on
 
 
-""""""""""""""""""""""""
-" COLOR & GRAPHICS
+    """"""""""""""""""""
+    " Color & Graphics "
+    """"""""""""""""""""
 
 if has('gui_running') " Set up the gui
     set cursorline
@@ -132,113 +237,19 @@ match OverLength /\%81v.\+/
 
 
 
+    """"""""""""""""
+    " KEY MAPPINGS "
+    """"""""""""""""
 
-""""""""""""""""""""""""
-" FILE SETTINGS
-
-if !isdirectory($HOME . "/.vim/.backup")
-    call mkdir($HOME . "/.vim/.backup", "p")
-endif
-if !isdirectory($HOME . "/.vim/.swap")
-    call mkdir($HOME . "/.vim/.swap", "p")
-endif
-if !isdirectory($HOME . "/.vim/.undo")
-    call mkdir($HOME . "/.vim/.undo", "p")
-endif
-
-set backup
-set writebackup
-set swapfile
-set undofile
-set undolevels=1000
-set undoreload=10000
-set backupdir=~/.vim/.backup//
-set directory=~/.vim/.swap//
-set undodir=~/.vim/.undo//
-
-set encoding=utf8
-set ffs=unix,dos,mac
-set hidden
-set autochdir
-set cryptmethod=blowfish
-
-
-""""""""""""""""""""""""
-" INDENT SETTINGS
-
-set autoindent
-set smartindent " TODO: I'm not sure about this one...
-set tabstop=4
-set shiftwidth=4
-set expandtab
-set smarttab
-set backspace=2
-set showbreak=»»
-" TODO: fix for terminals:
-set listchars=tab:>-,eol:¬,trail:•,extends:»,precedes:«,nbsp:·
-
-
-""""""""""""""""""""""""
-" SEARCHING
-
-set wrapscan
-set ignorecase
-set smartcase
-set hlsearch
-set incsearch
-
-
-""""""""""""""""""""""""
-" ENVIRONMENT
-
-set title
-set showcmd
-set history=1000
-set showmode
-set wildmenu
-set ofu=syntaxcomplete#Complete
-set lazyredraw
-set scrolloff=2
-set virtualedit=all
-set fillchars="" " separator chars
-set mousehide
-
-
-
-" Session options
-set sessionoptions=buffers,curdir,folds,globals,help,localoptions,options,resize,tabpages,winsize,winpos
-
-" Fold options
-set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
-
-" Status Line
-set stl=%h%w%m\ %f\ %r\ (b:%n)\ %=%30(Line:\ %l/%L\ [%p%%]\ %)%8(Col:%3c\ %)%13([%b][0x%B]%)
-set laststatus=2
-set number
-set ruler
-
-" set lines=42
-" set columns=90
-
-
-let g:ctrlp_match_window = 'bottom,order:ttb'
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
-
-""""""""""""""""""""""""
-" KEY MAPPINGS
-
-
-" Leader key
+"" Leader key
 " By default ',' just repeats latest f, t, F or T in opposite direction
-" It still does if you wait a brief second
 let mapleader=","
-" Map CTRL-E to do what ',' used to do
-nnoremap <c-e> ,
-vnoremap <c-e> ,
+" Map ,, to do what ',' used to do
+nnoremap <leader>, ,
+vnoremap <leader>, ,
 
 
-" Windows-like mods
+"" Windows-like mods
 " TODO: Should this be * or +?
 map <C-c> "*
 vmap <C-c> "*y
@@ -249,7 +260,7 @@ imap <C-s> <Esc>:w<CR>
 map <F1> :tab help <CR>
 
 
-" Custom Mods
+"" Movement Mods
 nmap gg ggzz
     " jj Escape in insert mode
 imap jj <Esc>
@@ -257,76 +268,67 @@ imap hh <Esc>^i
 imap kk <Esc>$a
 map <Enter> o<Esc>
 
-" Do this only for notes and things with wrapping text
-" This makes the natural up and down without skipping to next real line
+" TODO: ?? Do this only for notes and things with wrapping text
+" Natural up and down movements
 nnoremap j gj
 nnoremap k gk
 
 " Make tg the opposite of gt
 map tg :tabprevious <CR>
 
+" Highlight last inserted text
+nmap gV `[v`]
 
 
-"" Mapping to sudo write
-cnoremap ws exec SudoWrite()
-function SudoWrite()
-    :set bt=nowrite
-    :w !sudo tee % >/dev/null
-    :e
-    :set bt=
-endfunction
-
-
-" Forces creation of a file if it doesn't exist, and do it in a new tab
-"map gf :tabnew <cfile><CR>
+" Forces creation of a file if it doesn't exist
 map gf :e <cfile><CR>
 " In windows, run command under cursor
 map <leader>of :!start cmd /c <cfile><CR>
 map <leader>nt :NERDTreeToggle <CR>
 map <F2> :NERDTreeToggle <CR>
 
+" Execute in vim the line under the cursor
+map <leader>ex yy:@"<CR>
 
-" Option Toggles
+
+
+"" Option Toggles
 nmap <leader>l :set list!<CR>
 nmap <leader>w :set wrap!<CR>
 nmap <Space> :set hlsearch!<CR>
 nmap <leader><Space> :set paste!<CR>
-    " Spellcheck
+
+" Spellcheck
 map <F8> :set invspell<CR>
 
-" Highlight last inserted text
-nmap gV `[v`]
 
-" Shortcut Keymaps
-    " Remove trailing spaces
+"" Editing Keymappings
+" Remove trailing spaces
 nmap <silent> ,ss :%s/\s\+$//<Enter>
-    " TODO: Set up retabbing on a source file
+" TODO: Set up retabbing on a source file
 nmap  ,rr :1,$retab<CR>
-    " cd to the directory containing the file in the buffer
-nmap  ,cd :lcd %:h<CR>
 
 " Insert timestamp
 nmap <F3> a<C-R>=strftime("%b %d, %Y %H:%M")<CR><Esc>
 imap <F3> <C-R>=strftime("%b %d, %Y %H:%M %p")<CR>
 
 
-" Execute in vim the line under the cursor
-map <leader>ex yy:@"<CR>
-
 nmap <silent> <leader>f :e ./<CR>
 nmap <silent> <leader>b :bp<CR>
 nmap <silent> <leader>n :bn<CR>
 nmap <silent> <leader>m :b#<CR>
 
-" Let's make it easy to edit this file (mnemonic for the key sequence is
-" 'e'dit 'v'imrc)
+"" 'e'dit 'v'imrc
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 nmap <silent> <leader>ev :tabedit ~/.vimrc<CR>
-nmap <silent> <leader>en :tabedit ~/env.not<CR>
-nmap <silent> <leader>nv :tabedit ~/vim/index.not<CR>
-nmap <silent> <leader>ni :tabedit ~/index.not<cr>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""
+"" 'e'dit 'b'ashrc
+nmap <silent> <leader>sb :!rebash<CR>
+nmap <silent> <leader>eb :tabedit ~/.bashrc<CR>
+
+
+"" Plugin Keymappings
+
 " Git (fugitive) Keybindings
 nmap <silent> <leader>ga :Git add %<cr>
 nmap <silent> <leader>gc :Gcommit<cr>
@@ -336,7 +338,6 @@ nmap <silent> <leader>gp :Gpull<cr>:Gpush<cr>
 
 " Install and clean plugins
 nmap <silent> <leader>pi :PluginClean<CR>:q<CR>:PluginInstall<CR>:q<CR>
-
 nmap <silent> <leader>es :UltiSnipsEdit<cr>
 
 cmap eval :VdebugEval<cr>
@@ -344,8 +345,10 @@ cmap vd VdebugStart<cr>
 " cmap t tabnew
 " cmap ta ta
 
-" Automatically reload this file after saving
-"autocmd BufWritePost .vimrc source $MYVIMRC
+
+    """"""""""""""""""""""""""""""
+    " Functions and AutoCommands "
+    """"""""""""""""""""""""""""""
 
 " Press F4 to toggle the diff of currently open buffers/splits.
 noremap <F4> :call DiffMe()<CR>
@@ -359,6 +362,17 @@ function! DiffMe()
     let $diff_me=1
     endif
 endfunction
+
+
+"" Mapping to sudo write (without unnecessary prompts and output)
+cnoremap ws exec SudoWrite()
+function SudoWrite()
+    :set bt=nowrite
+    :w !sudo tee % >/dev/null
+    :e
+    :set bt=
+endfunction
+
 
 " Follow symlinked file
 " Adapted from:
@@ -375,7 +389,6 @@ function! FollowSymlink()
     silent! execute 'w!'
   end
 endfunction
-
 autocmd BufRead * call FollowSymlink()
 
 " Remove all trailing whitespace before saving
