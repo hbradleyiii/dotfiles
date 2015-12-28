@@ -6,27 +6,23 @@
 
 set nocompatible
 
-    """""""""""
-    " Plugins "
+    " Plugins " {{{
 
-" required
-filetype off
+filetype off " Required
 
-" set the runtime path to include Vundle
+" Set the runtime path to include Vundle
 set rtp+=~/.vim/bundle/Vundle.vim
 
-"" Install Vundle if it isn't already installed
+" Plugin List {{{
+" Install Vundle if it isn't already installed {{{
 let g:InstallVundlePlugins = 0
 if empty(glob("~/.vim/bundle/Vundle.vim"))
     execute "!git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
     let g:InstallVundlePlugins = 1
-endif
+endif " }}}
 
-"" Vundle Initialization
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+call vundle#begin() " Vundle Initialization
+Plugin 'gmarik/Vundle.vim' " Let Vundle manage Vundle, required
 
 Plugin 'alfredodeza/pytest.vim'
 Plugin 'altercation/vim-colors-solarized'
@@ -49,36 +45,58 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'vim-scripts/timestamp.vim'
+call vundle#end() " Must be AFTER plugin list
 
-" All of your Plugins must be added before the following line
-call vundle#end()
-
+" If this is a fresh install, install all initialized plugins {{{
 if g:InstallVundlePlugins == 1
     execute 'VundleInstall'
-endif
+endif " }}}
+" }}}
 
-"" Plugin Options
+    "" Plugin Options/Keybindings "" {{{
 
-" Syntastic
+"" CtrlP
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
+
+"" Fugitive
+nmap <silent> <leader>ga :Git add %<cr>
+nmap <silent> <leader>gc :Gcommit<cr>
+nmap <silent> <leader>gl :Git log<cr>
+nmap <silent> <leader>gs :Gstatus<cr>
+nmap <silent> <leader>gp :Gpull<cr>:Gpush<cr>
+
+" Gundo
+nnoremap <leader>u :GundoToggle<CR>
+
+"" NerdTree
+map <leader>nt :NERDTreeToggle <CR>
+map <F2> :NERDTreeToggle <CR>
+
+"" Syntastic
 let g:syntastic_csslint_args="--ignore=universal-selector"
 "let g:syntastic_css_checkers=["recess"]
 let g:syntastic_css_checkers=["csslint"]
 let g:syntastic_html_tidy_exec = 'tidy5'
 
-" UltiSnips
+"" UltiSnips
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+nmap <silent> <leader>es :UltiSnipsEdit<cr>
 
-" CtrlP
-let g:ctrlp_match_window = 'bottom,order:ttb'
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
+"" Vdebug
+cmap eval :VdebugEval<cr>
+cmap vd VdebugStart<cr>
 
+"" Vundle
+nmap <silent> <leader>pi :PluginClean<CR>:q<CR>:PluginInstall<CR>:q<CR>
 
-    """""""""""""""""""""""
-    " General Vim Options "
+" }}} }}}
+
+    " General Vim Options " {{{
 
 set title
 set showcmd
@@ -107,10 +125,7 @@ set laststatus=2
 set number
 set ruler
 
-
-    """""""""""""""""
-    " File Settings "
-
+    "" File Settings ""
 if !isdirectory($HOME . "/.vim/.backup")
     call mkdir($HOME . "/.vim/.backup", "p")
 endif
@@ -137,11 +152,7 @@ set hidden
 set autochdir
 set cryptmethod=blowfish
 
-
-    """"""""""""""""""""""""
-    " Tabs/Indent Settings "
-    "
-
+    "" Tabs/Indent Settings ""
 set autoindent
 set smartindent " TODO: I'm not sure about this one...
 set tabstop=4
@@ -153,10 +164,7 @@ set showbreak=»»
 " TODO: fix for terminals:
 set listchars=tab:>-,eol:¬,trail:•,extends:»,precedes:«,nbsp:·
 
-
-    """""""""""""
-    " Searching "
-
+    "" Searching ""
 set wrapscan
 set ignorecase
 set smartcase
@@ -164,18 +172,13 @@ set hlsearch
 set incsearch
 
 
-    """"""""""""""""""""""""""""""""""
-    " Filetype & Syntax Highlighting "
+    "" Filetype & Syntax Highlighting ""
 
 " colorscheme must be AFTER this!
 filetype plugin indent on
 syntax on
 
-
-    """"""""""""""""""""
-    " Color & Graphics "
-
-if has('gui_running') " Set up the gui
+if has('gui_running') " Set up the gui for GVim
     set cursorline
     " Set the cursor for various modes
     set guicursor=n-v-c:block-Cursor-blinkon0
@@ -190,7 +193,7 @@ if has('gui_running') " Set up the gui
     set ttyfast
 endif
 
-if &t_Co >= 256 || has("gui_running")
+if &t_Co >= 256 || has("gui_running") " For 256color Terminals or GVim
     set background=dark
     let g:solarized_termcolors=256
     let g:solarized_termtrans=1
@@ -202,10 +205,9 @@ if &t_Co >= 256 || has("gui_running")
     highlight OverLength ctermbg=234 ctermfg=white guibg=#592929
     match OverLength /\%81v./
 endif
+" }}}
 
-
-    """"""""""""""""
-    " KEY MAPPINGS "
+    " KEY MAPPINGS " {{{
 
 "" Leader key
 " By default ',' just repeats latest f, t, F or T in opposite direction
@@ -255,6 +257,7 @@ nmap <leader>l :set list!<CR>
 nmap <leader>w :set wrap!<CR>
 nmap <Space> :set hlsearch!<CR>
 nmap <leader><Space> :set paste!<CR>
+nmap <leader>. :set relativenumber!<CR>
 
 " Spellcheck
 map <F8> :set invspell<CR>
@@ -282,29 +285,16 @@ nmap <silent> <leader>ev :tabedit ~/.vimrc<CR>
 nmap <silent> <leader>sb :!rebash<CR>
 nmap <silent> <leader>eb :tabedit ~/.bashrc<CR>
 
-"" Plugin Keymappings
+"" save session
+nnoremap <leader>s :mksession<CR>
+" }}}
 
-" Git (fugitive) Keybindings
-nmap <silent> <leader>ga :Git add %<cr>
-nmap <silent> <leader>gc :Gcommit<cr>
-nmap <silent> <leader>gl :Git log<cr>
-nmap <silent> <leader>gs :Gstatus<cr>
-nmap <silent> <leader>gp :Gpull<cr>:Gpush<cr>
+    " Functions and AutoCommands " {{{
 
-" Install and clean plugins
-nmap <silent> <leader>pi :PluginClean<CR>:q<CR>:PluginInstall<CR>:q<CR>
-nmap <silent> <leader>es :UltiSnipsEdit<cr>
-
-" NerdTree
-map <leader>nt :NERDTreeToggle <CR>
-map <F2> :NERDTreeToggle <CR>
-
-cmap eval :VdebugEval<cr>
-cmap vd VdebugStart<cr>
-
-
-    """"""""""""""""""""""""""""""
-    " Functions and AutoCommands "
+" Remove all trailing whitespace before saving
+autocmd BufWritePre * :%s/\s\+$//e
+" Replace tabs with spaces before saving
+autocmd BufWritePre * :1,$retab<CR>
 
 " Press F4 to toggle the diff of currently open buffers/splits.
 noremap <F4> :call DiffMe()<CR>
@@ -319,7 +309,6 @@ function! DiffMe()
     endif
 endfunction
 
-
 "" Mapping to sudo write (without unnecessary prompts and output)
 cnoremap ws exec SudoWrite()
 function! SudoWrite()
@@ -328,7 +317,6 @@ function! SudoWrite()
     :e
     :set bt=
 endfunction
-
 
 " Follow symlinked file
 " Adapted from:
@@ -346,7 +334,6 @@ function! FollowSymlink()
   end
 endfunction
 autocmd BufRead * call FollowSymlink()
+" }}}
 
-" Remove all trailing whitespace before saving
-autocmd BufWritePre * :%s/\s\+$//e
-autocmd BufWritePre * :1,$retab<CR>
+" vim:set fdm=marker:
