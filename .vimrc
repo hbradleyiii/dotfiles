@@ -366,7 +366,7 @@ endfunction
 
 "" Mapping to sudo write (without unnecessary prompts and output)
 cnoremap ws exec SudoWrite()
-function SudoWrite()
+function! SudoWrite()
     :set bt=nowrite
     :w !sudo tee % >/dev/null
     :e
