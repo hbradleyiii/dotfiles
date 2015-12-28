@@ -349,3 +349,4 @@ autocmd BufRead * call FollowSymlink()
 
 " Remove all trailing whitespace before saving
 autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufWritePre * :1,$retab<CR>
