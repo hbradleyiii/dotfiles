@@ -8,7 +8,6 @@ set nocompatible
 
     """""""""""
     " Plugins "
-    """""""""""
 
 " required
 filetype off
@@ -25,8 +24,6 @@ endif
 
 "" Vundle Initialization
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
@@ -52,14 +49,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'vim-scripts/timestamp.vim'
-
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Git plugin not hosted on GitHub
-"Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-"Plugin 'file:///home/gmarik/path/to/plugin'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -90,7 +79,6 @@ let g:ctrlp_working_path_mode = 0
 
     """""""""""""""""""""""
     " General Vim Options "
-    """""""""""""""""""""""
 
 set title
 set showcmd
@@ -107,7 +95,6 @@ set mousehide
 set shellslash
 set visualbell t_vb=
 
-
 " Session options
 set sessionoptions=buffers,curdir,folds,globals,help,localoptions,options,resize,tabpages,winsize,winpos
 
@@ -120,13 +107,9 @@ set laststatus=2
 set number
 set ruler
 
-" set lines=42
-" set columns=90
-"
 
     """""""""""""""""
     " File Settings "
-    """""""""""""""""
 
 if !isdirectory($HOME . "/.vim/.backup")
     call mkdir($HOME . "/.vim/.backup", "p")
@@ -155,9 +138,9 @@ set autochdir
 set cryptmethod=blowfish
 
 
-    """""""""""""""""""
-    " Indent Settings "
-    """""""""""""""""""
+    """"""""""""""""""""""""
+    " Tabs/Indent Settings "
+    "
 
 set autoindent
 set smartindent " TODO: I'm not sure about this one...
@@ -173,7 +156,6 @@ set listchars=tab:>-,eol:¬,trail:•,extends:»,precedes:«,nbsp:·
 
     """""""""""""
     " Searching "
-    """""""""""""
 
 set wrapscan
 set ignorecase
@@ -184,17 +166,14 @@ set incsearch
 
     """"""""""""""""""""""""""""""""""
     " Filetype & Syntax Highlighting "
-    """"""""""""""""""""""""""""""""""
 
 " colorscheme must be AFTER this!
 filetype plugin indent on
-
 syntax on
 
 
     """"""""""""""""""""
     " Color & Graphics "
-    """"""""""""""""""""
 
 if has('gui_running') " Set up the gui
     set cursorline
@@ -205,16 +184,13 @@ if has('gui_running') " Set up the gui
     set guicursor+=i-ci:ver25-Cursor
     set guicursor+=r-cr:hor20-Cursor
     set guicursor+=sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
+    set guifont=Monaco:h18
     set guifont=Pragmata:h18
-   "set guifont=Monaco:h18
-    set guioptions=acer " m for menu
-   "set lines=35
-   "set columns=85
+    set guioptions=acer
     set ttyfast
 endif
 
 if &t_Co >= 256 || has("gui_running")
-    " baycomb scite nedit2 gentooish solarized
     set background=dark
     let g:solarized_termcolors=256
     let g:solarized_termtrans=1
@@ -222,24 +198,14 @@ if &t_Co >= 256 || has("gui_running")
     " Invisible character colors
     highlight NonText guifg=#151515
     highlight SpecialKey guifg=#151515
+    " Highlight lines over 80 chars
+    highlight OverLength ctermbg=234 ctermfg=white guibg=#592929
+    match OverLength /\%81v./
 endif
-
-" Highlight lines over 80 chars
-highlight OverLength ctermbg=234 ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
-
-" Write a function to toggle this.
-" map <silent> <leader>ml :imrc<CR>
-
-
-" VIM colors see:
-" http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
-
 
 
     """"""""""""""""
     " KEY MAPPINGS "
-    """"""""""""""""
 
 "" Leader key
 " By default ',' just repeats latest f, t, F or T in opposite direction
@@ -247,7 +213,6 @@ let mapleader=","
 " Map ,, to do what ',' used to do
 nnoremap <leader>, ,
 vnoremap <leader>, ,
-
 
 "" Windows-like mods
 " TODO: Should this be * or +?
@@ -259,7 +224,6 @@ map <leader>v "*p
 imap <C-s> <Esc>:w<CR>
 map <F1> :tab help <CR>
 
-
 "" Movement Mods
 nmap gg ggzz
     " jj Escape in insert mode
@@ -267,8 +231,6 @@ imap jj <Esc>
 imap hh <Esc>^i
 imap kk <Esc>$a
 map <Enter> o<Esc>
-
-" TODO: ?? Do this only for notes and things with wrapping text
 " Natural up and down movements
 nnoremap j gj
 nnoremap k gk
@@ -279,18 +241,14 @@ map tg :tabprevious <CR>
 " Highlight last inserted text
 nmap gV `[v`]
 
-
 " Forces creation of a file if it doesn't exist
 map gf :e <cfile><CR>
+
 " In windows, run command under cursor
 map <leader>of :!start cmd /c <cfile><CR>
-map <leader>nt :NERDTreeToggle <CR>
-map <F2> :NERDTreeToggle <CR>
 
 " Execute in vim the line under the cursor
 map <leader>ex yy:@"<CR>
-
-
 
 "" Option Toggles
 nmap <leader>l :set list!<CR>
@@ -301,7 +259,6 @@ nmap <leader><Space> :set paste!<CR>
 " Spellcheck
 map <F8> :set invspell<CR>
 
-
 "" Editing Keymappings
 " Remove trailing spaces
 nmap <silent> ,ss :%s/\s\+$//<Enter>
@@ -311,7 +268,6 @@ nmap  ,rr :1,$retab<CR>
 " Insert timestamp
 nmap <F3> a<C-R>=strftime("%b %d, %Y %H:%M")<CR><Esc>
 imap <F3> <C-R>=strftime("%b %d, %Y %H:%M %p")<CR>
-
 
 nmap <silent> <leader>f :e ./<CR>
 nmap <silent> <leader>b :bp<CR>
@@ -326,7 +282,6 @@ nmap <silent> <leader>ev :tabedit ~/.vimrc<CR>
 nmap <silent> <leader>sb :!rebash<CR>
 nmap <silent> <leader>eb :tabedit ~/.bashrc<CR>
 
-
 "" Plugin Keymappings
 
 " Git (fugitive) Keybindings
@@ -340,15 +295,16 @@ nmap <silent> <leader>gp :Gpull<cr>:Gpush<cr>
 nmap <silent> <leader>pi :PluginClean<CR>:q<CR>:PluginInstall<CR>:q<CR>
 nmap <silent> <leader>es :UltiSnipsEdit<cr>
 
+" NerdTree
+map <leader>nt :NERDTreeToggle <CR>
+map <F2> :NERDTreeToggle <CR>
+
 cmap eval :VdebugEval<cr>
 cmap vd VdebugStart<cr>
-" cmap t tabnew
-" cmap ta ta
 
 
     """"""""""""""""""""""""""""""
     " Functions and AutoCommands "
-    """"""""""""""""""""""""""""""
 
 " Press F4 to toggle the diff of currently open buffers/splits.
 noremap <F4> :call DiffMe()<CR>
