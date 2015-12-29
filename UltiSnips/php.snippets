@@ -1,4 +1,4 @@
-snippet favico "Favicon for WordPress" 
+snippet favico "Favicon for WordPress"
 <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/favicon.ico" />
 endsnippet
 
@@ -12,7 +12,7 @@ $0
 ?>
 endsnippet
 
-snippet wp-header "WordPress Header Template" 
+snippet wp-header "WordPress Header Template"
 <?php wp_template(__FILE__, true);
 
 ////////////////////////////////////////////////////////////
@@ -30,13 +30,13 @@ snippet wp-header "WordPress Header Template"
 <body <?php body_class(); ?>>
 endsnippet
 
-snippet wp-thumb "Declare WordPress thumbnail support" 
+snippet wp-thumb "Declare WordPress thumbnail support"
 // Declare Thumbnail support
 add_theme_support( 'post-thumbnails' );
 $0
 endsnippet
 
-snippet wp-opt "WordPress Optimizations" 
+snippet wp-opt "WordPress Optimizations"
 // Wordpress Optimizations
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'wp_print_styles', 'print_emoji_styles' );
@@ -51,13 +51,13 @@ snippet wp-debug "WordPress theme debugging function"
 //      default setup for wordpress php template files
 function wp_template($file, $debug_in_header = false) {
     // When file is called directly, immediately redirect to a 404 page
-    if ( ! defined( 'ABSPATH' ) ) { 
-        header('Location: /error-404-page-not-found'); 
-        die(); 
+    if ( ! defined( 'ABSPATH' ) ) {
+        header('Location: /error-404-page-not-found');
+        die();
     }
 
     // Debugging
-    if ( WP_DEBUG ) { 
+    if ( WP_DEBUG ) {
         $filestamp = function() use ($file) {
                 echo "    <!-- [" . date('H:i:s', time()) .  '] ' . 'Called file: "' . $file . '" -->' . "\n";
             };
@@ -72,7 +72,7 @@ function wp_template($file, $debug_in_header = false) {
 $0
 endsnippet
 
-snippet wp-hide-bar "Hide WordPress bar" 
+snippet wp-hide-bar "Hide WordPress bar"
 // Hide the front-end admin bar when logged in
 add_filter( 'show_admin_bar', function() {
     remove_action( 'wp_head', '_admin_bar_bump_cb' );
@@ -91,7 +91,7 @@ add_action( 'edit_form_after_editor', function($post) {
 $0
 endsnippet
 
-snippet wp-tinymce "Customize WordPress TinyMCE" 
+snippet wp-tinymce "Customize WordPress TinyMCE"
 // Customize tinymce
 add_filter('tiny_mce_before_init', function($init) {
     $init['block_formats'] = 'Paragraph =p;Header 2=h2;Header 3=h3;Header 4=h4';
@@ -112,7 +112,7 @@ add_filter('tiny_mce_before_init', function($init) {
 $0
 endsnippet
 
-snippet wp-settings "Add WordPress Site Settings" 
+snippet wp-settings "Add WordPress Site Settings"
 // Setup Site Settings Menu
 add_action('admin_menu', function() {
     add_options_page(
@@ -162,17 +162,17 @@ add_action('admin_init', function() {
 
 function sep_display_settings_field($args) {
     $value = get_option($args['input_name']);
-    $type = $args['input_type']; 
-    $size = $args['input_size']; 
-    $description = $args['description']; 
+    $type = $args['input_type'];
+    $size = $args['input_size'];
+    $description = $args['description'];
     $id = $name = $args['input_name'];?>
 
 	<input type="<?= $type ?>" name="<?= $name ?>" id="<?= $id ?>" value="<?= $value ?>" size="<?= $size ?>" />
-    <p class="description"><?= $description ?></p><?php 
+    <p class="description"><?= $description ?></p><?php
 }
 endsnippet
 
-snippet wp-asetting "An individual WordPress setting" 
+snippet wp-asetting "An individual WordPress setting"
 add_settings_field(
 	'$1', // Setting name
 	'$2', // Setting Label
@@ -190,7 +190,7 @@ $0
 register_setting( '$9', 'i$1' );
 endsnippet
 
-snippet wp-post "A Custom WordPress Post Type" 
+snippet wp-post "A Custom WordPress Post Type"
 // Add custom post type $1
 add_action( 'init', function() {
     register_post_type( '$2', array (
@@ -209,12 +209,12 @@ add_action( 'init', function() {
             'rewrite' => ${13:false},
             'has_archive' => ${14:false},
             'supports' => array(${15:'title', 'thumbnail'}),
-        ) ); 
+        ) );
 });
 ${16:
 // $2()
 //    ${17:returns the string for }
-function $2() { 
+function $2() {
     $$2 = '<div>';
 
     query_posts('post_type=$2');
@@ -236,10 +236,10 @@ function the_$2() { echo $2(); }
 $0
 endsnippet
 
-snippet wp-function "Creates a WordPress function for templates" 
+snippet wp-function "Creates a WordPress function for templates"
 // get_$1()
 //    returns the string for the ${2:$1}
-function get_$1() { 
+function get_$1() {
     ${3:$${4:$1} = ${5:get_option('${6:$1}');}}
 	$7
     return $$4;
@@ -262,27 +262,27 @@ add_filter('login_headertitle', function() { return ${6:get_bloginfo('descriptio
 $0
 add_filter('login_redirect', function( $redirect_to, $request, $user ) {
     if ( isset( $user->roles ) && is_array( $user->roles ) ) {
-        if( in_array('administrator', $user->roles)) { return admin_url(); } 
+        if( in_array('administrator', $user->roles)) { return admin_url(); }
     }
     return $redirect_to;
 }, 10, 3);
 endsnippet
 
-snippet wp-menu "Creates a WordPress Menu" 
-add_action('init', function() { 
+snippet wp-menu "Creates a WordPress Menu"
+add_action('init', function() {
     register_nav_menu('${1:slug}', __('${2:Human Name}'));
 });
 
 function ${3:get_the_nav_menu}( $depth = 1 ) {
     if ( has_nav_menu( '$1' ) ) {
-        return wp_nav_menu( array( 
+        return wp_nav_menu( array(
             'container'       => false,
             'depth'           => $depth,
             'theme_location'  => '$1',
             'items_wrap'      => '%3$s',
             'walker'          => new ${4:NavWalker}(),
             'echo'            => ${5:false},
-        ) ); 
+        ) );
     }
 }
 function ${6:the_nav_menu}( $depth = 1 ) { echo $3( $depth ); }
@@ -349,7 +349,7 @@ class $4 extends Walker_Nav_Menu {
 }
 endsnippet
 
-snippet wp_woocommerce "Adds Woocommerce Support" 
+snippet wp_woocommerce "Adds Woocommerce Support"
 // Declare woocommerce support in this theme
 add_action('after_setup_theme', function(){ add_theme_support('woocommerce'); });
 $0
@@ -358,12 +358,12 @@ endsnippet
 snippet wp_woo_image "Woocommerce placeholder image."
 // Set the placeholder image
 add_filter('woocommerce_placeholder_img_src', function($src) {
-    return get_template_directory_uri() . '/images/lg-container.png'; 
+    return get_template_directory_uri() . '/images/lg-container.png';
 });
 $0
 endsnippet
 
-snippet wp_woo_optimize "Optimize Woocommerce Sites" 
+snippet wp_woo_optimize "Optimize Woocommerce Sites"
 ////////////////////////////////////////////////////////////
 //// Optimize Woocommerce Scripts
 
