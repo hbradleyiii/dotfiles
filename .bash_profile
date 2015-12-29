@@ -43,11 +43,19 @@
 
 ## SECTION: Exports {{{1
 if [[ $EXPORTS_SET != 1 ]] ; then
+    export CDPATH='.:..:~/'
+    export EDITOR=vim
+    export EXPORTS_SET=1
     export PATH=$PATH:~/.envi/bin
     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
     export PYTHONSTARTUP=~/.pythonrc.py
-    export CDPATH='.:..:~/'
-    export EXPORTS_SET=1
+    if [ -n "$DISPLAY" ]; then
+        export BROWSER=chrome
+        export VISUAL=gvim
+    else
+        export BROWSER=links
+        export VISUAL=vim
+    fi
 fi
 # }}}
 
