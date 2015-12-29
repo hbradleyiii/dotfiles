@@ -309,10 +309,15 @@ function! Load_the_view()
     endif
 endfunction
 
-" Remove all trailing whitespace before saving
-autocmd BufWritePre * :%s/\s\+$//e
-" Replace tabs with spaces before saving
-autocmd BufWritePre * :1,$retab<CR>
+augroup general_edit_group
+    autocmd!
+    autocmd BufWritePre * :let b:winview=winsaveview()
+    " Remove all trailing whitespace before saving
+    autocmd BufWritePre * :%s/\s\+$//e
+    " Replace tabs with spaces before saving
+    autocmd BufWritePre * :1,$retab<CR>
+    autocmd BufWritePre * :call winrestview(b:winview)
+augroup END
 
 " Press F4 to toggle the diff of currently open buffers/splits.
 noremap <F4> :call DiffMe()<CR>
