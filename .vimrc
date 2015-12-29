@@ -135,6 +135,9 @@ endif
 if !isdirectory($HOME . "/.vim/.undo")
     call mkdir($HOME . "/.vim/.undo", "p")
 endif
+if !isdirectory($HOME . "/.vim/.viewdir")
+    call mkdir($HOME . "/.vim/.viewdir", "p")
+endif
 
 set backup
 set writebackup
@@ -145,6 +148,7 @@ set undoreload=10000
 set backupdir=~/.vim/.backup//
 set directory=~/.vim/.swap//
 set undodir=~/.vim/.undo//
+set viewdir=~/.vim/.viewdir//
 
 set encoding=utf8
 set ffs=unix,dos,mac
@@ -290,6 +294,20 @@ nnoremap <leader>s :mksession<CR>
 " }}}
 
     " Functions and AutoCommands " {{{
+
+" Reopen files on last used line
+autocmd BufLeave,BufWrite,WinLeave * :call Make_the_view()
+function! Make_the_view()
+    if expand('%') != '' && &buftype !~ 'nofile'
+        mkview
+    endif
+endfunction
+autocmd BufEnter * :call Load_the_view()
+function! Load_the_view()
+    if expand('%') != '' && &buftype !~ 'nofile'
+        silent loadview
+    endif
+endfunction
 
 " Remove all trailing whitespace before saving
 autocmd BufWritePre * :%s/\s\+$//e
