@@ -294,7 +294,7 @@ nnoremap <leader>s :mksession<CR>
 
     " Functions and AutoCommands " {{{
 
-" Reopen files on last used line
+"" Reopen files on last used line
 autocmd BufLeave,BufWrite,WinLeave * :call Make_the_view()
 function! Make_the_view()
     if expand('%') != '' && &buftype !~ 'nofile'
@@ -308,6 +308,7 @@ function! Load_the_view()
     endif
 endfunction
 
+"" General file edits and cleanup
 augroup general_edit_group
     autocmd!
     autocmd BufWritePre * :let b:winview=winsaveview()
@@ -315,10 +316,11 @@ augroup general_edit_group
     autocmd BufWritePre * :%s/\s\+$//e
     " Replace tabs with spaces before saving
     autocmd BufWritePre * :1,$retab<CR>
+    autocmd BufWritePre * :call PromptSetUnixLineEndings()
     autocmd BufWritePre * :call winrestview(b:winview)
 augroup END
 
-" Press F4 to toggle the diff of currently open buffers/splits.
+"" Tooggle the diff of currently open buffers/splits.
 noremap <F4> :call DiffMe()<CR>
 let $diff_me=0
 function! DiffMe()
