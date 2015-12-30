@@ -320,6 +320,16 @@ augroup general_edit_group
     autocmd BufWritePre * :call winrestview(b:winview)
 augroup END
 
+"" Prompt to change line endings to Unix format
+function! PromptSetUnixLineEndings()
+    if &fileformat != 'unix'
+        let l:prompt = input('Change line endings to Unix format? [n] ')
+        if l:prompt == 'y' || 'Y'
+            set fileformat=unix
+        endif
+    endif
+endfunction
+
 "" Tooggle the diff of currently open buffers/splits.
 noremap <F4> :call DiffMe()<CR>
 let $diff_me=0
