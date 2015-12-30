@@ -227,7 +227,6 @@ vmap <C-c> "*y
 map <C-x> "*dd<Esc>
 vmap <C-x> "*d
 map <leader>v "*p
-imap <C-s> <Esc>:w<CR>
 map <F1> :tab help <CR>
 
 "" Movement Mods
@@ -332,13 +331,24 @@ function! DiffMe()
     endif
 endfunction
 
-"" Mapping to sudo write (without unnecessary prompts and output)
-cnoremap ws exec SudoWrite()
+"" Write function to check for write access and SudoWrite if necessary
+noremap <C-s> W
+command! W call Write()
+function! Write()
+    if filewritable(expand('%:p'))
+        write
+    else
+        call SudoWrite()
+    endif
+endfunction
+
+"" Mapping for sudo write (without unnecessary prompts and output)
+cnoremap ws call SudoWrite()
 function! SudoWrite()
-    :set bt=nowrite
-    :w !sudo tee % >/dev/null
-    :e
-    :set bt=
+    set bt=nowrite
+    silent write !sudo tee % >/dev/null
+    edit
+    set bt=
 endfunction
 
 " Follow symlinked file
