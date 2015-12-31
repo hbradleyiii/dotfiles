@@ -326,6 +326,7 @@ function! PromptSetUnixLineEndings()
         let l:prompt = input('Change line endings to Unix format? [n] ')
         if l:prompt == 'y' || 'Y'
             set fileformat=unix
+            execute '%s//\r/ge'
         endif
     endif
 endfunction
