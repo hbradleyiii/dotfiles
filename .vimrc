@@ -57,8 +57,10 @@ endif " }}}
 
 "" CtrlP
 let g:ctrlp_match_window = 'bottom,order:ttb'
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
+let g:ctrlp_switch_buffer = 'Et'
+let g:ctrlp_working_path_mode = 'rwc'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+map <leader>p :CtrlP<CR>
 
 "" Fugitive
 nmap <silent> <leader>ga :Git add %<cr>
