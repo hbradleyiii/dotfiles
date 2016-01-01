@@ -348,12 +348,29 @@ endfunction
 
 "" Write function to check for write access and SudoWrite if necessary
 noremap <C-s> W
+cnoremap w W
 command! W call Write()
 function! Write()
-    if filewritable(expand('%:p'))
-        write
+    if !filewritable(expand('%:p'))
+        if !exists('b:write_with_sudo')
+            let l:prompt = input('File is not writable. Use sudo? [n] ')
+            if l:prompt == 'y' || 'Y'
+                let b:write_with_sudo = 'y'
+                call SudoWrite()
+                set noro
+                " If write_with_sudo is set, when entering buffer, unset RO flag
+                autocmd BufEnter * call CheckRO()
+                function! CheckRO()
+                    if exists('b:write_with_sudo')
+                        set noro
+                    endif
+                endfunction
+            endif
+        else
+            call SudoWrite()
+        endif
     else
-        call SudoWrite()
+        write
     endif
 endfunction
 
