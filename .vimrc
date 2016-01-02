@@ -244,11 +244,24 @@ noremap <Enter> o<Esc>
 nnoremap j gj
 nnoremap k gk
 
+" Keep visual selection when indenting text
+vmap > >gv
+vmap < <gv
+
+" Playback in register 'q' (record: qq)
+nnoremap Q @q
+
 " Make tg the opposite of gt
 noremap tg :tabprevious <CR>
 
 " Highlight last inserted text
 nnoremap gV `[v`]
+
+" Clone a paragraph
+noremap cp yap<S-}>p
+
+" Align current paragraph
+noremap <leader>a =ip
 
 " Forces creation of a file if it doesn't exist
 noremap gf :e <cfile><CR>
@@ -258,6 +271,12 @@ nnoremap <silent> <leader>f :e ./<CR>
 nnoremap <silent> <leader>b :bp<CR>
 nnoremap <silent> <leader>n :bn<CR>
 nnoremap <silent> <leader>m :b#<CR>
+
+" Ctrl mappings to change windows
+noremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
 
 "" 'e'dit 'v'imrc
 nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
@@ -286,6 +305,7 @@ nnoremap <leader>w :set wrap!<CR>
 nnoremap <Space> :set hlsearch!<CR>
 nnoremap <leader><Space> :set paste!<CR>
 nnoremap <leader>. :set relativenumber!<CR>
+"nnoremap <C-Space> Use for next option toggle
 
 " Spellcheck
 noremap <F8> :set invspell<CR>
