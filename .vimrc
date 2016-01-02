@@ -224,74 +224,76 @@ vnoremap <leader>, ,
 
 "" Windows-like mods
 " TODO: Should this be * or +?
-map <C-c> "*
-vmap <C-c> "*y
-map <C-x> "*dd<Esc>
-vmap <C-x> "*d
-map <leader>v "*p
-map <F1> :tab help <CR>
+noremap <leader>c "*
+noremap <C-c> "*
+vnoremap <C-c> "*y
+noremap <leader>x "*
+noremap <C-x> "*
+vnoremap <C-x> "*d
+noremap <leader>v "*p
+noremap <F1> :tab help <CR>
 
 "" Movement Mods
-nmap gg ggzz
+nnoremap gg ggzz
     " jj Escape in insert mode
-imap jj <Esc>
-imap hh <Esc>^i
-imap kk <Esc>$a
-map <Enter> o<Esc>
+inoremap jj <Esc>
+inoremap hh <Esc>^i
+inoremap kk <Esc>$a
+noremap <Enter> o<Esc>
 " Natural up and down movements
 nnoremap j gj
 nnoremap k gk
 
 " Make tg the opposite of gt
-map tg :tabprevious <CR>
+noremap tg :tabprevious <CR>
 
 " Highlight last inserted text
-nmap gV `[v`]
+nnoremap gV `[v`]
 
 " Forces creation of a file if it doesn't exist
-map gf :e <cfile><CR>
+noremap gf :e <cfile><CR>
 
-" In windows, run command under cursor
-map <leader>of :!start cmd /c <cfile><CR>
-
-" Execute in vim the line under the cursor
-map <leader>ex yy:@"<CR>
-
-"" Option Toggles
-nmap <leader>l :set list!<CR>
-nmap <leader>w :set wrap!<CR>
-nmap <Space> :set hlsearch!<CR>
-nmap <leader><Space> :set paste!<CR>
-nmap <leader>. :set relativenumber!<CR>
-
-" Spellcheck
-map <F8> :set invspell<CR>
-
-"" Editing Keymappings
-" Remove trailing spaces
-nmap <silent> ,ss :%s/\s\+$//<Enter>
-" TODO: Set up retabbing on a source file
-nmap  ,rr :1,$retab<CR>
-
-" Insert timestamp
-nmap <F3> a<C-R>=strftime("%b %d, %Y %H:%M")<CR><Esc>
-imap <F3> <C-R>=strftime("%b %d, %Y %H:%M %p")<CR>
-
-nmap <silent> <leader>f :e ./<CR>
-nmap <silent> <leader>b :bp<CR>
-nmap <silent> <leader>n :bn<CR>
-nmap <silent> <leader>m :b#<CR>
+" Moving in the buffer
+nnoremap <silent> <leader>f :e ./<CR>
+nnoremap <silent> <leader>b :bp<CR>
+nnoremap <silent> <leader>n :bn<CR>
+nnoremap <silent> <leader>m :b#<CR>
 
 "" 'e'dit 'v'imrc
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
-nmap <silent> <leader>ev :tabedit ~/.vimrc<CR>
+nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
+nnoremap <silent> <leader>ev :tabedit ~/.vimrc<CR>
 
 "" 'e'dit 'b'ashrc
-nmap <silent> <leader>sb :!rebash<CR>
-nmap <silent> <leader>eb :tabedit ~/.bashrc<CR>
+nnoremap <silent> <leader>sb :!rebash<CR>
+nnoremap <silent> <leader>eb :tabedit ~/.bashrc<CR>
 
 "" save session
 nnoremap <leader>s :mksession<CR>
+
+" Insert timestamp
+nnoremap <F3> a<C-R>=strftime("%b %d, %Y %H:%M")<CR><Esc>
+inoremap <F3> <C-R>=strftime("%b %d, %Y %H:%M %p")<CR>
+
+"" Editing Keymappings
+" Remove trailing spaces
+nnoremap <silent> ,ss :%s/\s\+$//<Enter>
+" TODO: Set up retabbing on a source file
+nnoremap  ,rr :1,$retab<CR>
+
+"" Option Toggles
+nnoremap <leader>l :set list!<CR>
+nnoremap <leader>w :set wrap!<CR>
+nnoremap <Space> :set hlsearch!<CR>
+nnoremap <leader><Space> :set paste!<CR>
+nnoremap <leader>. :set relativenumber!<CR>
+
+" Spellcheck
+noremap <F8> :set invspell<CR>
+
+" Execute in vim the line under the cursor
+noremap <leader>ex yy:@"<CR>
+" In windows, run command under cursor
+noremap <leader>ew :!start cmd /c <cfile><CR>
 " }}}
 
     " Functions and AutoCommands " {{{
