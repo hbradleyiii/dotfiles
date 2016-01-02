@@ -60,21 +60,21 @@ let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 'Et'
 let g:ctrlp_working_path_mode = 'rwc'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-map <leader>p :CtrlP<CR>
+noremap <leader>p :CtrlP<CR>
 
 "" Fugitive
-nmap <silent> <leader>ga :Git add %<cr>
-nmap <silent> <leader>gc :Gcommit<cr>
-nmap <silent> <leader>gl :Git log<cr>
-nmap <silent> <leader>gs :Gstatus<cr>
-nmap <silent> <leader>gp :Gpull<cr>:Gpush<cr>
+noremap <silent> <leader>ga :Git add %<cr>
+noremap <silent> <leader>gc :Gcommit<cr>
+noremap <silent> <leader>gl :Git log<cr>
+noremap <silent> <leader>gs :Gstatus<cr>
+noremap <silent> <leader>gp :Gpull<cr>:Gpush<cr>
 
 " Gundo
 nnoremap <leader>u :GundoToggle<CR>
 
 "" NerdTree
-map <leader>nt :NERDTreeToggle <CR>
-map <F2> :NERDTreeToggle <CR>
+noremap <leader>nt :NERDTreeToggle <CR>
+noremap <F2> :NERDTreeToggle <CR>
 
 "" Syntastic
 let g:syntastic_csslint_args="--ignore=universal-selector"
@@ -87,14 +87,14 @@ let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-nmap <silent> <leader>es :UltiSnipsEdit<cr>
+nnoremap <silent> <leader>es :UltiSnipsEdit<cr>
 
 "" Vdebug
-cmap eval :VdebugEval<cr>
-cmap vd VdebugStart<cr>
+cnoremap eval :VdebugEval<cr>
+cnoremap vd VdebugStart<cr>
 
 "" Vundle
-nmap <silent> <leader>pi :PluginClean<CR>:q<CR>:PluginInstall<CR>:q<CR>
+nnoremap <silent> <leader>pi :PluginClean<CR>:q<CR>:PluginInstall<CR>:q<CR>
 
 " }}} }}}
 
@@ -235,7 +235,7 @@ noremap <F1> :tab help <CR>
 
 "" Movement Mods
 nnoremap gg ggzz
-    " jj Escape in insert mode
+" jj Escape in insert mode
 inoremap jj <Esc>
 inoremap hh <Esc>^i
 inoremap kk <Esc>$a
