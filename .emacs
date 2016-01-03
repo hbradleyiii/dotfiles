@@ -109,6 +109,7 @@
     (setq deft-directory "~/journal")
     (setq deft-use-filename-as-title t)
     (setq deft-recursive t)))
+(evil-set-initial-state 'deft-mode 'emacs)
 
 (use-package helm :ensure t)
 (use-package projectile :ensure t)
