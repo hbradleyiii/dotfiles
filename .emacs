@@ -17,6 +17,25 @@
                          ("org" . "http://orgmode.org/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")))
 
+(setq org-agenda-files '("~/journal"))
+(setq org-todo-keywords
+      '((sequence "TODO" "WAITING" "|" "DONE")
+        (sequence "TO-READ" "QUEUE" "READING" "NOTATE" "|" "READ" )
+        (sequence "|" "CANCELED")))
+(setq org-todo-keyword-faces
+      '(("TODO" . org-warning)
+        ("TO-READ" . org-warning)
+        ("QUEUE" . (:foreground "yellow" :weight bold))
+        ("WAITING" . (:foreground "yellow" :weight bold))
+        ("NOTATE" . (:foreground "yellow" :weight bold))
+        ("READING" . (:foreground "green" :weight bold))
+        ("READ" . org-done)
+        ("DONE" . org-done)
+        ("CANCELED" . (:foreground "red" :weight bold))))
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cc" 'org-capture)
+
+
 (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
