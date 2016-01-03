@@ -54,11 +54,9 @@
       :init
       :config
       (progn
-	(evil-leader/set-leader ",")
-	(evil-leader/set-key "w" 'save-buffer)
-	(evil-leader/set-key "q" 'kill-buffer-and-window)
-	)
-      )
+       (evil-leader/set-leader ",")
+       (evil-leader/set-key "w" 'save-buffer)
+       (evil-leader/set-key "q" 'kill-buffer-and-window)))
 
 (use-package evil-tabs :ensure t)
 (global-evil-tabs-mode t)
