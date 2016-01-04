@@ -160,7 +160,7 @@ set cryptmethod=blowfish
 
     "" Tabs/Indent Settings ""
 set autoindent
-set smartindent " TODO: I'm not sure about this one...
+"set smartindent " TODO: I'm not sure about this one...
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -371,6 +371,7 @@ endfunction
 "" Write function to check for write access and SudoWrite if necessary
 noremap <C-s> W
 cnoremap w W
+" TODO: cnoremap Wq W<CR>q<CR>
 command! W call Write()
 function! Write()
     if !filewritable(expand('%:p'))
@@ -397,7 +398,7 @@ function! Write()
 endfunction
 
 "" Mapping for sudo write (without unnecessary prompts and output)
-cnoremap ws call SudoWrite()
+cnoremap w!! call SudoWrite()
 function! SudoWrite()
     set bt=nowrite
     silent write !sudo tee % >/dev/null

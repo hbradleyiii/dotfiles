@@ -6,6 +6,23 @@
 ;;      http://pragmaticemacs.com/
 ;; See also: http://juanjoalvarez.net/es/detail/2014/sep/19/vim-emacsevil-chaotic-migration-guide/
 ;;
+;;
+
+(if (not (file-exists-p "~/.backups"))
+        (make-directory "~/.backups" t))
+(setq
+    auto-save-default t
+    auto-save-timeout 20
+    auto-save-interval 200
+    auto-save-file-name-transforms
+        '(("." ,"~/.backups" t))
+    backup-by-copying t      ; don't clobber symlinks
+    backup-directory-alist
+        '(("." . "~/.backups"))
+    delete-old-versions t
+    kept-new-versions 6
+    kept-old-versions 2
+    version-control t)       ; use versioned backups
 
 (require 'package)
 (package-initialize)
