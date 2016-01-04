@@ -184,13 +184,15 @@ scroll-step 1)
 (set-frame-font "Pragmata TT 14" nil t)
 (setq-default tab-width 4 indent-tabs-mode nil)
 (define-key global-map (kbd "RET") 'newline-and-indent)
-(show-paren-mode t)
 
 
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (visual-line-mode 1)
+(global-linum-mode 1)
+(column-number-mode 1)
+(show-paren-mode t)
 
 (linum-mode)
 
