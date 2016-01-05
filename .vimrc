@@ -193,10 +193,11 @@ if has('gui_running') " Set up the gui for GVim
     set guicursor+=i-ci:ver25-Cursor
     set guicursor+=r-cr:hor20-Cursor
     set guicursor+=sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
-    set guifont=Monaco:h18
-    set guifont=Pragmata:h18
+    set guifont=Pragmata\ 14
     set guioptions=acer
     set ttyfast
+    " Does this have consequences?
+    set nolazyredraw
 endif
 
 if &t_Co >= 256 || has("gui_running") " For 256color Terminals or GVim
