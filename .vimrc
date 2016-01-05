@@ -6,23 +6,23 @@
 
 set nocompatible
 
-    " Plugins " {{{
+    " - PLUGINS {{{
 
-filetype off " Required
+filetype off  " Required
 
 " Set the runtime path to include Vundle
 set rtp+=~/.vim/bundle/Vundle.vim
 
-" Plugin List {{{
+    " -- Plugin List {{{
 " Install Vundle if it isn't already installed {{{
 let g:InstallVundlePlugins = 0
 if empty(glob("~/.vim/bundle/Vundle.vim"))
     execute "!git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
     let g:InstallVundlePlugins = 1
-endif " }}}
+endif  " }}}
 
-call vundle#begin() " Vundle Initialization
-Plugin 'gmarik/Vundle.vim' " Let Vundle manage Vundle, required
+call vundle#begin()  " Vundle Initialization
+Plugin 'gmarik/Vundle.vim'  " Let Vundle manage Vundle, required
 
 Plugin 'alfredodeza/pytest.vim'
 Plugin 'altercation/vim-colors-solarized'
@@ -45,15 +45,15 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'vim-scripts/timestamp.vim'
-call vundle#end() " Must be AFTER plugin list
+call vundle#end()  " Must be AFTER plugin list
 
 " If this is a fresh install, install all initialized plugins {{{
 if g:InstallVundlePlugins == 1
     execute 'VundleInstall'
-endif " }}}
+endif  " }}}
 " }}}
 
-    "" Plugin Options/Keybindings "" {{{
+    " -- Plugin Options/Keybindings {{{
 
 "" CtrlP
 let g:ctrlp_match_window = 'bottom,order:ttb'
@@ -96,10 +96,11 @@ cnoremap vd VdebugStart<cr>
 "" Vundle
 nnoremap <silent> <leader>pi :PluginClean<CR>:q<CR>:PluginInstall<CR>:q<CR>
 
-" }}} }}}
+" }}}
+" }}}
 
-    " General Vim Options " {{{
-
+    " - VIM OPTIONS {{{
+    " -- General Options {{{
 set title
 set showcmd
 set history=1000
@@ -109,7 +110,7 @@ set ofu=syntaxcomplete#Complete
 set lazyredraw
 set scrolloff=2
 set virtualedit=all
-set fillchars="" " separator chars
+set fillchars=""  " separator chars
 set mousehide
 
 set shellslash
@@ -126,8 +127,9 @@ set stl=%h%w%m\ %f\ %r\ (b:%n)\ %=%30(Line:\ %l/%L\ [%p%%]\ %)%8(Col:%3c\ %)%13(
 set laststatus=2
 set number
 set ruler
+" }}}
 
-    "" File Settings ""
+    " -- File Settings {{{
 if !isdirectory($HOME . "/.vim/.backup")
     call mkdir($HOME . "/.vim/.backup", "p")
 endif
@@ -157,10 +159,11 @@ set ffs=unix,dos,mac
 set hidden
 set autochdir
 set cryptmethod=blowfish
+" }}}
 
-    "" Tabs/Indent Settings ""
+    " -- Tabs/Indent Settings {{{
 set autoindent
-"set smartindent " TODO: I'm not sure about this one...
+"set smartindent  " TODO: I'm not sure about this one...
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -169,22 +172,22 @@ set backspace=2
 set showbreak=»»
 " TODO: fix for terminals:
 set listchars=tab:>-,eol:¬,trail:•,extends:»,precedes:«,nbsp:·
+" }}}
 
-    "" Searching ""
+    " -- Searching {{{
 set wrapscan
 set ignorecase
 set smartcase
 set hlsearch
 set incsearch
+" }}}
 
-
-    "" Filetype & Syntax Highlighting ""
-
+    " -- Syntax Highlighting {{{
 " colorscheme must be AFTER this!
 filetype plugin indent on
 syntax on
 
-if has('gui_running') " Set up the gui for GVim
+if has('gui_running')  " Set up the gui for GVim
     set cursorline
     " Set the cursor for various modes
     set guicursor=n-v-c:block-Cursor-blinkon0
@@ -196,11 +199,10 @@ if has('gui_running') " Set up the gui for GVim
     set guifont=Pragmata\ 14
     set guioptions=acer
     set ttyfast
-    " Does this have consequences?
-    set nolazyredraw
+    set nolazyredraw  " Does this have consequences?
 endif
 
-if &t_Co >= 256 || has("gui_running") " For 256color Terminals or GVim
+if &t_Co >= 256 || has("gui_running")  " For 256color Terminals or GVim
     set background=dark
     let g:solarized_termcolors=256
     let g:solarized_termtrans=1
@@ -213,17 +215,16 @@ if &t_Co >= 256 || has("gui_running") " For 256color Terminals or GVim
     match OverLength /\%81v./
 endif
 " }}}
+" }}}
 
-    " KEY MAPPINGS " {{{
-
-"" Leader key
-" By default ',' just repeats latest f, t, F or T in opposite direction
-let mapleader=","
+    " - KEY MAPPINGS {{{
+" Leader key
+let mapleader=","  " By default ',' just repeats latest f, t, F or T in opposite direction
 " Map ,, to do what ',' used to do
 nnoremap <leader>, ,
 vnoremap <leader>, ,
 
-"" Windows-like mods
+" Windows-like mods
 " TODO: Should this be * or +?
 noremap <leader>c "*
 noremap <C-c> "*
@@ -234,7 +235,7 @@ vnoremap <C-x> "*d
 noremap <leader>v "*p
 noremap <F1> :tab help <CR>
 
-"" Movement Mods
+" Movement Mods
 nnoremap gg ggzz
 " jj Escape in insert mode
 inoremap jj <Esc>
@@ -279,29 +280,27 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 
-"" 'e'dit 'v'imrc
+" 'e'dit 'v'imrc
 nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
 nnoremap <silent> <leader>ev :tabedit ~/.vimrc<CR>
 nnoremap <silent> <leader>ee :tabedit ~/.emacs<CR>
-
-"" 'e'dit 'b'ashrc
+" 'e'dit 'b'ashrc
 nnoremap <silent> <leader>sb :!rebash<CR>
 nnoremap <silent> <leader>eb :tabedit ~/.bashrc<CR>
 
-"" save session
+" save session
 nnoremap <leader>s :mksession<CR>
 
 " Insert timestamp
 nnoremap <F3> a<C-R>=strftime("%b %d, %Y %H:%M")<CR><Esc>
 inoremap <F3> <C-R>=strftime("%b %d, %Y %H:%M %p")<CR>
 
-"" Editing Keymappings
+" Editing Keymappings
 " Remove trailing spaces
 nnoremap <silent> ,ss :%s/\s\+$//<Enter>
-" TODO: Set up retabbing on a source file
 nnoremap  ,rr :1,$retab<CR>
 
-"" Option Toggles
+" Option Toggles
 nnoremap <leader>l :set list!<CR>
 nnoremap <leader>w :set wrap!<CR>
 nnoremap <Space> :set hlsearch!<CR>
@@ -318,9 +317,9 @@ noremap <leader>ex yy:@"<CR>
 noremap <leader>ew :!start cmd /c <cfile><CR>
 " }}}
 
-    " Functions and AutoCommands " {{{
+    " - FUNCTIONS AND AUTOCOMMANDS {{{
 
-"" Reopen files on last used line
+    " -- Reopen files on last used line {{{
 autocmd BufLeave,BufWrite,WinLeave * :call Make_the_view()
 function! Make_the_view()
     if expand('%') != '' && &buftype !~ 'nofile'
@@ -333,8 +332,9 @@ function! Load_the_view()
         silent loadview
     endif
 endfunction
+" }}}
 
-"" General file edits and cleanup
+    " -- General file edits and cleanup {{{
 augroup general_edit_group
     autocmd!
     autocmd BufWritePre * :let b:winview=winsaveview()
@@ -345,8 +345,9 @@ augroup general_edit_group
     autocmd BufWritePre * :call PromptSetUnixLineEndings()
     autocmd BufWritePre * :call winrestview(b:winview)
 augroup END
+" }}}
 
-"" Prompt to change line endings to Unix format
+    " -- Prompt to change line endings to Unix format {{{
 function! PromptSetUnixLineEndings()
     if &fileformat != 'unix'
         let l:prompt = input('Change line endings to Unix format? [n] ')
@@ -356,8 +357,9 @@ function! PromptSetUnixLineEndings()
         endif
     endif
 endfunction
+" }}}
 
-"" Tooggle the diff of currently open buffers/splits.
+    " -- Toggle the diff of currently open buffers/splits {{{
 noremap <F4> :call DiffMe()<CR>
 let $diff_me=0
 function! DiffMe()
@@ -369,8 +371,9 @@ function! DiffMe()
     let $diff_me=1
     endif
 endfunction
+" }}}
 
-"" Write function to check for write access and SudoWrite if necessary
+    " -- Write function to check for write access and SudoWrite if necessary {{{
 noremap <C-s> W
 command! W call Write()
 function! Write()
@@ -396,8 +399,9 @@ function! Write()
         write
     endif
 endfunction
+" }}}
 
-"" Mapping for sudo write (without unnecessary prompts and output)
+    " -- Mapping for sudo write (without unnecessary prompts and output) {{{
 cnoremap w!! call SudoWrite()
 function! SudoWrite()
     set bt=nowrite
@@ -405,8 +409,9 @@ function! SudoWrite()
     edit
     set bt=
 endfunction
+" }}}
 
-" Follow symlinked file
+    " -- Follow symlinked file {{{
 " Adapted from:
 " http://inlehmansterms.net/2014/09/04/sane-vim-working-directories/
 " Changes the working directory to be that of the actual file.
@@ -422,6 +427,7 @@ function! FollowSymlink()
   end
 endfunction
 autocmd BufRead * call FollowSymlink()
+" }}}
 " }}}
 
 " vim:set fdm=marker:
