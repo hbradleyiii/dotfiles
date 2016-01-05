@@ -282,6 +282,7 @@ noremap <C-k> <C-w>k
 "" 'e'dit 'v'imrc
 nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
 nnoremap <silent> <leader>ev :tabedit ~/.vimrc<CR>
+nnoremap <silent> <leader>ee :tabedit ~/.emacs<CR>
 
 "" 'e'dit 'b'ashrc
 nnoremap <silent> <leader>sb :!rebash<CR>
