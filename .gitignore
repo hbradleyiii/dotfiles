@@ -1,5 +1,6 @@
 .vim/.backup
 .vim/bundle
+.vim/.netrwhist
 .vim/.swap
 .vim/.undo
 .vim/.viewdir
