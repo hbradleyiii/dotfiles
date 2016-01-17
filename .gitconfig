@@ -34,7 +34,7 @@
     untracked = red
 [core]
     editor = vim
-    excludesfile = ~/.gitignore
+    excludesfile = ~/.gitignore_default
     ui = true
     whitespace = cr-at-eol
 [diff]
