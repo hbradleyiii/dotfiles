@@ -1,6 +1,6 @@
 [user]
-	name = Harold Bradley III
-	email = hbradleyiii@bradleystudio.net
+    name = Harold Bradley III
+    email = hbradleyiii@bradleystudio.net
 [alias]
     ac = !git add . && git commit -m
     amend = commit --amend -m
@@ -33,14 +33,14 @@
     changed = yellow
     untracked = red
 [core]
-	editor = vim
-    excludesfile = '~/.gitignore'
-	ui = true
-	whitespace = cr-at-eol
+    editor = vim
+    excludesfile = ~/.gitignore
+    ui = true
+    whitespace = cr-at-eol
 [diff]
-	renames = copies
+    renames = copies
     mnemonicprefix = true
 [push]
-	default = matching
+    default = matching
 [url "https://github.com/"]
     insteadOf = gh:
