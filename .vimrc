@@ -6,6 +6,108 @@
 
 set nocompatible
 
+    " - KEY MAPPINGS {{{
+" Leader key
+let mapleader=","  " By default ',' just repeats latest f, t, F or T in opposite direction
+" Map ,, to do what ',' used to do
+nnoremap <leader>, ,
+vnoremap <leader>, ,
+
+" Windows-like mods
+" TODO: Should this be * or +?
+noremap <leader>c "*
+noremap <C-c> "*
+vnoremap <C-c> "*y
+noremap <leader>x "*
+noremap <C-x> "*
+vnoremap <C-x> "*d
+noremap <leader>v "*p
+noremap <F1> :tab help <CR>
+
+" Movement Mods
+nnoremap gg ggzz
+" jj Escape in insert mode
+inoremap jj <ESC>
+inoremap hh <ESC>^i
+inoremap kk <ESC>$a
+noremap <Enter> o<ESC>
+" Natural up and down movements
+nnoremap j gj
+nnoremap k gk
+
+" Keep visual selection when indenting text
+vmap > >gv
+vmap < <gv
+
+" Playback in register 'q' (record: qq)
+nnoremap Q @q
+
+" Make tg the opposite of gt
+noremap tg :tabprevious <CR>
+
+" Highlight last inserted text
+nnoremap gV `[v`]
+
+" Clone a paragraph
+noremap cp yap<S-}>p
+
+" Align current paragraph
+noremap <leader>a =ip
+
+" Forces creation of a file if it doesn't exist
+noremap gf :e <cfile><CR>
+
+" Moving in the buffer
+noremap <silent> <leader>f :e ./<CR>
+noremap <silent> <leader>b :bp<CR>
+noremap <silent> <leader>n :bn<CR>
+noremap <silent> <leader>m :b#<CR>
+
+" Ctrl mappings to change windows
+noremap <C-l> <C-w>l
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+
+" 'e'dit 'v'imrc
+noremap <silent> <leader>sv :so $MYVIMRC<CR>
+noremap <silent> <leader>ev :tabedit ~/.vimrc<CR>
+noremap <silent> <leader>ee :tabedit ~/.emacs<CR>
+" 'e'dit 'b'ashrc
+noremap <silent> <leader>sb :!rebash<CR>
+noremap <silent> <leader>eb :tabedit ~/.bashrc<CR>
+
+" save session
+nnoremap <leader>s :mksession<CR>
+
+" Insert timestamp
+nnoremap <F3> a<C-R>=strftime("%b %d, %Y %H:%M")<CR><ESC>
+inoremap <F3> <C-R>=strftime("%b %d, %Y %H:%M %p")<CR>
+
+" Editing Keymappings
+" Remove trailing spaces
+noremap <silent> ,ss :%s/\s\+$//<Enter>
+noremap  ,rr :1,$retab<CR>
+
+" Option Toggles
+noremap <leader>l :set list!<CR>
+noremap <leader>w :set wrap!<CR>
+noremap <Space> :set hlsearch!<CR>
+noremap <leader><Space> :set paste!<CR>
+nnoremap <F6> :set paste!<CR>
+inoremap <F6> <ESC>:set paste!<CR>i
+noremap <leader>. :set relativenumber!<CR>
+"nnoremap <C-Space> Use for next option toggle
+
+" Spellcheck
+noremap <F8> :set invspell<CR>
+
+" Execute in vim the line under the cursor
+noremap <leader>ex yy:@"<CR>
+" In windows, run command under cursor
+noremap <leader>ew :!start cmd /c <cfile><CR>
+" }}}
+
     " - PLUGINS {{{
 
 filetype off  " Required
@@ -215,108 +317,6 @@ if &t_Co >= 256 || has("gui_running")  " For 256color Terminals or GVim
     match OverLength /\%81v./
 endif
 " }}}
-" }}}
-
-    " - KEY MAPPINGS {{{
-" Leader key
-let mapleader=","  " By default ',' just repeats latest f, t, F or T in opposite direction
-" Map ,, to do what ',' used to do
-nnoremap <leader>, ,
-vnoremap <leader>, ,
-
-" Windows-like mods
-" TODO: Should this be * or +?
-noremap <leader>c "*
-noremap <C-c> "*
-vnoremap <C-c> "*y
-noremap <leader>x "*
-noremap <C-x> "*
-vnoremap <C-x> "*d
-noremap <leader>v "*p
-noremap <F1> :tab help <CR>
-
-" Movement Mods
-nnoremap gg ggzz
-" jj Escape in insert mode
-inoremap jj <ESC>
-inoremap hh <ESC>^i
-inoremap kk <ESC>$a
-noremap <Enter> o<ESC>
-" Natural up and down movements
-nnoremap j gj
-nnoremap k gk
-
-" Keep visual selection when indenting text
-vmap > >gv
-vmap < <gv
-
-" Playback in register 'q' (record: qq)
-nnoremap Q @q
-
-" Make tg the opposite of gt
-noremap tg :tabprevious <CR>
-
-" Highlight last inserted text
-nnoremap gV `[v`]
-
-" Clone a paragraph
-noremap cp yap<S-}>p
-
-" Align current paragraph
-noremap <leader>a =ip
-
-" Forces creation of a file if it doesn't exist
-noremap gf :e <cfile><CR>
-
-" Moving in the buffer
-noremap <silent> <leader>f :e ./<CR>
-noremap <silent> <leader>b :bp<CR>
-noremap <silent> <leader>n :bn<CR>
-noremap <silent> <leader>m :b#<CR>
-
-" Ctrl mappings to change windows
-noremap <C-l> <C-w>l
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-
-" 'e'dit 'v'imrc
-noremap <silent> <leader>sv :so $MYVIMRC<CR>
-noremap <silent> <leader>ev :tabedit ~/.vimrc<CR>
-noremap <silent> <leader>ee :tabedit ~/.emacs<CR>
-" 'e'dit 'b'ashrc
-noremap <silent> <leader>sb :!rebash<CR>
-noremap <silent> <leader>eb :tabedit ~/.bashrc<CR>
-
-" save session
-nnoremap <leader>s :mksession<CR>
-
-" Insert timestamp
-nnoremap <F3> a<C-R>=strftime("%b %d, %Y %H:%M")<CR><ESC>
-inoremap <F3> <C-R>=strftime("%b %d, %Y %H:%M %p")<CR>
-
-" Editing Keymappings
-" Remove trailing spaces
-noremap <silent> ,ss :%s/\s\+$//<Enter>
-noremap  ,rr :1,$retab<CR>
-
-" Option Toggles
-noremap <leader>l :set list!<CR>
-noremap <leader>w :set wrap!<CR>
-noremap <Space> :set hlsearch!<CR>
-noremap <leader><Space> :set paste!<CR>
-nnoremap <F6> :set paste!<CR>
-inoremap <F6> <ESC>:set paste!<CR>i
-noremap <leader>. :set relativenumber!<CR>
-"nnoremap <C-Space> Use for next option toggle
-
-" Spellcheck
-noremap <F8> :set invspell<CR>
-
-" Execute in vim the line under the cursor
-noremap <leader>ex yy:@"<CR>
-" In windows, run command under cursor
-noremap <leader>ew :!start cmd /c <cfile><CR>
 " }}}
 
     " - FUNCTIONS AND AUTOCOMMANDS {{{
