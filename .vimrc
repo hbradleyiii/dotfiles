@@ -95,7 +95,7 @@ noremap <leader>w :set wrap!<CR>
 noremap <Space> :set hlsearch!<CR>
 noremap <leader><Space> :set paste!<CR>
 nnoremap <F6> :set paste!<CR>
-inoremap <F6> <ESC>:set paste!<CR>i
+inoremap <F6> <ESC>:set paste!<CR>a
 noremap <leader>. :set relativenumber!<CR>
 "nnoremap <C-Space> Use for next option toggle
 
@@ -189,7 +189,8 @@ let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-noremap <silent> <leader>es :UltiSnipsEdit<CR>
+noremap <leader>es :UltiSnipsEdit<CR>
+inoremap <leader>es <ESC>:UltiSnipsEdit<CR>
 
 "" Vdebug
 cnoremap eval :VdebugEval<CR>
