@@ -63,11 +63,11 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 noremap <leader>p :CtrlP<CR>
 
 "" Fugitive
-noremap <silent> <leader>ga :Git add %<cr>
-noremap <silent> <leader>gc :Gcommit<cr>
-noremap <silent> <leader>gl :Git log<cr>
-noremap <silent> <leader>gs :Gstatus<cr>
-noremap <silent> <leader>gp :Gpull<cr>:Gpush<cr>
+noremap <silent> <leader>ga :Git add %<CR>
+noremap <silent> <leader>gc :Gcommit<CR>
+noremap <silent> <leader>gl :Git log<CR>
+noremap <silent> <leader>gs :Gstatus<CR>
+noremap <silent> <leader>gp :Gpull<CR>:Gpush<CR>
 
 " Gundo
 noremap <leader>u :GundoToggle<CR>
@@ -87,11 +87,11 @@ let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-noremap <silent> <leader>es :UltiSnipsEdit<cr>
+noremap <silent> <leader>es :UltiSnipsEdit<CR>
 
 "" Vdebug
-cnoremap eval :VdebugEval<cr>
-cnoremap vd VdebugStart<cr>
+cnoremap eval :VdebugEval<CR>
+cnoremap vd VdebugStart<CR>
 
 "" Vundle
 noremap <silent> <leader>pi :PluginClean<CR>:q<CR>:PluginInstall<CR>:q<CR>
