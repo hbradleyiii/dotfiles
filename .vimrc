@@ -70,7 +70,7 @@ noremap <silent> <leader>gs :Gstatus<cr>
 noremap <silent> <leader>gp :Gpull<cr>:Gpush<cr>
 
 " Gundo
-nnoremap <leader>u :GundoToggle<CR>
+noremap <leader>u :GundoToggle<CR>
 
 "" NerdTree
 noremap <leader>nt :NERDTreeToggle <CR>
@@ -87,14 +87,14 @@ let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-nnoremap <silent> <leader>es :UltiSnipsEdit<cr>
+noremap <silent> <leader>es :UltiSnipsEdit<cr>
 
 "" Vdebug
 cnoremap eval :VdebugEval<cr>
 cnoremap vd VdebugStart<cr>
 
 "" Vundle
-nnoremap <silent> <leader>pi :PluginClean<CR>:q<CR>:PluginInstall<CR>:q<CR>
+noremap <silent> <leader>pi :PluginClean<CR>:q<CR>:PluginInstall<CR>:q<CR>
 
 " }}}
 " }}}
@@ -238,10 +238,10 @@ noremap <F1> :tab help <CR>
 " Movement Mods
 nnoremap gg ggzz
 " jj Escape in insert mode
-inoremap jj <Esc>
-inoremap hh <Esc>^i
-inoremap kk <Esc>$a
-noremap <Enter> o<Esc>
+inoremap jj <ESC>
+inoremap hh <ESC>^i
+inoremap kk <ESC>$a
+noremap <Enter> o<ESC>
 " Natural up and down movements
 nnoremap j gj
 nnoremap k gk
@@ -269,10 +269,10 @@ noremap <leader>a =ip
 noremap gf :e <cfile><CR>
 
 " Moving in the buffer
-nnoremap <silent> <leader>f :e ./<CR>
-nnoremap <silent> <leader>b :bp<CR>
-nnoremap <silent> <leader>n :bn<CR>
-nnoremap <silent> <leader>m :b#<CR>
+noremap <silent> <leader>f :e ./<CR>
+noremap <silent> <leader>b :bp<CR>
+noremap <silent> <leader>n :bn<CR>
+noremap <silent> <leader>m :b#<CR>
 
 " Ctrl mappings to change windows
 noremap <C-l> <C-w>l
@@ -281,31 +281,33 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 
 " 'e'dit 'v'imrc
-nnoremap <silent> <leader>sv :so $MYVIMRC<CR>
-nnoremap <silent> <leader>ev :tabedit ~/.vimrc<CR>
-nnoremap <silent> <leader>ee :tabedit ~/.emacs<CR>
+noremap <silent> <leader>sv :so $MYVIMRC<CR>
+noremap <silent> <leader>ev :tabedit ~/.vimrc<CR>
+noremap <silent> <leader>ee :tabedit ~/.emacs<CR>
 " 'e'dit 'b'ashrc
-nnoremap <silent> <leader>sb :!rebash<CR>
-nnoremap <silent> <leader>eb :tabedit ~/.bashrc<CR>
+noremap <silent> <leader>sb :!rebash<CR>
+noremap <silent> <leader>eb :tabedit ~/.bashrc<CR>
 
 " save session
 nnoremap <leader>s :mksession<CR>
 
 " Insert timestamp
-nnoremap <F3> a<C-R>=strftime("%b %d, %Y %H:%M")<CR><Esc>
+nnoremap <F3> a<C-R>=strftime("%b %d, %Y %H:%M")<CR><ESC>
 inoremap <F3> <C-R>=strftime("%b %d, %Y %H:%M %p")<CR>
 
 " Editing Keymappings
 " Remove trailing spaces
-nnoremap <silent> ,ss :%s/\s\+$//<Enter>
-nnoremap  ,rr :1,$retab<CR>
+noremap <silent> ,ss :%s/\s\+$//<Enter>
+noremap  ,rr :1,$retab<CR>
 
 " Option Toggles
-nnoremap <leader>l :set list!<CR>
-nnoremap <leader>w :set wrap!<CR>
-nnoremap <Space> :set hlsearch!<CR>
-nnoremap <leader><Space> :set paste!<CR>
-nnoremap <leader>. :set relativenumber!<CR>
+noremap <leader>l :set list!<CR>
+noremap <leader>w :set wrap!<CR>
+noremap <Space> :set hlsearch!<CR>
+noremap <leader><Space> :set paste!<CR>
+nnoremap <F6> :set paste!<CR>
+inoremap <F6> <ESC>:set paste!<CR>i
+noremap <leader>. :set relativenumber!<CR>
 "nnoremap <C-Space> Use for next option toggle
 
 " Spellcheck
