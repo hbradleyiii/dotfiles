@@ -321,6 +321,7 @@ endif
 " }}}
 
     " - FUNCTIONS AND AUTOCOMMANDS {{{
+autocmd BufRead,BufNewFile,BufEnter * cd %:h
 
     " -- Reopen files on last used line {{{
 autocmd BufLeave,BufWrite,WinLeave * :call Make_the_view()
