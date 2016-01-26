@@ -9,7 +9,7 @@
 #
 
 # Exit if this is a non-interactive terminal
-if ! [[ $- =~ "i" ]] ; then return; fi
+if ! [[ $- =~ "i" ]] && ! [[ -n $USE_BASHRC ]] ; then return; fi
 
 # Check if terminal supports colors, if so, source colors
 [[ $(tput colors) -ge 8 ]] && [[ -z $_COLORS_DEFINED ]] && source $HOME/.bash_lib/colors
@@ -299,23 +299,26 @@ function emux() {
 #### webmux: web dev tmux setup
 # webmux() {{{2
 function webmux() {
-    tmux has-session -t webmux 2>/dev/null
+    if ! [[ -n "$TMUX" ]]; then
+        tmux has-session -t webmux 2>/dev/null
 
-    if [ $? != 0 ]
-    then
+        if [ $? != 0 ]; then
+            tmux new-session -s webmux -d
 
-        tmux new-session -s webmux -d
+            tmux set -g base-index 1
+            tmux setw -g pane-base-index 1
 
-        tmux set -g base-index 1
-        tmux setw -g pane-base-index 1
+            tmux split-window -v -l 5 -t webmux 'clear && compass-watch'
+            tmux select-pane -t webmux:1.1
+        fi
 
-        tmux split-window -v -l 5 -t webmux
-        tmux select-pane -t webmux:1.1
-
-        tmux send-keys -t webmux:1.2 'clear && compass watch' C-m
+        tmux attach -t webmux
+    else
+        clear
+        ls
+        tmux split-window -v -l 5 -t webmux 'clear && compass-watch'
+        tmux select-pane -U
     fi
-
-    tmux attach -t webmux
 }
 # }}}
 
