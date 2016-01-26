@@ -252,10 +252,10 @@ set swapfile
 set undofile
 set undolevels=1000
 set undoreload=10000
-set backupdir=~/.vim/.backup//
-set directory=~/.vim/.swap//
-set undodir=~/.vim/.undo//
-set viewdir=~/.vim/.viewdir//
+set backupdir=~/.vim/.backup/
+set directory=~/.vim/.swap/
+set undodir=~/.vim/.undo/
+set viewdir=~/.vim/.viewdir/
 
 set encoding=utf8
 set ffs=unix,dos,mac
