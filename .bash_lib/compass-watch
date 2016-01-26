@@ -1,0 +1,8 @@
+#!/bin/bash
+
+while true; do
+    compass watch
+    sleep 3
+done
+
+# vim:set ft=sh fdm=marker:
