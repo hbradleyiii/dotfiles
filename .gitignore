@@ -1,3 +1,4 @@
+.bash_lib/local
 .vim/.backup
 .vim/bundle
 .vim/.netrwhist
