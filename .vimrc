@@ -220,7 +220,7 @@ set shellslash
 set visualbell t_vb=
 
 " Session options
-set sessionoptions=buffers,curdir,folds,globals,help,localoptions,options,resize,tabpages,winsize,winpos
+set sessionoptions=buffers,folds,globals,help,localoptions,options,resize,tabpages,winsize,winpos
 
 " Fold options
 set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
@@ -321,7 +321,6 @@ endif
 " }}}
 
     " - FUNCTIONS AND AUTOCOMMANDS {{{
-autocmd BufRead,BufNewFile,BufEnter * cd %:h
 
     " -- Reopen files on last used line {{{
 autocmd BufLeave,BufWrite,WinLeave * :call Make_the_view()
