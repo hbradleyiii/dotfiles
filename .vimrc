@@ -217,6 +217,9 @@ set virtualedit=all
 set fillchars=""  " separator chars
 set mousehide
 
+set splitbelow
+set splitright
+
 set shellslash
 set visualbell t_vb=
 
