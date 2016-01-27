@@ -88,8 +88,7 @@ function git_prompt() {
         fi
         echo "[git:"$_branch$_mod"]"
     fi
-}
-# }}}
+} # }}}
 
 # TODO: Modify for if colors script doesn't exist
 #   Prompt must have double quotes for variable expansion, but single quotes to
@@ -121,8 +120,7 @@ PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():} line ${LINENO}: '
 # cl() {{{2
 function cl() {
     cd "$@" && ls;
-}
-# }}}
+} # }}}
 
 ### Copy Wrapper
 # cp() {{{2
@@ -175,8 +173,7 @@ function cp() {
     fi
 
     /bin/cp -vri $1 $2
-}
-# }}}
+} # }}}
 
 ### Extract Program
 # extract() {{{2
@@ -205,8 +202,7 @@ function extract() {
     else
         echo "'$1' is not a valid file."
     fi
-}
-# }}}
+} # }}}
 
 ### manf - search man page $1 for flag $2
 # manf() {{{2
@@ -219,15 +215,13 @@ function manf() {
         dash='\-\-'
     fi
     man $1 | sed -n "/^[ ]*$dash$2/,/^$/p" | less
-}
-# }}}
+} # }}}
 
 ### mans - search man page $1 for term $2
 # mans() {{{2
 function mans() {
     man $1 | grep -iC2 "$2" | less
-}
-# }}}
+} # }}}
 
 ### path: displays path order in human readable format
 # path() {{{2
@@ -236,8 +230,7 @@ function path(){
     IFS=:
     printf "%s\n" $PATH
     IFS=$old
-}
-# }}}
+} # }}}
 
 ### Search Program
 # s() {{{2
@@ -261,8 +254,7 @@ function s() {
     fi
 
     grep -rnI $1 $DIR
-}
-# }}}
+} # }}}
 
 ### emux: tmux setup for emerge
 # emux() {{{2
@@ -293,8 +285,7 @@ function emux() {
     fi
 
     tmux attach -t emerge
-}
-# }}}
+} # }}}
 
 #### webmux: web dev tmux setup
 # webmux() {{{2
@@ -320,15 +311,13 @@ function webmux() {
         tmux split-window -v -l 5 -t webmux 'clear && compass-watch'
         tmux select-pane -U
     fi
-}
-# }}}
+} # }}}
 
 ### what (which)
 # what() {{{2
 function what() {
     which $1 | xargs ls -la
-}
-# }}}
+} # }}}
 
 ### whois
 # whois() {{{2
@@ -340,8 +329,7 @@ function whois() {
     echo "Getting whois record for: $domain ."
 
     /usr/bin/whois -h whois.internic.net $domain | sed '/NOTICE:/q'
-}
-# }}}
+} # }}}
 
 # }}}
 
