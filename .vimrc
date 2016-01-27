@@ -333,6 +333,7 @@ autocmd BufEnter * :call Load_the_view()
 function! Load_the_view()
     if expand('%') != '' && &buftype !~ 'nofile'
         silent loadview
+        cd %:h  " Force cd to dir of current file.
     endif
 endfunction
 " }}}
