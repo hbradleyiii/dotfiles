@@ -338,4 +338,11 @@ function whois() {
     export TERM='rxvt-unicode-256color'
 #fi
 
+## SECTION: Source .bashrc_local (if it exists) {{{1
+#   Leave this at the bottom
+if [ -f ~/.bashrc_local ]; then
+    source ~/.bashrc_local
+fi
+# }}}
+
 # vim:set ft=sh sw=4 fdm=marker:
