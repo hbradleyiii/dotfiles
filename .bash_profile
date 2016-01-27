@@ -19,7 +19,8 @@
 # 2. ~/.bash_profile
 #       This file is executed for login shells. It is only run the first time
 #       you log into a shell. By convention, this file often sources ~/.bashrc.
-#       This helps to prevent code duplication.
+#       This helps to prevent code duplication. Try to keep only essentials in
+#       this file for efficiency.
 #
 # Non-login Shells:
 #       A non-login shell would be opening a terminal from Gnome or KDE or run
@@ -97,7 +98,7 @@ fi
 
 ## SECTION: Source .bashrc {{{1
 #   Leave this at the bottom
-if [ "$BASH" ] && [ -f ~/.bashrc ]; then
+if [[ $- =~ "i" ]] && [[ "$BASH" ]] && [[ -f ~/.bashrc ]]; then
     source ~/.bashrc
 fi
 # }}}
