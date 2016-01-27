@@ -310,6 +310,7 @@ function webmux() {
 
             tmux split-window -v -l 5 -t webmux 'clear && compass-watch'
             tmux select-pane -t webmux:1.1
+            tmux send-keys -t webmux:1.1 'clear && ls' C-m
         fi
 
         tmux attach -t webmux
