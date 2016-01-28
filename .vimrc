@@ -90,20 +90,20 @@ noremap <silent> ,ss :%s/\s\+$//<Enter>
 noremap  ,rr :1,$retab<CR>
 
 " Option Toggles
-noremap <leader>l :set list!<CR>
-noremap <leader>w :set wrap!<CR>
-noremap <Space> :set hlsearch!<CR>
-noremap <leader><Space> :set paste!<CR>
+noremap <Leader>l :set list!<CR>
+noremap <Leader>w :set wrap!<CR>
+noremap <SPACE> :set hlsearch!<CR>
+noremap <Leader><SPACE> :set paste!<CR>
 nnoremap <F6> :set paste!<CR>
 inoremap <F6> <ESC>:set paste!<CR>a
-noremap <leader>. :set relativenumber!<CR>
-"nnoremap <C-Space> Use for next option toggle
+noremap <Leader>. :set relativenumber!<CR>
+"nnoremap <C-SPACE> Use for next option toggle
 
 " Spellcheck
 noremap <F8> :set invspell<CR>
 
 " Execute in vim the line under the cursor
-noremap <leader>ex yy:@"<CR>
+noremap <Leader>ex yy:@"<CR>
 " In windows, run command under cursor
 noremap <leader>ew :!start cmd /c <cfile><CR>
 " }}}
