@@ -223,6 +223,8 @@ set splitright
 set shellslash
 set visualbell t_vb=
 
+set keymap=accents  " By default use accents
+
 " Session options
 set sessionoptions=buffers,folds,globals,help,localoptions,options,resize,tabpages,winsize,winpos
 
