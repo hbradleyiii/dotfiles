@@ -7,21 +7,21 @@
 set nocompatible
 
     " - KEY MAPPINGS {{{
-" LEADER key
+" Leader key
 let mapleader=","  " By default ',' just repeats latest f, t, F or T in opposite direction
 " Map ,, to do what ',' used to do
-nnoremap <LEADER>, ,
-vnoremap <LEADER>, ,
+nnoremap <Leader>, ,
+vnoremap <Leader>, ,
 
 " Windows-like mods
 " TODO: Should this be * or +?
-noremap <LEADER>c "*
+noremap <Leader>c "*
 noremap <C-c> "*
 vnoremap <C-c> "*y
-noremap <LEADER>x "*
+noremap <Leader>x "*
 noremap <C-x> "*
 vnoremap <C-x> "*d
-noremap <LEADER>v "*p
+noremap <Leader>v "*p
 noremap <F1> :tab help <CR>
 
 " Movement Mods
@@ -52,16 +52,16 @@ nnoremap gV `[v`]
 noremap cp yap<S-}>p
 
 " Align current paragraph
-noremap <LEADER>a =ip
+noremap <Leader>a =ip
 
 " Forces creation of a file if it doesn't exist
 noremap gf :e <cfile><CR>
 
 " Moving in the buffer
-noremap <SILENT> <LEADER>f :e ./<CR>
-noremap <SILENT> <LEADER>b :bp<CR>
-noremap <SILENT> <LEADER>n :bn<CR>
-noremap <SILENT> <LEADER>m :b#<CR>
+noremap <silent> <Leader>f :e ./<CR>
+noremap <silent> <Leader>b :bp<CR>
+noremap <silent> <Leader>n :bn<CR>
+noremap <silent> <Leader>m :b#<CR>
 
 " Ctrl mappings to change windows
 noremap <C-l> <C-w>l
@@ -70,15 +70,15 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 
 " 'e'dit 'v'imrc
-noremap <SILENT> <LEADER>sv :so $MYVIMRC<CR>
-noremap <SILENT> <LEADER>ev :tabedit ~/.vimrc<CR>
-noremap <SILENT> <LEADER>ee :tabedit ~/.emacs<CR>
+noremap <silent> <Leader>sv :so $MYVIMRC<CR>
+noremap <silent> <Leader>ev :tabedit ~/.vimrc<CR>
+noremap <silent> <Leader>ee :tabedit ~/.emacs<CR>
 " 'e'dit 'b'ashrc
-noremap <SILENT> <LEADER>sb :!rebash<CR>
-noremap <SILENT> <LEADER>eb :tabedit ~/.bashrc<CR>
+noremap <silent> <Leader>sb :!rebash<CR>
+noremap <silent> <Leader>eb :tabedit ~/.bashrc<CR>
 
 " save session
-noremap <LEADER>s :mksession<CR>
+noremap <Leader>s :mksession<CR>
 
 " Insert timestamp
 nnoremap <F3> a<C-R>=strftime("%b %d, %Y %H:%M")<CR><ESC>
@@ -163,20 +163,20 @@ let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 'Et'
 let g:ctrlp_working_path_mode = 'rwc'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-noremap <LEADER>p :CtrlP<CR>
+noremap <Leader>p :CtrlP<CR>
 
 "" Fugitive
-noremap <SILENT> <LEADER>ga :Git add %<CR>
-noremap <SILENT> <LEADER>gc :Gcommit<CR>
-noremap <SILENT> <LEADER>gl :Git log<CR>
-noremap <SILENT> <LEADER>gs :Gstatus<CR>
-noremap <SILENT> <LEADER>gp :Gpull<CR>:Gpush<CR>
+noremap <silent> <Leader>ga :Git add %<CR>
+noremap <silent> <Leader>gc :Gcommit<CR>
+noremap <silent> <Leader>gl :Git log<CR>
+noremap <silent> <Leader>gs :Gstatus<CR>
+noremap <silent> <Leader>gp :Gpull<CR>:Gpush<CR>
 
 " Gundo
-noremap <LEADER>u :GundoToggle<CR>
+noremap <Leader>u :GundoToggle<CR>
 
 "" NerdTree
-noremap <LEADER>nt :NERDTreeToggle <CR>
+noremap <Leader>nt :NERDTreeToggle <CR>
 noremap <F2> :NERDTreeToggle <CR>
 
 "" Syntastic
@@ -190,15 +190,15 @@ let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-noremap <LEADER>es :UltiSnipsEdit<CR>
-inoremap <LEADER>es <ESC>:UltiSnipsEdit<CR>
+noremap <Leader>es :UltiSnipsEdit<CR>
+inoremap <Leader>es <ESC>:UltiSnipsEdit<CR>
 
 "" Vdebug
 cnoremap eval :VdebugEval<CR>
 cnoremap vd VdebugStart<CR>
 
 "" Vundle
-noremap <SILENT> <LEADER>pi :PluginClean<CR>:q<CR>:PluginInstall<CR>:q<CR>
+noremap <silent> <Leader>pi :PluginClean<CR>:q<CR>:PluginInstall<CR>:q<CR>
 
 " }}}
 " }}}
