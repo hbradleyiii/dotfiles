@@ -438,6 +438,13 @@ function! FollowSymlink()
 endfunction
 autocmd BufRead * call FollowSymlink()
 " }}}
+
+    " -- Functions to map to frequent typos {{{
+command! Tabnew tabnew
+command! Q q
+command! Qa qall
+command! E e
+" }}}
 " }}}
 
 " vim:set fdm=marker:
