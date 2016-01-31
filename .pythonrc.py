@@ -150,6 +150,18 @@ Warning: DEBUG_PROPAGATE_EXCEPTIONS has been set to True.
 %(Normal)s""" % _c
 
 
+# Debugging
+def debug(func, *args, **kwargs):
+    # evaluate and print local vars in case of exception
+    try:
+        return func(*args, **kwargs)
+    except:
+        import inspect
+        v = inspect.trace()[-1][0].f_locals
+        pprint(v)
+        raise
+
+
 # Start an external editor with \e
 ##################################
 # http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/438813/
