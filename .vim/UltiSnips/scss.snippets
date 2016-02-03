@@ -1,0 +1,14 @@
+snippet border-gradient "Creates a gradient on a border"
+	border-top-width: 1px;
+	border-top-style: solid;
+	-webkit-border-image:
+	  -webkit-gradient(left top, right top, ${1:rgba(0, 0, 0, 0)}, ${2:color} ${3:50%}, ${4:color }${5:50%, }${6:rgba(0, 0, 0, 0)}) ${7:100% 0};
+	-webkit-border-image:
+	  -webkit-linear-gradient(left, $1, $2 $3, $4$5$6) $7;
+	-moz-border-image:
+	  -moz-linear-gradient(left, $1, $2 $3, $4$5$6) $7;
+	-o-border-image:
+	  -o-linear-gradient(left, $1, $2 $3, $4$5$6) $7;
+	border-image:
+	  linear-gradient(to left, $1, $2 $3, $4$5$6) $7; $0
+endsnippet
