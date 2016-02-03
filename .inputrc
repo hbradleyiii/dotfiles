@@ -36,6 +36,10 @@ $endif
 "\C-t":     glob-list-expansions # lists possible expansions (similar to ls)
 "\C-xx":    glob-expand-word
 
+"\C-b": 'cd -\015'
+
+"\C-i": re-read-init-file  # Reload init file with C-i
+
 "\C-w": unix-filename-rubout
 "": unix-filename-rubout
 "\C-xv": show-bash-version
@@ -43,6 +47,7 @@ $endif
 # Cycle thru completions
 "\t":       menu-complete
 "\S-\t":    menu-complete-backward
+"\e[Z":     menu-complete-backward  # Sometimes the previous line doesn't work?
 
 set keymap vi-command
 "gg":       beginning-of-history
@@ -51,7 +56,7 @@ set keymap vi-command
 
 set keymap vi-insert # Insert keymaps
 "\C-w":     backward-kill-word          # Ctrl + w
-"\C-l":	    clear-screen	            # Ctrl + l
+"\C-l":     clear-screen                # Ctrl + l
 
 
 # vim:set ft=sh:
