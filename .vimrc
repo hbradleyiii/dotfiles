@@ -184,6 +184,11 @@ let g:syntastic_csslint_args="--ignore=universal-selector"
 "let g:syntastic_css_checkers=["recess"]
 let g:syntastic_css_checkers=["csslint"]
 let g:syntastic_html_tidy_exec = 'tidy5'
+let g:syntastic_always_populate_loc_list = 1
+
+noremap ge :lnext<CR>
+noremap gb :lprev<CR>
+
 
 "" UltiSnips
 let g:UltiSnipsEditSplit="vertical"
