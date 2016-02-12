@@ -188,6 +188,7 @@ let g:syntastic_always_populate_loc_list = 1
 
 noremap ge :lnext<CR>
 noremap gb :lprev<CR>
+noremap gl :ll<CR>
 
 
 "" UltiSnips
