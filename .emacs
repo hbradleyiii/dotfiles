@@ -8,21 +8,22 @@
 ;;
 ;;
 
-(if (not (file-exists-p "~/.backups"))
-        (make-directory "~/.backups" t))
-(setq
-    auto-save-default t
-    auto-save-timeout 20
-    auto-save-interval 200
-    auto-save-file-name-transforms
-        '(("." ,"~/.backups" t))
-    backup-by-copying t      ; don't clobber symlinks
-    backup-directory-alist
-        '(("." . "~/.backups"))
-    delete-old-versions t
-    kept-new-versions 6
-    kept-old-versions 2
-    version-control t)       ; use versioned backups
+; This code is not working...
+; (if (not (file-exists-p "~/.backups"))
+;         (make-directory "~/.backups" t))
+; (setq
+;     auto-save-default t
+;     auto-save-timeout 20
+;     auto-save-interval 200
+;     auto-save-file-name-transforms
+;         '(("." ,"~/.backups" t))
+;     backup-by-copying t      ; don't clobber symlinks
+;     backup-directory-alist
+;         '(("." . "~/.backups"))
+;     delete-old-versions t
+;     kept-new-versions 6
+;     kept-old-versions 2
+;     version-control t)       ; use versioned backups
 
 (require 'package)
 (package-initialize)

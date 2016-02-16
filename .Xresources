@@ -31,7 +31,7 @@ URxvt*shading:                    15
 
 
 !tint background with this color
-URxvt*tintColor:                  grey
+!URxvt*tintColor:                  grey
 !URxvt*tintColor:                  #080b0a
 !set to 32-bit for real transparency (compositing required)
 URxvt*depth:                      32
@@ -127,7 +127,7 @@ URxvt*urlLauncher:                google-chrome
 *pointerColorForeground:  S_base1
 
 ! black
-*color0:                  S_base02
+*color0:                  S_black
 *color8:                  S_base03
 
 ! red
