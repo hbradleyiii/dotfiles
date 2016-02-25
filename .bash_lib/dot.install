@@ -9,7 +9,7 @@
 #                   appropriate dotfile in this repo.
 #
 
-source ./msg || { echo "'msg' does not exist!" >&2 ; exit 1; }
+source ~/.dotfiles/.bash_lib/msg || { echo "'msg' does not exist!" >&2 ; exit 1; }
 
 for file in ~/.dotfiles/.[^.]* ; do
     filename=${file##*/}
