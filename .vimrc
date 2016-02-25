@@ -92,7 +92,7 @@ noremap  ,rr :1,$retab<CR>
 " Option Toggles
 noremap <Leader>l :set list!<CR>
 noremap <Leader>w :set wrap!<CR>
-noremap <SPACE> :set hlsearch!<CR>
+noremap <SPACE> :set hlsearch!<CR>:set cursorline!<CR>:set cursorcolumn!<CR>
 noremap <Leader><SPACE> :set paste!<CR>
 nnoremap <F6> :set paste!<CR>
 inoremap <F6> <ESC>:set paste!<CR>a
@@ -291,7 +291,9 @@ set listchars=tab:>-,eol:¬,trail:•,extends:»,precedes:«,nbsp:·
 set wrapscan
 set ignorecase
 set smartcase
-set hlsearch
+set nohlsearch
+set nocursorline
+set nocursorcolumn
 set incsearch
 " }}}
 
