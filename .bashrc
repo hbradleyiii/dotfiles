@@ -175,6 +175,26 @@ function cp() {
     /bin/cp -vri $1 $2
 } # }}}
 
+### git loop
+# gitloop() {{{2
+function gitloop() {
+    for i in ./* ; do
+        echo
+        echo $i
+        cd $i
+        local git_status="$(git status 2> /dev/null)"
+        git status
+        if [[ ! $git_status =~ "nothing to commit" ]]; then
+            echo 'Dropping to prompt:'
+            echo '[Type "exit" to continue loop, or "exit 1" to quit gitloop.]'
+            /bin/bash
+            if [[ $? != 0 ]]; then echo 'Exiting...' ; break ; fi
+        fi
+        cd ..
+    done
+} # }}}
+
+
 ### Extract Program
 # extract() {{{2
 function extract() {
