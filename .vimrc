@@ -71,11 +71,11 @@ noremap <C-k> <C-w>k
 
 " 'e'dit 'v'imrc
 noremap <silent> <Leader>sv :so $MYVIMRC<CR>
-noremap <silent> <Leader>ev :tabedit ~/.vimrc<CR>
-noremap <silent> <Leader>ee :tabedit ~/.emacs<CR>
+noremap <silent> <Leader>ev :tabedit $HOME/.vimrc<CR>
+noremap <silent> <Leader>ee :tabedit $HOME/.emacs<CR>
 " 'e'dit 'b'ashrc
 noremap <silent> <Leader>sb :!rebash<CR>
-noremap <silent> <Leader>eb :tabedit ~/.bashrc<CR>
+noremap <silent> <Leader>eb :tabedit $HOME/.bashrc<CR>
 
 " save session
 noremap <Leader>s :mksession<CR>
@@ -113,13 +113,13 @@ noremap <leader>ew :!start cmd /c <cfile><CR>
 filetype off  " Required
 
 " Set the runtime path to include Vundle
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=$HOME/.vim/bundle/Vundle.vim
 
     " -- Plugin List {{{
 " Install Vundle if it isn't already installed {{{
 let g:InstallVundlePlugins = 0
-if empty(glob("~/.vim/bundle/Vundle.vim"))
-    execute "!git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim"
+if empty(glob("$HOME/.vim/bundle/Vundle.vim"))
+    execute "!git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim"
     let g:InstallVundlePlugins = 1
 endif  " }}}
 
@@ -262,10 +262,10 @@ set swapfile
 set undofile
 set undolevels=1000
 set undoreload=10000
-set backupdir=~/.vim/.backup/
-set directory=~/.vim/.swap/
-set undodir=~/.vim/.undo/
-set viewdir=~/.vim/.viewdir/
+set backupdir=$HOME/.vim/.backup/
+set directory=$HOME/.vim/.swap/
+set undodir=$HOME/.vim/.undo/
+set viewdir=$HOME/.vim/.viewdir/
 
 set encoding=utf8
 set ffs=unix,dos,mac
