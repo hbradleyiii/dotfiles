@@ -192,6 +192,7 @@ function gitloop() {
         fi
         cd ..
     done
+    echo 'Finished.'
 } # }}}
 
 
