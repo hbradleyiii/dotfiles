@@ -94,7 +94,7 @@ function git_state() {
     # Check staging area
     if [[ ! $git_status =~ "working directory clean" ]] ; then
         state="[git:"$git_branch
-        if [[ $git_status =~ "Changes to be commited:" ]] ; then
+        if [[ $git_status =~ "Changes to be committed:" ]] ; then
             state=$state"+] "
         elif [[ $git_status =~ "Changes not staged for commit:" ]] ; then
             state=$state"*] "
