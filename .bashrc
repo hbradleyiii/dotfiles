@@ -91,7 +91,7 @@ function git_state() {
     # default (just branch)
     local state="[git:"$git_branch"] "
 
-    # Check staging area
+    # Check staging area and working directory
     if [[ ! $git_status =~ "working directory clean" ]] ; then
         state="[git:"$git_branch
         if [[ $git_status =~ "Changes to be committed:" ]] ; then
