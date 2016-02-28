@@ -91,6 +91,7 @@ function git_state() {
     # default (just branch)
     local state="[git:"$git_branch"] "
 
+    # Check staging area
     if [[ ! $git_status =~ "working directory clean" ]] ; then
         state="[git:"$git_branch
         if [[ $git_status =~ "Changes to be commited:" ]] ; then
@@ -98,12 +99,13 @@ function git_state() {
         elif [[ $git_status =~ "Changes not staged for commit:" ]] ; then
             state=$state"*] "
         fi
+    fi
 
-        if [[ $git_status =~ "Your branch is ahead of" ]] ; then
-            state=$state"(ahead of origin)"
-        elif [[ $git_status =~ "Your branch is behind" ]] ; then
-            state=$state"(behind origin)"
-        fi
+    # Check against remote
+    if [[ $git_status =~ "Your branch is ahead of" ]] ; then
+        state=$state"(ahead of origin)"
+    elif [[ $git_status =~ "Your branch is behind" ]] ; then
+        state=$state"(behind origin)"
     fi
 
     echo $state
