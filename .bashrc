@@ -77,17 +77,36 @@ fi
 
 ## SECTION: Bash Prompts {{{1
 
-# git_prompt() {{{2
-function git_prompt() {
-    if [[ $(git status 2>/dev/null) != "" ]] ; then
-        _branch="$(git symbolic-ref HEAD 2>/dev/null)" || _branch="(unnamed branch)"
-        _branch=${_branch:11} # Clean up "/refs/heads/"
-        if [[ $(git status -s 2>/dev/null) != "" ]] ; then
-            # changes uncommitted in repository
-            _mod="+"
+# git_state() {{{2
+function git_state() {
+
+    local git_status="$(git status 2> /dev/null)"
+    if [[ $git_status == "" ]] ; then return ; fi  # die if not git repo
+
+    # find the branch and remove /refs/head/ (or use unnamed branch)
+    local git_branch="$(git symbolic-ref HEAD 2>/dev/null)" \
+        && git_branch=${git_branch:11} \
+        || local git_branch="(unnamed branch)"
+
+    # default (just branch)
+    local state="[git:"$git_branch"] "
+
+    if [[ ! $git_status =~ "working directory clean" ]] ; then
+        state="[git:"$git_branch
+        if [[ $git_status =~ "Changes to be commited:" ]] ; then
+            state=$state"+] "
+        elif [[ $git_status =~ "Changes not staged for commit:" ]] ; then
+            state=$state"*] "
         fi
-        echo "[git:"$_branch$_mod"]"
+
+        if [[ $git_status =~ "Your branch is ahead of" ]] ; then
+            state=$state"(ahead of origin)"
+        elif [[ $git_status =~ "Your branch is behind" ]] ; then
+            state=$state"(behind origin)"
+        fi
     fi
+
+    echo $state
 } # }}}
 
 # TODO: Modify for if colors script doesn't exist
@@ -95,15 +114,15 @@ function git_prompt() {
 #   prevent expansion for commands until expansion in realtime on the prompt.
 if [[ ${EUID} == 0 ]] ; then # must be root:
     if [ -n "$SSH_CLIENT" ] && [ -n "$SSH_CONNECTION" ] ; then # root using ssh:
-        PS1="\[${_red}\][ssh] \H\[${_blue}\]"' $( pwd ) $( git_prompt )'"\n\[${_blue}\] #\[${_colorreset}\] "
+        PS1="\[${_red}\][ssh] \H\[${_blue}\]"' $( pwd ) $( git_state )'"\n\[${_blue}\] #\[${_colorreset}\] "
     else # root local
-        PS1="\[${_red}\]\h\[${_blue}\]"' $( pwd ) $( git_prompt )'"\n\[${_blue}\] #\[${_colorreset}\] "
+        PS1="\[${_red}\]\h\[${_blue}\]"' $( pwd ) $( git_state )'"\n\[${_blue}\] #\[${_colorreset}\] "
     fi
 else
     if [ -n "$SSH_CLIENT" ] && [ -n "$SSH_CONNECTION" ] ; then # user using ssh
-        PS1="\[${_green}\]ssh://\u@\H\[${_blue}\]"' $( pwd ) $( git_prompt )'"\n\[${_blue}\] \$\[${_colorreset}\] "
+        PS1="\[${_green}\]ssh://\u@\H\[${_blue}\]"' $( pwd ) $( git_state )'"\n\[${_blue}\] \$\[${_colorreset}\] "
     else # user local
-        PS1="\[${_green}\]\u\[${_blue}\]"' $( pwd ) $( git_prompt ) '"\n\[${_blue}\] \$\[${_colorreset}\] "
+        PS1="\[${_green}\]\u\[${_blue}\]"' $( pwd ) $( git_state ) '"\n\[${_blue}\] \$\[${_colorreset}\] "
     fi
 fi
 
