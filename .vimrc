@@ -105,7 +105,40 @@ noremap <F8> :set invspell<CR>
 " Execute in vim the line under the cursor
 noremap <Leader>ex yy:@"<CR>
 " In windows, run command under cursor
-noremap <leader>ew :!start cmd /c <cfile><CR>
+noremap <Leader>ew :!start cmd /c <cfile><CR>
+
+" Greek/Hebrew mappings
+map <C-g> :call ToggleGreekKeyboard()<CR>
+imap <C-g> <ESC>:call ToggleGreekKeyboard()<CR>a
+map <C-h> :call ToggleHebrewKeyboard()<CR>
+imap <C-h> <ESC>:call ToggleHebrewKeyboard()<CR>a
+
+let g:greek_keyboard = 0
+function! ToggleGreekKeyboard()
+    if g:greek_keyboard
+        set keymap=accents
+        let g:greek_keyboard = 0
+        let g:hebrew_keyboard = 0
+    else
+        set keymap=greekp
+        let g:greek_keyboard = 1
+        let g:hebrew_keyboard = 0
+    endif
+endfunction
+
+let g:hebrew_keyboard = 0
+function! ToggleHebrewKeyboard()
+    if g:hebrew_keyboard
+        set keymap=accents
+        let g:hebrew_keyboard = 0
+        let g:greek_keyboard = 0
+    else
+        set keymap=hebrew
+        let g:hebrew_keyboard = 1
+        let g:greek_keyboard = 0
+    endif
+endfunction
+
 " }}}
 
     " - PLUGINS {{{
