@@ -80,10 +80,12 @@ fi
 # git_state() {{{2
 function git_state() {
 
-    local git_status="$(git status 2> /dev/null)"
-    if [[ $git_status == "" ]] ; then return ; fi  # die if not git repo
+    if ! git rev-parse 2> /dev/null; then return ; fi  # die if not a git repo
 
     gitfetch  # Automatically do a git fetch at the prompt every 30 minutes
+
+    # Check status after fetch
+    local git_status="$(git status 2> /dev/null)"
 
     # find the branch and remove /refs/head/ (or use unnamed branch)
     local git_branch="$(git symbolic-ref HEAD 2>/dev/null)" \
