@@ -99,8 +99,10 @@ function git_state() {
     if [[ ! $git_status =~ "working directory clean" ]] ; then
         state="[git:"$git_branch
         if [[ $git_status =~ "Changes to be committed:" ]] ; then
-            state=$state"+] "
+            state=$state"(+)] "
         elif [[ $git_status =~ "Changes not staged for commit:" ]] ; then
+            state=$state"+] "
+        elif [[ $git_status =~ "Untracked files:" ]] ; then
             state=$state"*] "
         fi
     fi
