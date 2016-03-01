@@ -83,6 +83,8 @@ function git_state() {
     local git_status="$(git status 2> /dev/null)"
     if [[ $git_status == "" ]] ; then return ; fi  # die if not git repo
 
+    gitfetch  # Do a git fetch at the prompt every 20 minutes
+
     # find the branch and remove /refs/head/ (or use unnamed branch)
     local git_branch="$(git symbolic-ref HEAD 2>/dev/null)" \
         && git_branch=${git_branch:11} \
@@ -196,6 +198,25 @@ function cp() {
     /bin/cp -vri $1 $2
 } # }}}
 
+### git fetch
+# gitfetch() {{{2
+function gitfetch() {
+    local current_time=$(date +%s)
+    local git_fetch_file=$(git rev-parse --show-toplevel)"/.git/FETCH_HEAD"
+
+    # Does the file exist?
+    if [[ ! -f $git_fetch_file ]] ; then return ; fi
+
+    local last_fetch=$(stat -c %Y $git_fetch_file)
+    local next_fetch=$(($last_fetch + 2000))
+
+    # Wait until next time
+    if  [[ $current_time -lt $next_fetch  ]] ; then return ; fi
+
+    # Do the fetch
+    git fetch
+} # }}}
+
 ### git loop
 # gitloop() {{{2
 function gitloop() {
@@ -215,7 +236,6 @@ function gitloop() {
     done
     echo 'Finished.'
 } # }}}
-
 
 ### Extract Program
 # extract() {{{2
