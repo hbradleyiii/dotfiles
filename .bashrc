@@ -215,16 +215,18 @@ function gitfetch() {
     local next_fetch=$(($last_fetch + 2000))
 
     # Wait until next time
-    if  [[ $current_time -lt $next_fetch  ]] ; then return ; fi
+    if [[ $current_time -lt $next_fetch  ]] ; then return ; fi
 
     # Do the fetch
     git fetch
 
     # Prompt to merge
     if [[ $(git status 2> /dev/null) =~ "Your branch is behind" ]] ; then
-        read -r -p "Merge origin into branch?" -n 1 -s _answer
+        read -r -p "Merge origin into branch? `echo -e '\n ' `" -n 1 -s _answer
+        echo -e '\n'
         if [[ $_answer = [Yy] ]]; then
             git merge origin
+            echo -e '\n'
         fi
     fi
 } # }}}
