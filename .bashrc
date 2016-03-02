@@ -219,6 +219,14 @@ function gitfetch() {
 
     # Do the fetch
     git fetch
+
+    # Prompt to merge
+    if [[ $(git status 2> /dev/null) =~ "Your branch is behind" ]] ; then
+        read -r -p "Merge origin into branch?" -n 1 -s _answer
+        if [[ $_answer = [Yy] ]]; then
+            git merge origin
+        fi
+    fi
 } # }}}
 
 ### git loop
