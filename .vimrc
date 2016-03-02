@@ -431,8 +431,8 @@ function! Write()
             let l:prompt = input('File cannot be written. Use sudo? [n] ')
             if l:prompt == 'y' || 'Y'
                 let b:write_with_sudo = 'y'
-                call SudoWrite()
                 set noro
+                call SudoWrite()
                 " If write_with_sudo is set, when entering buffer, unset RO flag
                 autocmd BufEnter * call CheckRO()
                 function! CheckRO()
