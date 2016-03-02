@@ -426,7 +426,7 @@ endfunction
 noremap <C-s> W
 command! W call Write()
 function! Write()
-    if !filewritable(expand('%:p'))
+    if !filewritable(expand('%:p')) || &readonly
         if !exists('b:write_with_sudo')
             let l:prompt = input('File cannot be written. Use sudo? [n] ')
             if l:prompt == 'y' || 'Y'
