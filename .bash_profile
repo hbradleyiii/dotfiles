@@ -79,7 +79,7 @@ fi
 if [[ -f /usr/bin/tmux ]]; then
     tmux_sessions=$(/usr/bin/tmux ls 2> /dev/null)
     if [[ ! -z $tmux_sessions ]] ; then
-        echo -e " \e[1;33m*\e[39m Running \e[32mtmux\e[39m sessions:"
+        echo -e " \e[1;39m*\e[39m Running \e[32mtmux\e[39m sessions:"
         /usr/bin/tmux ls
         echo
     fi
