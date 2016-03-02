@@ -74,6 +74,18 @@ if [[ -f /usr/bin/keychain ]] ; then
 fi
 # }}}
 
+## SECTION: tmux status {{{1
+#   list tmux sessions (if it's installed)
+if [[ -f /usr/bin/tmux ]]; then
+    tmux_sessions=$(/usr/bin/tmux ls 2> /dev/null)
+    if [[ ! -z $tmux_sessions ]] ; then
+        echo -e " * Running \e[32mtmux\e[39m sessions:"
+        /usr/bin/tmux ls
+        echo
+    fi
+fi
+# }}}
+
 # TODO: Finish this:
 ## SECTION: Update env {{{1
 # _UPDATE_INTERVAL=5000 # Only update if more than this interval has passed
