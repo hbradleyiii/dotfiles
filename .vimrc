@@ -198,6 +198,18 @@ let g:ctrlp_working_path_mode = 'rwc'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 noremap <Leader>p :CtrlP<CR>
 
+" Ignore spaces when searching
+let g:ctrlp_abbrev = {
+    \ 'abbrevs' : [
+        \ {
+            \ 'pattern' : ' ',
+            \ 'expanded' : '',
+            \ 'mode' : 'fprz',
+        \ },
+    \ ]
+\ }
+
+
 "" Fugitive
 noremap <silent> <Leader>ga :Git add %<CR>
 noremap <silent> <Leader>gc :Gcommit<CR>
