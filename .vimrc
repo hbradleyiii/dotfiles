@@ -195,7 +195,6 @@ endif  " }}}
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 'Et'
 let g:ctrlp_working_path_mode = 'rwc'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 noremap <Leader>p :CtrlP<CR>
 
 " Ignore spaces when searching
@@ -267,6 +266,9 @@ set scrolloff=2
 set virtualedit=all
 set fillchars=""  " separator chars
 set mousehide
+set wildignore+=*~,*.bak,*.pyc,*.swp,*.tmp,*/tmp/*,.git
+set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.so,*.zip
+set wildignore+=.sass-cache
 
 set splitbelow
 set splitright
