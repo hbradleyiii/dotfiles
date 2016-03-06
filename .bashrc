@@ -27,9 +27,8 @@ HISTCONTROL=ignoredups:ignorespace
 
 ## SECTION: Bash Aliases {{{1
 alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
+alias .1="cd .."
+alias .2='cd ../../'
 alias .3='cd ../../../'
 alias .4='cd ../../../../'
 alias .5='cd ../../../../../'
@@ -43,7 +42,7 @@ alias cls='clear'
 alias cpp='rsync -WavP --human-readable --progress'
 alias chrome='google-chrome-stable &'
 alias df='df -h'
-alias edbash='vim --remote-silent -o2 ~/.bashrc ~/.bash_profile'
+alias edbash='vim -o2 ~/.bashrc ~/.bash_profile'
 alias edgrub='vim /boot/grub/grub.conf'
 alias eixt='exit'
 alias g='git'
