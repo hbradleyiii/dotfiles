@@ -8,7 +8,7 @@
 # description:      Functions for printing Gentoo-like messages
 #
 
-[[ -z $_COLORS_DEFINED ]] && source ~/.bash_lib/colors || { echo "'colors' does not exist!" >&2 ; exit 1; }
+[[ -z $_COLORS_DEFINED ]] && source ~/.dotfiles/.bash_lib/colors || { echo "'colors' does not exist!" >&2 ; exit 1; }
 
 # msg_ok() {{{1
 function msg_ok() { # Prints ok message
