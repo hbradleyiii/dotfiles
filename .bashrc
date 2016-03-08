@@ -103,6 +103,8 @@ function git_state() {
             state=$state"+] "
         elif [[ $git_status =~ "Untracked files:" ]] ; then
             state=$state"*] "
+        else
+            state=$state"] "
         fi
     fi
 
