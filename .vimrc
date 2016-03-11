@@ -469,6 +469,7 @@ endfunction
 cnoremap w!! call SudoWrite()
 function! SudoWrite()
     set bt=nowrite
+    mkview
     silent write !sudo tee % >/dev/null
     edit
     set bt=
