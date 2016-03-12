@@ -110,8 +110,8 @@ noremap <Leader>ew :!start cmd /c <cfile><CR>
 " Greek/Hebrew mappings
 map <C-g> :call ToggleGreekKeyboard()<CR>
 imap <C-g> <ESC>:call ToggleGreekKeyboard()<CR>a
-map <C-h> :call ToggleHebrewKeyboard()<CR>
-imap <C-h> <ESC>:call ToggleHebrewKeyboard()<CR>a
+map <C-y> :call ToggleHebrewKeyboard()<CR>
+imap <C-y> <ESC>:call ToggleHebrewKeyboard()<CR>a
 
 let g:greek_keyboard = 0
 function! ToggleGreekKeyboard()
