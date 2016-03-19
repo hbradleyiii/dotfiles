@@ -354,7 +354,6 @@ filetype plugin indent on
 syntax on
 
 if has('gui_running')  " Set up the gui for GVim
-    set cursorline
     " Set the cursor for various modes
     set guicursor=n-v-c:block-Cursor-blinkon0
     set guicursor+=ve:ver35-Cursor
