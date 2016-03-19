@@ -267,7 +267,7 @@ set scrolloff=2
 set virtualedit=all
 set fillchars=""  " separator chars
 set mousehide
-set wildignore+=*~,*.bak,*.pyc,*.swp,*.tmp,*/tmp/*,.git
+set wildignore+=*~,*.bak,*.pyc,*.swp,*.tmp,.git
 set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.so,*.zip
 set wildignore+=.sass-cache
 
