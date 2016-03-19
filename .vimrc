@@ -84,8 +84,8 @@ noremap <silent> <Leader>eb :tabedit $HOME/.bashrc<CR>
 noremap <Leader>s :mksession<CR>
 
 " Insert timestamp
-nnoremap <F3> a<C-R>=strftime("%b %d, %Y %H:%M")<CR><ESC>
-inoremap <F3> <C-R>=strftime("%b %d, %Y %H:%M %p")<CR>
+nnoremap <F3> a<C-r>=strftime("%b %d, %Y %H:%M")<CR><ESC>
+inoremap <F3> <C-r>=strftime("%b %d, %Y %H:%M %p")<CR>
 
 " Editing Keymappings
 " Remove trailing spaces
