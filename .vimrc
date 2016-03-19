@@ -14,7 +14,8 @@ nnoremap <Leader>, ,
 vnoremap <Leader>, ,
 
 " Windows-like mods
-" TODO: Should this be * or +?
+" * is the X11 primary selection (when text is highlighted)
+" + is the X11 clipboard
 noremap <Leader>c :%y"*<CR>
 noremap <C-c> "*
 vnoremap <C-c> "*y
