@@ -22,6 +22,8 @@ noremap <Leader>x "*
 noremap <C-x> "*
 vnoremap <C-x> "*d
 noremap <Leader>v "*p
+noremap <C-a> ggVG
+noremap <Leader>a ggVG
 noremap <F1> :tab help <CR>
 
 " Movement Mods
