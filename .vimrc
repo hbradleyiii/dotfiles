@@ -15,7 +15,7 @@ vnoremap <Leader>, ,
 
 " Windows-like mods
 " TODO: Should this be * or +?
-noremap <Leader>c ggVG"*y
+noremap <Leader>c :%y"*<CR>
 noremap <C-c> "*
 vnoremap <C-c> "*y
 noremap <Leader>x "*
