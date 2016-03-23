@@ -509,6 +509,27 @@ endfunction
 autocmd BufRead * call FollowSymlink()
 " }}}
 
+    " -- Remove file {{{
+command! Rm call Rm()
+function! Rm()
+    let file = expand('%:p')
+
+    if !filereadable(file)
+        return  " Nothing to do, file doesn't exist (or isn't readable)
+    endif
+
+    if filewritable(file)
+        bdelete
+        execute 'silent !rm -i "' . file . '"'
+        redraw!
+    else
+        bdelete
+        execute 'silent !sudo rm -i "' . file . '"'
+        redraw!
+    endif
+endfunction
+" }}}
+
     " -- Functions to map to frequent typos {{{
 command! Tabnew tabnew
 command! Q q
