@@ -454,8 +454,8 @@ function! Write()
     endif
 
     if exists('b:write_with_sudo')
-        call SudoWrite()  " Already answered yes to prompt; autocmd already
-        return            "  set up.
+        call SudoWrite()  " Already answered yes to prompt; autocmd already set up.
+        return
     endif
 
     let l:prompt = input('File cannot be written. Use sudo? [n] ')
