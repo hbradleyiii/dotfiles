@@ -430,12 +430,15 @@ augroup END
 
     " -- Prompt to change line endings to Unix format {{{
 function! PromptSetUnixLineEndings()
-    if &fileformat != 'unix'
-        let l:prompt = input('Change line endings to Unix format? [n] ')
-        if l:prompt == 'y' || 'Y'
-            set fileformat=unix
-            execute '%s//\r/ge'
-        endif
+    if &fileformat == 'unix'  " Ignore if it is already unix ending
+        return
+    endif
+
+    let l:prompt = input('Change line endings to Unix format? [n] ')
+    if l:prompt == 'y' || 'Y'
+        set fileformat=unix
+        execute '%s//\r/ge'
+    else
     endif
 endfunction
 " }}}
