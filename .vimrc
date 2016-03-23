@@ -443,27 +443,38 @@ endfunction
 noremap <C-s> W
 command! W call Write()
 function! Write()
-    if !filewritable(expand('%:p')) || &readonly
-        if !exists('b:write_with_sudo')
-            let l:prompt = input('File cannot be written. Use sudo? [n] ')
-            if l:prompt == 'y' || 'Y'
-                let b:write_with_sudo = 'y'
-                set noro
-                call SudoWrite()
-                " If write_with_sudo is set, when entering buffer, unset RO flag
-                autocmd BufEnter * call CheckRO()
-                function! CheckRO()
-                    if exists('b:write_with_sudo')
-                        set noro
-                    endif
-                endfunction
-            endif
-        else
-            call SudoWrite()
-        endif
-    else
-        write
+    if filewritable(expand('%:p'))
+        write  " File exists and is writable
+        return
     endif
+
+    if !filereadable(expand('%:p')) && filewritable(expand('%:h'))
+        write  " File does not exist, but directory is writable
+        return
+    endif
+
+    if exists('b:write_with_sudo')
+        call SudoWrite()  " Already answered yes to prompt; autocmd already
+        return            "  set up.
+    endif
+
+    let l:prompt = input('File cannot be written. Use sudo? [n] ')
+    if !l:prompt == 'y' || 'Y'
+        return  " Don't save anything.
+    endif
+    let b:write_with_sudo = 'y'  " Set a buffer 'flag' saving the answer
+
+    set noro
+    call SudoWrite()
+
+    " If write_with_sudo is set, when entering buffer, unset RO flag
+    " This makes entering and leaving the buffer easier.
+    autocmd BufEnter * call CheckRO()
+    function! CheckRO()
+        if exists('b:write_with_sudo')
+            set noro
+        endif
+    endfunction
 endfunction
 " }}}
 
