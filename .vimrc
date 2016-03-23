@@ -514,8 +514,10 @@ command! Rm call Rm()
 function! Rm()
     let file = expand('%:p')
 
-    if !filereadable(file)
-        return  " Nothing to do, file doesn't exist (or isn't readable)
+    if !filereadable(file) " Nothing to do, file doesn't exist (or isn't readable)
+        bdelete
+        echom "File (" . file . ") doesn't exist"
+        return
     endif
 
     if filewritable(file)
