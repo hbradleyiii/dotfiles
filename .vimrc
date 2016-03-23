@@ -443,12 +443,14 @@ endfunction
 noremap <C-s> W
 command! W call Write()
 function! Write()
-    if filewritable(expand('%:p'))
+    let file = expand('%:p')
+    let directory = expand('%:h')
+    if filewritable(file)
         write  " File exists and is writable
         return
     endif
 
-    if !filereadable(expand('%:p')) && filewritable(expand('%:h'))
+    if !filereadable(file) && filewritable(directory)
         write  " File does not exist, but directory is writable
         return
     endif
