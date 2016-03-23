@@ -50,7 +50,7 @@ if [[ $EXPORTS_SET != 1 ]] ; then
     export PATH=$PATH:~/.bash_lib:~/.bash_lib/local
     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
     export PYTHONSTARTUP=~/.pythonrc.py
-    if [ -n "$DISPLAY" ]; then
+    if [[ -n "$DISPLAY" ]] ; then
         export BROWSER=chrome
         export VISUAL=gvim
     else
@@ -76,7 +76,7 @@ fi
 
 ## SECTION: tmux status {{{1
 #   list tmux sessions (if it's installed)
-if [[ -f /usr/bin/tmux ]]; then
+if [[ -f /usr/bin/tmux ]] ; then
     tmux_sessions=$(/usr/bin/tmux ls 2> /dev/null)
     if [[ ! -z $tmux_sessions ]] ; then
         echo -e " \e[1;39m*\e[39m Running \e[32mtmux\e[39m sessions:"
@@ -93,8 +93,8 @@ fi
 # _CUR_TIME=$(date +%s)
 # source $HOME/.env/.last_update # Get last update timestamp (contains the vars $_LAST_UPDATE and $_LAST_SUB_UPDATE)
 
-# if [ $(($_LAST_UPDATE + $_UPDATE_INTERVAL)) -lt "$_CUR_TIME" ] ; then
-#     if [ $(($_LAST_SUB_UPDATE + $_UPDATE_SUB_INTERVAL)) -lt "$_CUR_TIME" ] ; then
+# if [[ $(($_LAST_UPDATE + $_UPDATE_INTERVAL)) -lt "$_CUR_TIME" ]] ; then
+#     if [[ $(($_LAST_SUB_UPDATE + $_UPDATE_SUB_INTERVAL)) -lt "$_CUR_TIME" ]] ; then
 #             # Update env and all submodules
 #         ~/.env/scripts/env update-all
 #             # Change the update timestamp for both vars
@@ -110,7 +110,7 @@ fi
 
 ## SECTION: Source .bashrc {{{1
 #   Leave this at the bottom
-if [[ $- =~ "i" ]] && [[ "$BASH" ]] && [[ -f ~/.bashrc ]]; then
+if [[ $- =~ "i" ]] && [[ "$BASH" ]] && [[ -f ~/.bashrc ]] ; then
     source ~/.bashrc
 fi
 # }}}

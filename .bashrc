@@ -69,7 +69,7 @@ alias skim="(head -5; tail -5) <"
 
 ## SECTION: Tab Completion {{{1
 # tab completion for ssh hosts
-if [ -f ~/.ssh/known_hosts ]; then
+if [[ -f ~/.ssh/known_hosts ]] ; then
     complete -W "$(echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;)" ssh
 fi
 # }}}
@@ -122,13 +122,13 @@ function git_state() {
 #   Prompt must have double quotes for variable expansion, but single quotes to
 #   prevent expansion for commands until expansion in realtime on the prompt.
 if [[ ${EUID} == 0 ]] ; then # must be root:
-    if [ -n "$SSH_CLIENT" ] && [ -n "$SSH_CONNECTION" ] ; then # root using ssh:
+    if [[ -n "$SSH_CLIENT" ]] && [[ -n "$SSH_CONNECTION" ]] ; then # root using ssh:
         PS1="\[${_red}\][ssh] \H\[${_blue}\]"' $( pwd ) $( git_state )'"\n\[${_blue}\] #\[${_colorreset}\] "
     else # root local
         PS1="\[${_red}\]\h\[${_blue}\]"' $( pwd ) $( git_state )'"\n\[${_blue}\] #\[${_colorreset}\] "
     fi
 else
-    if [ -n "$SSH_CLIENT" ] && [ -n "$SSH_CONNECTION" ] ; then # user using ssh
+    if [[ -n "$SSH_CLIENT" ]] && [[ -n "$SSH_CONNECTION" ]] ; then # user using ssh
         PS1="\[${_green}\]ssh://\u@\H\[${_blue}\]"' $( pwd ) $( git_state )'"\n\[${_blue}\] \$\[${_colorreset}\] "
     else # user local
         PS1="\[${_green}\]\u\[${_blue}\]"' $( pwd ) $( git_state ) '"\n\[${_blue}\] \$\[${_colorreset}\] "
@@ -157,7 +157,7 @@ function cp() {
         echo $2
         echo $3
         echo $4
-    if [[ "$1" == "" ]] || [[ "$2" == "" ]]; then
+    if [[ "$1" == "" ]] || [[ "$2" == "" ]] ; then
         echo '[!] cp requires 2 arguments.'
         return
     fi
@@ -166,27 +166,27 @@ function cp() {
 
     # If the files have chars that are not valid filename chars,
     # let cp handle them, to allow passing globs through.
-    if [[ ! '$1' =~ ^[a-zA-Z0-9_-]*$ ]] || [[ ! '$2' =~ ^[a-zA-Z0-9_-]*$ ]]; then
+    if [[ ! '$1' =~ ^[a-zA-Z0-9_-]*$ ]] || [[ ! '$2' =~ ^[a-zA-Z0-9_-]*$ ]] ; then
         /bin/cp -vri $1 $2
         return
     fi
 
     echo 'hi'
 
-    if [[ -d $1 ]]; then # Is first arg a directory?
+    if [[ -d $1 ]] ; then # Is first arg a directory?
         path=$2
-    elif [[ -f $1 ]]; then  # First arg is a file
+    elif [[ -f $1 ]] ; then  # First arg is a file
         possible_path=`expr match "$2" '\(.*\)\/[^/]*'`
         possible_file=`expr match "$2" '.*\/\(.*\)'`
-        if [[ $possible_file == "" ]]; then
+        if [[ $possible_file == "" ]] ; then
             path=$possible_path
         else
             echo -n "[?] Copy to file '$2'? Answering no will treat '$2' as a directory. (Y/N) "
             while read -r -n 1 -s _ANSWER; do
-                if [[ $_ANSWER = [Yy] ]]; then
+                if [[ $_ANSWER = [Yy] ]] ; then
                     path=$possible_path
                     break
-                elif [[ $_ANSWER = [Nn] ]]; then
+                elif [[ $_ANSWER = [Nn] ]] ; then
                     path=$2
                     break
                 fi
@@ -196,7 +196,7 @@ function cp() {
         echo "[!] '$1' does not exist."
     fi
 
-    if [[ ! -d "$path" ]]; then
+    if [[ ! -d "$path" ]] ; then
         mkdir -p $path
     fi
 
@@ -225,7 +225,7 @@ function gitfetch() {
     if [[ $(git status 2> /dev/null) =~ "Your branch is behind" ]] ; then
         read -r -p "Merge origin into branch? `echo -e '\n ' `" -n 1 -s _answer
         echo -e '\n'
-        if [[ $_answer = [Yy] ]]; then
+        if [[ $_answer = [Yy] ]] ; then
             git merge origin
             echo -e '\n'
         fi
@@ -241,11 +241,11 @@ function gitloop() {
         cd $i
         local git_status="$(git status 2> /dev/null)"
         git status
-        if [[ ! $git_status =~ "nothing to commit" ]]; then
+        if [[ ! $git_status =~ "nothing to commit" ]] ; then
             echo 'Dropping to prompt:'
             echo '[Type "exit" to continue loop, or "exit 1" to quit gitloop.]'
             /bin/bash
-            if [[ $? != 0 ]]; then echo 'Exiting...' ; break ; fi
+            if [[ $? != 0 ]] ; then echo 'Exiting...' ; break ; fi
         fi
         cd ..
     done
@@ -255,7 +255,7 @@ function gitloop() {
 ### Extract Program
 # extract() {{{2
 function extract() {
-    if [ -f $1 ] ; then
+    if [[ -f $1 ]] ; then
         case $1 in
             *.bz2)       bunzip2 $1      ;;
             *.gz)        gunzip $1       ;;
@@ -312,7 +312,7 @@ function path(){
 ### Search Program
 # s() {{{2
 function s() {
-    if [[ "$1" == "" ]]; then
+    if [[ "$1" == "" ]] ; then
         echo 's is a search program.'
         echo ''
         echo 'uses:'
@@ -324,7 +324,7 @@ function s() {
         return
     fi
 
-    if [[ -n "$2" ]]; then
+    if [[ -n "$2" ]] ; then
         DIR=$2
     else
         DIR='./*'
@@ -338,8 +338,7 @@ function s() {
 function emux() {
     tmux has-session -t emux 2>/dev/null
 
-    if [ $? != 0 ]
-    then
+    if [[ $? != 0 ]] ; then
 
         tmux new-session -s emerge -d
 
@@ -367,10 +366,10 @@ function emux() {
 #### webmux: web dev tmux setup
 # webmux() {{{2
 function webmux() {
-    if ! [[ -n "$TMUX" ]]; then
+    if ! [[ -n "$TMUX" ]] ; then
         tmux has-session -t webmux 2>/dev/null
 
-        if [ $? != 0 ]; then
+        if [[ $? != 0 ]] ; then
             tmux new-session -s webmux -d
 
             tmux set -g base-index 1
@@ -400,7 +399,7 @@ function what() {
 # whois() {{{2
 function whois() {
     local domain=$(echo "$1" | awk -F/ '{print $3}') # get domain from URL
-    if [ -z $domain ] ; then
+    if [[ -z $domain ]] ; then
         domain=$1
     fi
     echo "Getting whois record for: $domain ."
@@ -411,13 +410,13 @@ function whois() {
 # }}}
 
 #TODO: Fix this:
-#if [ -e /usr/share/terminfo/x/rxvt-unicode ]; then
+#if [[ -e /usr/share/terminfo/x/rxvt-unicode ]] ; then
     export TERM='rxvt-unicode-256color'
 #fi
 
 ## SECTION: Source .bashrc_local (if it exists) {{{1
 #   Leave this at the bottom
-if [ -f ~/.bashrc_local ]; then
+if [[ -f ~/.bashrc_local ]] ; then
     source ~/.bashrc_local
 fi
 # }}}
