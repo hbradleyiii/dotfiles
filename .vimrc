@@ -93,14 +93,29 @@ noremap <silent> ,ss :%s/\s\+$//<Enter>
 noremap  ,rr :1,$retab<CR>
 
 " Option Toggles
+"nnoremap <C-SPACE> Use for next option toggle
 noremap <Leader>l :set list!<CR>
 noremap <Leader>w :set wrap!<CR>
-noremap <SPACE> :set hlsearch!<CR>:set cursorline!<CR>:set cursorcolumn!<CR>
 noremap <Leader><SPACE> :set paste!<CR>
 nnoremap <F6> :set paste!<CR>
 inoremap <F6> <ESC>:set paste!<CR>a
 noremap <Leader>. :set relativenumber!<CR>
-"nnoremap <C-SPACE> Use for next option toggle
+noremap <SPACE> :call ToggleSHighlights()<CR>
+
+let g:s_highlights = 0
+function! ToggleSHighlights()
+    if g:s_highlights
+        set hlsearch
+        set cursorline
+        set cursorcolumn
+        let g:s_highlights = 0
+    else
+        set nohlsearch
+        set nocursorline
+        set nocursorcolumn
+        let g:s_highlights = 1
+    endif
+endfunction
 
 " Spellcheck
 noremap <F8> :set invspell<CR>
