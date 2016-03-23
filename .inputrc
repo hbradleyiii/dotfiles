@@ -1,6 +1,11 @@
-# .inputrc
-# This file is sourced during readline initilization.
-# Any program that uses readline (including bash) sources it.
+#
+# name:             .inputrc
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created:          Nov 09 2015
+#
+# description:      This file is sourced during readline initilization.  Any
+#                   program that uses readline (including bash) sources it.
 
 
 set bind-tty-special-chars on
