@@ -52,6 +52,8 @@ alias gitlog='git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
 alias gimp='gimp &'
 alias grep='grep --colour=auto'
 alias gvim='gvim &'
+alias header='curl -I'
+alias headerc='curl -I --compress'
 alias inchroot='env-update && source /etc/profile && export PS1="(chroot) $PS1"'
 alias ip='curl http://techterminal.net/myip/ && echo'
 alias lip='ifconfig | sed -En "s/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p"'
@@ -59,12 +61,14 @@ alias ls='ls -A --color --group-directories-first'
 alias lsg='ls -A --color --group-directories-first -g -h'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
+alias ports='netstat -tulanp'
 alias q='type -all'
 alias reapache='/etc/init.d/apache2 restart'
 alias rebash='source ~/.bash_profile'
 alias rm='rm -i'
 alias ssagent='eval `ssh-agent` && ssh-add ~/.ssh/id_rsa'
 alias skim="(head -5; tail -5) <"
+alias wget="wget -c"
 # }}}
 
 ## SECTION: Tab Completion {{{1
