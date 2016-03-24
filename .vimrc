@@ -93,7 +93,6 @@ noremap <silent> ,ss :%s/\s\+$//<Enter>
 noremap  ,rr :1,$retab<CR>
 
 " Option Toggles
-"nnoremap <C-SPACE> Use for next option toggle
 noremap <Leader>l :set list!<CR>
 noremap <Leader>w :set wrap!<CR>
 noremap <Leader><SPACE> :set paste!<CR>
@@ -342,7 +341,6 @@ set cryptmethod=blowfish
 
     " -- Tabs/Indent Settings {{{
 set autoindent
-"set smartindent  " TODO: I'm not sure about this one...
 set tabstop=4
 set shiftwidth=4
 set expandtab
