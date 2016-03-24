@@ -392,7 +392,16 @@ function webmux() {
 ### what (which)
 # what() {{{2
 function what() {
-    which $1 | xargs ls -la
+    type "$1" 2> /dev/null
+    if [[ $? -ne 0 ]] ; then
+        echo "$1 not found."
+        return
+    fi
+
+    which "$1"
+    if [[ $? -eq 0 ]] ; then
+        which "$1" | xargs ls -la
+    fi
 } # }}}
 
 ### whois
