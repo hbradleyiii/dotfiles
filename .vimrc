@@ -105,14 +105,14 @@ noremap <SPACE> :call ToggleSHighlights()<CR>
 let g:s_highlights = 0
 function! ToggleSHighlights()
     if g:s_highlights
-        set hlsearch
-        set cursorline
-        set cursorcolumn
-        let g:s_highlights = 0
-    else
         set nohlsearch
         set nocursorline
         set nocursorcolumn
+        let g:s_highlights = 0
+    else
+        set hlsearch
+        set cursorline
+        set cursorcolumn
         let g:s_highlights = 1
     endif
 endfunction
