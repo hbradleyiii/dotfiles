@@ -349,8 +349,11 @@ set expandtab
 set smarttab
 set backspace=2
 set showbreak=»»
-" TODO: fix for terminals:
-set listchars=tab:>-,eol:¬,trail:•,extends:»,precedes:«,nbsp:·
+if has("multi_byte")
+    set listchars=tab:>-,eol:¬,trail:•,extends:»,precedes:«,nbsp:·
+else
+    set listchars=tab:>-,eol:$,trail:_,extends:>>,precedes:<<,nbsp:_
+endif
 " }}}
 
     " -- Searching {{{
