@@ -171,7 +171,7 @@ function cp() {
     # If the files have chars that are not valid filename chars,
     # let cp handle them, to allow passing globs through.
     if [[ ! '$1' =~ ^[a-zA-Z0-9_-]*$ ]] || [[ ! '$2' =~ ^[a-zA-Z0-9_-]*$ ]] ; then
-        /bin/cp -vri $1 $2
+        /bin/cp -vri "$1" "$2"
         return
     fi
 
