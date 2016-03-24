@@ -203,6 +203,29 @@ function cp() {
     /bin/cp -vri $1 $2
 } # }}}
 
+### dns information
+# dns() {{{2
+function dns() {
+    if [[ $1 == '' ]] ; then
+        echo 'Must specify a domain.'
+        return
+    fi
+
+    echo -e "\nNameservers:"
+    dig +trace NS "$1" | grep "$1.*NS"
+
+    if [[ $? -ne 0 ]] ; then
+        echo 'Domain not found.'
+        return
+    fi
+
+    echo -e "\nA Records:"
+    dig +trace A "$1" | grep "$1.*A"
+
+    echo -e "\nMX Records:"
+    dig +trace MX "$1" | grep "$1.*MX"
+} # }}}
+
 ### git fetch
 # gitfetch() {{{2
 function gitfetch() {
