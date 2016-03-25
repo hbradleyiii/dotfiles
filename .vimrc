@@ -446,14 +446,17 @@ endfunction
 
     " -- Toggle the diff of currently open buffers/splits {{{
 noremap <F4> :call DiffMe()<CR>
-let $diff_me=0
 function! DiffMe()
-    windo diffthis
-    if $diff_me>0
-        let $diff_me=0
+    if !exists("w:is_diff_window")
+        let w:is_diff_window = 0
+    endif
+
+    if w:is_diff_window == 0
+        windo diffthis
+        let w:is_diff_window = 1
     else
         windo diffoff
-    let $diff_me=1
+        let w:is_diff_window = 0
     endif
 endfunction
 " }}}
