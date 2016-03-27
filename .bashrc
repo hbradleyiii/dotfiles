@@ -230,6 +230,22 @@ function dns() {
     dig +trace MX "$1" | grep "$1.*MX"
 } # }}}
 
+### git clone
+# gitclone() {{{2
+function gitclone() {
+    git clone "$1" "$2"
+    if [[ $? -ne 0 ]] ; then return ; fi
+
+    read -r -p "Set local user to 'Harold Bradley III' and email to 'hbradleyiii@bradleystudio.net'? `echo -e '\n ' `" -n 1 -s _answer
+    echo -e '\n'
+    if [[ $_answer = [Yy] ]] ; then
+        cd "$2"
+        git config user.name "Harold Bradley III"
+        git config user.email "hbradleyiii@bradleystudio.net"
+        cd -
+    fi
+} # }}}
+
 ### git fetch
 # gitfetch() {{{2
 function gitfetch() {
