@@ -1,9 +1,20 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+# name:             pythonrc.py
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created on:       11/09/2015
+#
+# pylint:           disable=line-too-long
+
 """
 This file is executed when the Python interactive shell is started if
 $PYTHONSTARTUP is in your environment and points to this file.
 Adapted from https://github.com/whiteinge/dotfiles/blob/master/.pythonrc.py
 """
+
+from __future__ import absolute_import, print_function
 
 import atexit
 from code import InteractiveConsole
