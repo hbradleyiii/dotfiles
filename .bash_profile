@@ -47,6 +47,7 @@ if [[ $EXPORTS_SET != 1 ]] ; then
     export CDPATH='.:..:~/'
     export EDITOR=vim
     export EXPORTS_SET=1
+    export LESS='-isMR'
     export PATH=$PATH:~/.bash_lib:~/.bash_lib/local
     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
     export PYTHONSTARTUP=~/.pythonrc.py
