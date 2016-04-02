@@ -465,6 +465,16 @@ endfunction
 noremap <C-s> W
 command! W call Write()
 function! Write()
+    if &readonly
+        let l:prompt = input('Readonly flag is set. Write anyway? [n] ')
+        if l:prompt == 'y' || 'Y'
+            set noro  " Explicitly remove readonly flag
+        else
+            " Readonly, just quit; don't save.
+            return
+        endif
+    endif
+
     let file = expand('%:p')
     let directory = expand('%:h')
     if filewritable(file)
@@ -484,11 +494,11 @@ function! Write()
 
     let l:prompt = input('File cannot be written. Use sudo? [n] ')
     if !l:prompt == 'y' || 'Y'
-        return  " Don't save anything.
+        " Don't save anything.
+        return
     endif
     let b:write_with_sudo = 'y'  " Set a buffer 'flag' saving the answer
 
-    set noro
     call SudoWrite()
 
     " If write_with_sudo is set, when entering buffer, unset RO flag
