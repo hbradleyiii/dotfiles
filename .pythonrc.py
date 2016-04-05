@@ -126,6 +126,17 @@ def SECRET_KEY():
             [choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)')
                 for i in range(50)])
 
+# Quitter class
+class quitter():
+    def __repr__(_):
+        sys.exit()
+    def __call__(_):
+        sys.exit()
+
+exit = quitter()
+quit = quitter()
+
+
 # If we're working with a Django project, set up the environment
 if 'DJANGO_SETTINGS_MODULE' in os.environ:
     from django.db.models.loading import get_models
