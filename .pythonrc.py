@@ -76,7 +76,7 @@ if os.path.exists(HISTFILE):
     readline.read_history_file(HISTFILE)
 
 # Set maximum number of items that will be written to the history file
-readline.set_history_length(300)
+readline.set_history_length(1000)
 
 def savehist():
     readline.write_history_file(HISTFILE)
@@ -107,10 +107,8 @@ sys.displayhook = my_displayhook
 #################
 
 WELCOME = """\
-%(Cyan)s
-You've got color, history, and pretty printing.
-%(Brown)s
-Type \e to get an external editor.
+%(Cyan)s Python Interactive Interpreter
+%(Brown)s Type \e to get an external editor.
 %(Normal)s""" % _c
 
 atexit.register(lambda: sys.stdout.write("""%(DarkGray)s
