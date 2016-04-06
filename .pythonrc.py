@@ -23,6 +23,7 @@ import pprint
 import readline, rlcompleter
 import sys
 from tempfile import mkstemp
+import inspect
 from importlib import import_module
 
 import datetime
@@ -132,7 +133,7 @@ class quitter():
     def __repr__(_):
         sys.exit()
     def __call__(_):
-        sys.exit()
+        return _.__repr__()
 
 exit = quitter()
 quit = quitter()
