@@ -23,6 +23,7 @@ import pprint
 import readline, rlcompleter
 import sys
 from tempfile import mkstemp
+from importlib import import_module
 
 import datetime
 import pdb
@@ -135,6 +136,10 @@ class quitter():
 
 exit = quitter()
 quit = quitter()
+
+def reimport(module):
+    reload(module)
+    import_module(module.__name__)
 
 
 # If we're working with a Django project, set up the environment
