@@ -73,6 +73,12 @@ alias rm='rm -i'
 alias ssagent='eval `ssh-agent` && ssh-add ~/.ssh/id_rsa'
 alias skim="(head -5; tail -5) <"
 alias wget="wget -c"
+if [[ $MAC_OS ]] ; then
+    unalias ls
+    alias ls="ls -A"
+    unalias lsg
+    alias lsg="ls -Agh"
+fi
 # }}}
 
 ## SECTION: Tab Completion {{{1
