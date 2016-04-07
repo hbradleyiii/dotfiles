@@ -265,7 +265,12 @@ function gitfetch() {
     # Does the file exist?
     if [[ ! -f $git_fetch_file ]] ; then return ; fi
 
-    local last_fetch=$(stat -c %Y $git_fetch_file)
+    if [[ $MAC_OS ]] ; then
+        eval local `stat -s $git_fetch_file`
+        local last_fetch=$st_mtime
+    else
+        local last_fetch=$(stat -c %Y $git_fetch_file)
+    fi
     local next_fetch=$(($last_fetch + 2000))
 
     # Wait until next time
