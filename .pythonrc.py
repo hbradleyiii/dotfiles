@@ -135,8 +135,9 @@ class quitter():
     def __call__(_):
         return _.__repr__()
 
-exit = quitter()
-quit = quitter()
+# Keeping this around for reference
+# exit = quitter()
+# quit = quitter()
 
 def reimport(module):
     reload(module)
@@ -206,6 +207,9 @@ class EditableBufferInteractiveConsole(InteractiveConsole):
 
     def raw_input(self, *args):
         line = InteractiveConsole.raw_input(self, *args)
+        if line in ['quit', 'exit']:
+            sys.exit()
+            return ''
         if line == EDIT_CMD:
             fd, tmpfl = mkstemp('.py')
             os.write(fd, b'\n'.join(self.last_buffer))
