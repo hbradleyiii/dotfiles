@@ -30,14 +30,14 @@ HISTCONTROL=ignoredups:ignorespace
 # }}}
 
 ## SECTION: Bash Aliases {{{1
-alias ..="cd .."
-alias .1="cd .."
+alias ..='cd ..'
+alias .1='cd ..'
 alias .2='cd ../../'
 alias .3='cd ../../../'
 alias .4='cd ../../../../'
 alias .5='cd ../../../../../'
 alias .6='cd ../../../../../../'
-alias ~="cd ~"
+alias ~='cd ~'
 alias bh='cat ~/.bash_history | grep'
 alias catw='cat /var/lib/portage/world'
 alias cd='cd -P'
@@ -70,14 +70,14 @@ alias q='type -all'
 alias reapache='/etc/init.d/apache2 restart'
 alias rebash='source ~/.bash_profile'
 alias rm='rm -i'
+alias skim='(head -5; tail -5) <'
 alias ssagent='eval `ssh-agent` && ssh-add ~/.ssh/id_rsa'
-alias skim="(head -5; tail -5) <"
-alias wget="wget -c"
+alias wget='wget -c'
 if [[ $MAC_OS ]] ; then
     unalias ls
-    alias ls="ls -A"
+    alias ls='ls -A'
     unalias lsg
-    alias lsg="ls -Agh"
+    alias lsg='ls -Agh'
 fi
 # }}}
 
