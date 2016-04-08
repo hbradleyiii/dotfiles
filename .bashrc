@@ -71,6 +71,8 @@ alias reapache='/etc/init.d/apache2 restart'
 alias rebash='source ~/.bash_profile'
 alias rm='rm -i'
 alias skim='(head -5; tail -5) <'
+alias speedtest='curl -o /dev/null http://speedtest.sea01.softlayer.com/downloads/test100.zip'
+alias speedtest2='wget -O /dev/null http://speedtest.sea01.softlayer.com/downloads/test100.zip'
 alias ssagent='eval `ssh-agent` && ssh-add ~/.ssh/id_rsa'
 alias wget='wget -c'
 if [[ $MAC_OS ]] ; then
