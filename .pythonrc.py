@@ -20,14 +20,10 @@ import atexit
 from code import InteractiveConsole
 import os
 import pprint
-import readline, rlcompleter
+import readline
 import sys
 from tempfile import mkstemp
-import inspect
 from importlib import import_module
-
-import datetime
-import pdb
 
 # Color Support
 ###############
