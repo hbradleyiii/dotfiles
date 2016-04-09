@@ -6,7 +6,7 @@
 # email:            harold@bradleystudio.net
 # created on:       11/09/2015
 #
-# pylint:           disable=line-too-long
+# pylint:           disable=invalid-name,line-too-long
 
 """
 This file is executed when the Python interactive shell is started if
@@ -33,41 +33,43 @@ class TermColors(dict):
     for certain TERM values. (Mostly stolen from IPython.)"""
 
     COLOR_TEMPLATES = (
-        ("Black"       , "0;30"),
-        ("Red"         , "0;31"),
-        ("Green"       , "0;32"),
-        ("Brown"       , "0;33"),
-        ("Blue"        , "0;34"),
-        ("Purple"      , "0;35"),
-        ("Cyan"        , "0;36"),
-        ("LightGray"   , "0;37"),
-        ("DarkGray"    , "1;30"),
-        ("LightRed"    , "1;31"),
-        ("LightGreen"  , "1;32"),
-        ("Yellow"      , "1;33"),
-        ("LightBlue"   , "1;34"),
-        ("LightPurple" , "1;35"),
-        ("LightCyan"   , "1;36"),
-        ("White"       , "1;37"),
-        ("Normal"      , "0"),
+        ("Black", "0;30"),
+        ("Red", "0;31"),
+        ("Green", "0;32"),
+        ("Brown", "0;33"),
+        ("Blue", "0;34"),
+        ("Purple", "0;35"),
+        ("Cyan", "0;36"),
+        ("LightGray", "0;37"),
+        ("DarkGray", "1;30"),
+        ("LightRed", "1;31"),
+        ("LightGreen", "1;32"),
+        ("Yellow", "1;33"),
+        ("LightBlue", "1;34"),
+        ("LightPurple", "1;35"),
+        ("LightCyan", "1;36"),
+        ("White", "1;37"),
+        ("Normal", "0"),
     )
 
     NoColor = ''
-    _base  = '\001\033[%sm\002'
+    _base = '\001\033[%sm\002'
 
     def __init__(self):
         if os.environ.get('TERM') in ('xterm-color', 'xterm-256color', 'linux',
-                                    'screen', 'screen-256color', 'screen-bce',
-                                    'rxvt', 'rxvt-unicode-256color'):
-            self.update(dict([(k, self._base % v) for k,v in self.COLOR_TEMPLATES]))
+                                      'screen', 'screen-256color', 'screen-bce',
+                                      'rxvt', 'rxvt-unicode-256color'):
+            self.update(dict([(k, self._base % v) for k, v in self.COLOR_TEMPLATES]))
         else:
-            self.update(dict([(k, self.NoColor) for k,v in self.COLOR_TEMPLATES]))
+            self.update(dict([(k, self.NoColor) for k, v in self.COLOR_TEMPLATES]))
+
+
 _c = TermColors()
 
 # Enable a History
 ##################
 
-HISTFILE="%s/.pyhistory" % os.environ["HOME"]
+HISTFILE = "%s/.pyhistory" % os.environ["HOME"]
 
 # Read the existing history if there is one
 if os.path.exists(HISTFILE):
@@ -104,6 +106,7 @@ sys.displayhook = my_displayhook
 # Welcome message
 #################
 
+# pylint: disable=anomalous-backslash-in-string
 WELCOME = """\
 %(Cyan)s Python Interactive Interpreter
 %(Brown)s Type \e to get an external editor.
@@ -214,13 +217,11 @@ class EditableBufferInteractiveConsole(InteractiveConsole):
             line = open(tmpfl).read()
             os.unlink(tmpfl)
             tmpfl = ''
-            lines = line.split( '\n' )
-            for i in range(len(lines) - 1): self.push( lines[i] )
+            lines = line.split('\n')
+            for i in range(len(lines) - 1):
+                self.push(lines[i])
             line = lines[-1]
         return line
 
 c = EditableBufferInteractiveConsole(locals=locals())
 c.interact(banner=WELCOME)
-
-# Exit the Python shell on exiting the InteractiveConsole
-sys.exit()
