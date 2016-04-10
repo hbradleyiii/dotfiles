@@ -116,17 +116,6 @@ atexit.register(lambda: sys.stdout.write("""%(DarkGray)s
 Quitting.
 %(Normal)s""" % _c))
 
-# Django Helpers
-################
-
-def SECRET_KEY():
-    "Generates a new SECRET_KEY that can be used in a project settings file."
-
-    from random import choice
-    return ''.join(
-            [choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)')
-                for i in range(50)])
-
 # Quitter class
 class quitter():
     def __repr__(_):
