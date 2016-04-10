@@ -184,7 +184,7 @@ def debug(func, *args, **kwargs):
 EDITOR = os.environ.get('EDITOR', 'vi')
 EDIT_CMD = '\e'
 
-class EditableBufferInteractiveConsole(InteractiveConsole):
+class EditableInteractiveConsole(InteractiveConsole):
     def __init__(self, *args, **kwargs):
         self.last_buffer = [] # This holds the last executed statement
         InteractiveConsole.__init__(self, *args, **kwargs)
@@ -212,5 +212,5 @@ class EditableBufferInteractiveConsole(InteractiveConsole):
             line = lines[-1]
         return line
 
-c = EditableBufferInteractiveConsole(locals=locals())
+c = EditableInteractiveConsole(locals=locals())
 c.interact(banner=WELCOME)
