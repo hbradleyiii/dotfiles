@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# name:             dot.install
+# name:             install
 # author:           Harold Bradley III
 # email:            harold@bradleystudio.net
 # created:          12/21/2015
@@ -26,11 +26,31 @@ for file in ~/.dotfiles/.[^.]* ; do
             echo Linking $filename...
             ln -s ~/.dotfiles/$filename ~/$filname
         fi
-    fi;
-done;
+    fi
+done
 
 if msg_ask "Setup vim and install vim plugins?"; then
     vim
+fi
+
+# Setup git hooks
+if [[ -d ~/.dotfiles/.git/hooks ]] ; then
+    if [[ -L ~/.dotfiles/.git/hooks ]] ; then
+        if [[ $(readlink -f ~/.dotfiles/.git/hooks) == ~/.dotfiles/hooks ]] ; then
+            echo Hooks already linked.
+        elif msg_ask "A hooks link already exists but does not link to dotfiles hooks. Remove it?"; then
+            rm ~/.dotfiles/.git/hooks
+            echo Linking git hooks...
+            ln -s ~/.dotfiles/hooks ~/.dotfiles/.git/hooks
+        fi
+    elif msg_ask "A hooks directory already exists but does not link to dotfiles hooks. Remove it and use dotfiles hook?"; then
+        rm -r ~/.dotfiles/.git/hooks
+        echo Linking git hooks...
+        ln -s ~/.dotfiles/hooks ~/.dotfiles/.git/hooks
+    fi
+else
+    echo Linking git hooks...
+    ln -s ~/.dotfiles/hooks ~/.dotfiles/.git/hooks
 fi
 
 # vim:set ft=sh fdm=marker:
