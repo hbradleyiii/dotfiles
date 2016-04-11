@@ -1,13 +1,19 @@
 # dotfiles
 My personal dotfile repository
 
+## Installation
+
+```bash
+$ git clone git@github.com:hbradleyiii/dotfiles.git ~/.dotfiles
+$ ~/.dotfiles/install
+```
+
 ## Contents
 
 - .bash_lib/ - Contains various bash scripts
   - colors
   - colors_ext
   - dirtest
-  - dot.install
   - env
   - env.conf
   - env.help
@@ -16,6 +22,7 @@ My personal dotfile repository
   - msg
   - symtest
 
+- install
 - .bash_logout
 - .bash_profile
 - .bashrc
