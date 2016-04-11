@@ -30,11 +30,6 @@ for file in ~/.dotfiles/.[^.]* ; do
     fi
 done
 
-# Setup vim
-if msg_ask "Setup vim and install vim plugins?"; then
-    vim
-fi
-
 # Setup git hooks
 if [[ -d ~/.dotfiles/.git/hooks ]] ; then
     if [[ -L ~/.dotfiles/.git/hooks ]] ; then
