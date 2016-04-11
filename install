@@ -29,4 +29,8 @@ for file in ~/.dotfiles/.[^.]* ; do
     fi;
 done;
 
+if msg_ask "Setup vim and install vim plugins?"; then
+    vim
+fi
+
 # vim:set ft=sh fdm=marker:
