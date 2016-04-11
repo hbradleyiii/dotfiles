@@ -12,6 +12,7 @@
 exec < /dev/tty
 
 ./install
+ctags-exuberant -eRf./tags --exclude=.git --exclude=.vim .[^.]?*
 
 exec <&-
 
