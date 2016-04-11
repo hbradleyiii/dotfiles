@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# name:             dot.install
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created:          04/11/2016
+#
+# description:      A git hook run when after merging.
+#
+
+./install
+
+# vim:set ft=sh fdm=marker:
