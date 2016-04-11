@@ -21,11 +21,11 @@ for file in ~/.dotfiles/.[^.]* ; do
             elif msg_ask "$filename already exists but does not link to dotfiles. Remove it?"; then
                 rm ~/$filename
                 echo Linking $filename...
-                ln -s ~/.dotfiles/$filename ~/$filname
+                ln -s ~/.dotfiles/$filename ~/$filename
             fi
         else
             echo Linking $filename...
-            ln -s ~/.dotfiles/$filename ~/$filname
+            ln -s ~/.dotfiles/$filename ~/$filename
         fi
     fi
 done
