@@ -11,6 +11,7 @@
 
 source ~/.dotfiles/.bash_lib/msg || { echo "'msg' does not exist!" >&2 ; exit 1; }
 
+# Setup links
 for file in ~/.dotfiles/.[^.]* ; do
     filename=${file##*/}
     if [[ $filename != '.git' ]] ; then
@@ -29,6 +30,7 @@ for file in ~/.dotfiles/.[^.]* ; do
     fi
 done
 
+# Setup vim
 if msg_ask "Setup vim and install vim plugins?"; then
     vim
 fi
