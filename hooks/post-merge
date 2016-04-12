@@ -12,7 +12,14 @@
 exec < /dev/tty
 
 ./install
-ctags-exuberant -eRf./tags --exclude=.git --exclude=.vim .[^.]?*
+
+type -P "ctags-exuberant" &>/dev/null
+if [[ $? -ne 0 ]] ; then
+    ctags-exuberant -eRf./tags --exclude=.git --exclude=.vim .[^.]?*
+else
+    echo 'ctags-exuberant is not installed. Skipping ctags.'
+fi
+
 
 exec <&-
 
