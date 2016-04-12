@@ -406,14 +406,18 @@ endif
     " -- Reopen files on last used line {{{
 autocmd BufLeave,BufWrite,WinLeave * :call Make_the_view()
 function! Make_the_view()
-    if expand('%') != '' && &buftype !~ 'nofile'
+    if &buftype !~ 'nofile' && expand('%') != ''
         mkview
     endif
 endfunction
 autocmd BufEnter * :call Load_the_view()
 function! Load_the_view()
-    if expand('%') != '' && &buftype !~ 'nofile'
-        silent loadview
+    " A hack to prevent tagbar from creating an infinite loop
+    if bufwinnr('__Tagbar__') != -1 && bufwinnr('__Tagbar__') == winnr('$')
+        return
+    endif
+    if &buftype !~ 'nofile' && expand('%') != ''
+        loadview
         cd %:h  " Force cd to dir of current file.
     endif
 endfunction
