@@ -44,7 +44,7 @@
 
 ## SECTION: Exports {{{1
 if [[ $EXPORTS_SET != 1 ]] ; then
-    export CDPATH='.:..:~/'
+    export CDPATH='.:~/'
     export EDITOR=vim
     export EXPORTS_SET=1
     export LESS='-isMR'
