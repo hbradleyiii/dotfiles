@@ -79,6 +79,7 @@ if os.path.exists(HISTFILE):
 readline.set_history_length(1000)
 
 def savehist():
+    """Saves readline history."""
     readline.write_history_file(HISTFILE)
 
 atexit.register(savehist)
@@ -93,6 +94,7 @@ sys.ps2 = '%s... %s' % (_c['Red'], _c['Normal'])
 ###################################
 
 def my_displayhook(value):
+    """ """
     if value is not None:
         try:
             import __builtin__
@@ -185,6 +187,7 @@ EDITOR = os.environ.get('EDITOR', 'vi')
 EDIT_CMD = '\e'
 
 class EditableInteractiveConsole(InteractiveConsole):
+    """TODO """
     def __init__(self, *args, **kwargs):
         self.last_buffer = [] # This holds the last executed statement
         InteractiveConsole.__init__(self, *args, **kwargs)
