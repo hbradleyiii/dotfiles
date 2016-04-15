@@ -190,7 +190,7 @@ class EditableInteractiveConsole(InteractiveConsole):
         InteractiveConsole.__init__(self, *args, **kwargs)
 
     def runsource(self, source, *args):
-        self.last_buffer = [ source.encode('utf-8') ]
+        self.last_buffer = [source.encode('utf-8')]
         return InteractiveConsole.runsource(self, source, *args)
 
     def raw_input(self, *args):
