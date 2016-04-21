@@ -65,7 +65,7 @@ fi
 #   start keychain (if it's installed)
 #
 #   Note: Any script that needs keychain must also call this explicitly,
-#   since this is .bash_profile.
+#   since this is only sourced for login shells.
 #
 #   Note: Use this command to clear keys:
 #       keychain --clear
@@ -75,7 +75,7 @@ if [[ -f /usr/bin/keychain ]] ; then
 fi
 # }}}
 
-## SECTION: tmux status {{{1
+## SECTION: Banner displaying tmux sessions {{{1
 #   list tmux sessions (if it's installed)
 if [[ -f /usr/bin/tmux ]] ; then
     tmux_sessions=$(/usr/bin/tmux ls 2> /dev/null)
