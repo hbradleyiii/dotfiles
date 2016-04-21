@@ -87,28 +87,6 @@ if [[ -f /usr/bin/tmux ]] ; then
 fi
 # }}}
 
-# TODO: Finish this:
-## SECTION: Update env {{{1
-# _UPDATE_INTERVAL=5000 # Only update if more than this interval has passed
-# _UPDATE_SUB_INTERVAL=500000
-# _CUR_TIME=$(date +%s)
-# source $HOME/.env/.last_update # Get last update timestamp (contains the vars $_LAST_UPDATE and $_LAST_SUB_UPDATE)
-
-# if [[ $(($_LAST_UPDATE + $_UPDATE_INTERVAL)) -lt "$_CUR_TIME" ]] ; then
-#     if [[ $(($_LAST_SUB_UPDATE + $_UPDATE_SUB_INTERVAL)) -lt "$_CUR_TIME" ]] ; then
-#             # Update env and all submodules
-#         ~/.env/scripts/env update-all
-#             # Change the update timestamp for both vars
-#         printf "_LAST_UPDATE="$_CUR_TIME"\n_LAST_SUB_UPDATE="$_CUR_TIME > ~/.env/.last_update
-#     else
-#             # Update just env
-#         ~/.env/scripts/env update
-#             # Change the update timestamp just for _LAST_UPDATE
-#         printf "_LAST_UPDATE="$_CUR_TIME"\n_LAST_SUB_UPDATE="$_LAST_SUB_UPDATE > ~/.env/.last_update
-#     fi
-# fi
-# }}}
-
 ## SECTION: Source .bashrc {{{1
 #   Leave this at the bottom
 if [[ $- =~ "i" ]] && [[ "$BASH" ]] && [[ -f ~/.bashrc ]] ; then
