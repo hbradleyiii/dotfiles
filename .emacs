@@ -37,9 +37,9 @@
 
 (setq org-agenda-files '("~/journal"))
 (setq org-todo-keywords
-      '((sequence "TODO" "WAITING" "|" "DONE")
-        (sequence "TO-READ" "QUEUE" "READING" "NOTATE" "|" "READ" )
-        (sequence "|" "CANCELED")))
+      '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d!)")
+        (sequence "TO-READ(o)" "QUEUE(q)" "READING(g)" "NOTATE(n)" "|" "READ(r!)" )
+        (sequence "|" "CANCELED(c)")))
 (setq org-todo-keyword-faces
       '(("TODO" . org-warning)
         ("TO-READ" . org-warning)
