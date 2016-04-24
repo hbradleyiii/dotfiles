@@ -30,7 +30,7 @@ for file in ~/.dotfiles/.[^.]* ; do
             if [[ -L ~/$filename && $(readlink ~/$filename) == ~/.dotfiles/$filename ]] ; then
                 echo Skipping $filename. Already linked.
             elif msg_ask "$filename already exists but does not link to dotfiles. Remove it?"; then
-                rm ~/$filename
+                rm -r ~/$filename
                 create_link $filename
             fi
         else
