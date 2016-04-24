@@ -11,6 +11,17 @@
 
 source ~/.dotfiles/.bash_lib/msg || { echo "'msg' does not exist!" >&2 ; exit 1; }
 
+### creat_link()
+# create_link() {{{1
+function create_link() {
+    echo Linking $filename...
+    if [[ -d ~/.dotfiles/$1 ]] ; then
+        ln -s ~/.dotfiles/$filename/ ~/$filename
+    else
+        ln -s ~/.dotfiles/$filename ~/$filename
+    fi
+} # }}}
+
 # Setup links
 for file in ~/.dotfiles/.[^.]* ; do
     filename=${file##*/}
@@ -20,12 +31,10 @@ for file in ~/.dotfiles/.[^.]* ; do
                 echo Skipping $filename. Already linked.
             elif msg_ask "$filename already exists but does not link to dotfiles. Remove it?"; then
                 rm ~/$filename
-                echo Linking $filename...
-                ln -s ~/.dotfiles/$filename ~/$filename
+                create_link $filename
             fi
         else
-            echo Linking $filename...
-            ln -s ~/.dotfiles/$filename ~/$filename
+            create_link $filename
         fi
     fi
 done
