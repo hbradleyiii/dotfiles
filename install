@@ -27,7 +27,8 @@ for file in ~/.dotfiles/.[^.]* ; do
     filename=${file##*/}
     if [[ $filename != '.git' ]] ; then
         if [[ -f ~/$filename || -d ~/$filename ]] ; then
-            if [[ -L ~/$filename && $(readlink ~/$filename) == ~/.dotfiles/$filename ]] ; then
+            link=$(readlink ~/$filename)
+            if [[ -L ~/$filename && ${link%/} == ~/.dotfiles/$filename ]] ; then
                 echo Skipping $filename. Already linked.
                 continue
             elif msg_ask "$filename already exists but does not link to dotfiles. Remove it?"; then
