@@ -579,4 +579,12 @@ command! E e
 " }}}
 " }}}
 
+" Once a month, update and clean plugins {{{
+let g:last_plugin_update=getftime($HOME . "/.vim/bundle/Vundle.vim/doc/tags")
+if g:last_plugin_update + 300 < localtime()
+    echom 'Last updated: ' . strftime('%c', g:last_plugin_update)
+    execute 'VundleClean'
+    execute 'VundleUpdate'
+endif  " }}}
+
 " vim:set fdm=marker:
