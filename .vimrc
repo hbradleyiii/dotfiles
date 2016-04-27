@@ -211,6 +211,7 @@ if g:last_plugin_update + 2628000 < localtime()
     echom 'Last updated: ' . strftime('%c', g:last_plugin_update)
     execute 'VundleClean'
     execute 'VundleUpdate'
+    :q
 endif  " }}}
 " }}}
 
