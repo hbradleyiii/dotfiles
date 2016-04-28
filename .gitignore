@@ -1,3 +1,5 @@
+*.pyc
+*.pyo
 .bash_lib/local
 .config/ranger/bookmarks
 .config/ranger/history
