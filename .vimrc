@@ -580,6 +580,28 @@ function! Rm()
 endfunction
 " }}}
 
+
+    " -- Ranger File Explorer {{{
+noremap <Leader>, :RangerExplorer<CR>
+command! RangerExplorer call RangerExplorer()
+function! RangerExplorer()
+    exec "silent !ranger --choosefiles=$HOME/.vim/ranger_selected_file " .expand("%:p:h")
+    if filereadable($HOME.'/.vim/ranger_selected_file')
+        let first_file = 1
+        for file in readfile($HOME.'/.vim/ranger_selected_file', '', 10)
+            exec 'edit ' . file
+            if first_file == 1
+                let first_file = file
+            endif
+        endfor
+        " Make the first file the current file.
+        exec 'edit ' . first_file
+        call system('rm ~/.vim/ranger_selected_file')
+    endif
+    redraw!
+endfunction
+" }}}
+
     " -- Functions to map to frequent typos {{{
 command! Tabnew tabnew
 command! Q q
