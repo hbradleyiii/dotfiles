@@ -1122,3 +1122,14 @@ class grep(Command):
             action.extend(['-e', self.rest(1), '-r'])
             action.extend(f.path for f in self.fm.thistab.get_selection())
             self.fm.execute_command(action, flags='p')
+
+
+# Custom
+class empty(Command):
+    """:empty
+
+    Empties the trash directory ~/.Trash
+    """
+
+    def execute(self):
+        self.fm.run("rm -rf /home/myname/.Trash/{*,.[^.]*}")
