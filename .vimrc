@@ -412,6 +412,10 @@ endif
 
     " - FUNCTIONS AND AUTOCOMMANDS {{{
 
+    " -- Filetype Autocommands {{{
+autocmd BufNewFile,BufRead *.scss :set ft=css
+" }}}
+
     " -- Reopen files on last used line {{{
 autocmd BufLeave,BufWrite,WinLeave * :call Make_the_view()
 function! Make_the_view()
@@ -579,7 +583,6 @@ function! Rm()
     endif
 endfunction
 " }}}
-
 
     " -- Ranger File Explorer {{{
 noremap <Leader>, :RangerExplorer<CR>
