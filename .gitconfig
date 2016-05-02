@@ -11,6 +11,7 @@
     dc = diff --cached
     s = status
     l = log
+    l1 = log --pretty=format:'%C(bold green)%h%C(reset) %C(bold blue)%ad%C(reset) %s' --date=format:'%b %d, %Y %I:%M'
     lg = !"git lg1"
     lg1 = !"git lg1-specific --all"
     lg2 = !"git lg2-specific --all"
