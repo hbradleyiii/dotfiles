@@ -429,10 +429,12 @@ function! Load_the_view()
     if bufwinnr('__Tagbar__') != -1 && bufwinnr('__Tagbar__') == winnr('$')
         return
     endif
-    if &buftype !~ 'nofile' && expand('%') != ''
-        loadview
-        cd %:h  " Force cd to dir of current file.
+    " Ignore for special buffers
+    if &buftype !~ 'nofile' || &buftype !~ '' || expand('%') == ''
+        return
     endif
+    loadview
+    cd %:h  " Force cd to dir of current file.
 endfunction
 " }}}
 
