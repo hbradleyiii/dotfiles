@@ -83,6 +83,11 @@ if [[ $MAC_OS ]] ; then
 fi
 # }}}
 
+## SECTION: Bash Variables {{{1
+ww='/var/www'
+wp='htdocs/wp-content/theme'
+# }}}
+
 ## SECTION: Tab Completion {{{1
 # tab completion for ssh hosts
 if [[ -f ~/.ssh/known_hosts ]] ; then
