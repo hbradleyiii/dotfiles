@@ -483,6 +483,12 @@ function whois() {
     export TERM='rxvt-unicode-256color'
 #fi
 
+## SECTION: Set OLDPWD (if ~/.OLDPWD exists) {{{1
+if [[ -f ~/.OLDPWD ]] ; then
+    OLDPWD=`cat ~/.OLDPWD`
+fi
+# }}}
+
 ## SECTION: Source .bashrc_local (if it exists) {{{1
 #   Leave this at the bottom
 if [[ -f ~/.bashrc_local ]] ; then
