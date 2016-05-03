@@ -242,6 +242,12 @@ noremap <silent> <Leader>gc :Gcommit -v -q<CR>
 noremap <silent> <Leader>gl :Git l1<CR>
 noremap <silent> <Leader>gs :Gstatus<CR>
 noremap <silent> <Leader>gp :Gpull<CR>:Gpush<CR>
+noremap <silent> <Leader>gw :Gwrite<CR><CR>
+noremap <silent> <Leader>gg :Ggrep<SPACE>
+noremap <silent> <Leader>gb :Git branch<SPACE>
+noremap <silent> <Leader>go :Git checkout<SPACE>
+noremap <silent> <Leader>g- :Silent Git stash<CR>:e<CR>
+noremap <silent> <Leader>g+ :Silent Git stash pop<CR>:e<CR>
 
 " Gundo
 noremap <Leader>u :GundoToggle<CR>
