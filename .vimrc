@@ -449,7 +449,7 @@ augroup general_edit_group
     autocmd!
     autocmd BufWritePre * :let b:winview=winsaveview()
     " Remove all trailing whitespace before saving
-    autocmd BufWritePre * :%s/\s\+$//e
+    autocmd BufWritePre * if getline('$') !~ "allow_trailing_whitespace" | :%s/\s\+$//e | endif
     " Replace tabs with spaces before saving
     autocmd BufWritePre * :1,$retab<CR>
     autocmd BufWritePre * :call PromptSetUnixLineEndings()
