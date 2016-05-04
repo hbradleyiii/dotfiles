@@ -168,7 +168,7 @@ PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():} line ${LINENO}: '
 ### cl - cd && ls
 # cl() {{{2
 function cl() {
-    cd "$@" && ls;
+    cd -- "$@" && ls;
 } # }}}
 
 ### cp - Copy Wrapper
@@ -188,7 +188,7 @@ function cp() {
     # If the files have chars that are not valid filename chars,
     # let cp handle them, to allow passing globs through.
     if [[ ! '$1' =~ ^[a-zA-Z0-9_-]*$ ]] || [[ ! '$2' =~ ^[a-zA-Z0-9_-]*$ ]] ; then
-        /bin/cp -vri "$1" "$2"
+        /bin/cp -vri -- "$1" "$2"
         return
     fi
 
@@ -221,7 +221,7 @@ function cp() {
         mkdir -p $path
     fi
 
-    /bin/cp -vri $1 $2
+    /bin/cp -vri -- $1 $2
 } # }}}
 
 ### cr - CD using Ranger
@@ -245,7 +245,7 @@ function dns() {
     fi
 
     echo -e "\nNameservers:"
-    dig +trace NS "$1" | grep "$1.*NS"
+    dig +trace NS "$1" | grep -- "$1.*NS"
 
     if [[ $? -ne 0 ]] ; then
         echo 'Domain not found.'
@@ -253,22 +253,22 @@ function dns() {
     fi
 
     echo -e "\nA Records:"
-    dig +trace A "$1" | grep "$1.*A"
+    dig +trace A "$1" | grep -- "$1.*A"
 
     echo -e "\nMX Records:"
-    dig +trace MX "$1" | grep "$1.*MX"
+    dig +trace MX "$1" | grep -- "$1.*MX"
 } # }}}
 
 ### gitclone - git clone
 # gitclone() {{{2
 function gitclone() {
-    git clone "$1" "$2"
+    git clone -- "$1" "$2"
     if [[ $? -ne 0 ]] ; then return ; fi
 
     read -r -p "Set local user to 'Harold Bradley III' and email to 'hbradleyiii@bradleystudio.net'? `echo -e '\n ' `" -n 1 -s _answer
     echo -e '\n'
     if [[ $_answer = [Yy] ]] ; then
-        cd "$2"
+        cd -- "$2"
         git config user.name "Harold Bradley III"
         git config user.email "hbradleyiii@bradleystudio.net"
         cd -
@@ -335,23 +335,23 @@ function extract() {
     if [[ -f $1 ]] ; then
         case $1 in
             # Note that order is important! (ie, .tar.gz must come before .tar)
-            *.rar)       unrar x $1       ;;
-            *.tar.bz2)   tar -xvjf $1     ;;
-            *.bz2)       bunzip2 $1       ;;
-            *.tar.gz)    tar -xvzf $1     ;;
-            *.gz)        gunzip $1        ;;
-            *.tar.xz)    tar -Jxvf $1     ;;
-            *.tar.Z)     tar -xzf $1      ;;
-            *.tar)       tar -xvf $1      ;;
-            *.taz)       tar -xzf $1      ;;
-            *.tb2)       tar -xjf $1      ;;
-            *.tbz2)      tar --xvjf $1    ;;
-            *.tbz)       tar -xvjf $1     ;;
-            *.tgz)       tar -xvzf $1     ;;
-            *.txz)       tar -Jxvf $1     ;;
-            *.zip)       unzip $1         ;;
-            *.Z)         uncompress $1    ;;
-            *.7z)        7z x $1          ;;
+            *.rar)       unrar x -- $1       ;;
+            *.tar.bz2)   tar -xvjf -- $1     ;;
+            *.bz2)       bunzip2 -- $1       ;;
+            *.tar.gz)    tar -xvzf -- $1     ;;
+            *.gz)        gunzip -- $1        ;;
+            *.tar.xz)    tar -Jxvf -- $1     ;;
+            *.tar.Z)     tar -xzf -- $1      ;;
+            *.tar)       tar -xvf -- $1      ;;
+            *.taz)       tar -xzf -- $1      ;;
+            *.tb2)       tar -xjf -- $1      ;;
+            *.tbz2)      tar --xvjf -- $1    ;;
+            *.tbz)       tar -xvjf -- $1     ;;
+            *.tgz)       tar -xvzf -- $1     ;;
+            *.txz)       tar -Jxvf -- $1     ;;
+            *.zip)       unzip -- $1         ;;
+            *.Z)         uncompress -- $1    ;;
+            *.7z)        7z x -- $1          ;;
         esac
     else
         echo "'$1' cannot be extracted."
@@ -368,13 +368,13 @@ function manf() {
     else
         dash='\-\-'
     fi
-    man $1 | sed -n "/^[ ]*$dash$2/,/^$/p" | less
+    man -- $1 | sed -n "/^[ ]*$dash$2/,/^$/p" | less
 } # }}}
 
 ### mans - search man page $1 for term $2
 # mans() {{{2
 function mans() {
-    man $1 | grep -iC2 "$2" | less
+    man -- $1 | grep -iC2 "$2" | less
 } # }}}
 
 ### path - displays path order in human readable format
@@ -393,7 +393,7 @@ function s() {
         echo 's is a search program.'
         echo ''
         echo 'uses:'
-        echo '    grep -rnI "string" /the/path'
+        echo '    grep -rnI -- "string" /the/path'
         echo ''
         echo 'usage:'
         echo '    s 'string' /the/path'
@@ -407,7 +407,7 @@ function s() {
         DIR='./*'
     fi
 
-    grep -rnI $1 $DIR
+    grep -rnI -- $1 $DIR
 } # }}}
 
 ### emux - tmux setup for emerge
@@ -469,15 +469,15 @@ function webmux() {
 ### what (which)
 # what() {{{2
 function what() {
-    type "$1" 2> /dev/null
+    type -- "$1" 2> /dev/null
     if [[ $? -ne 0 ]] ; then
         echo "$1 not found."
         return
     fi
 
-    which "$1"
+    which -- "$1"
     if [[ $? -eq 0 ]] ; then
-        which "$1" | xargs ls -la
+        which -- "$1" | xargs ls -la
     fi
 } # }}}
 
