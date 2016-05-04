@@ -259,6 +259,14 @@ function dns() {
 
     echo -e "\nMX Records:"
     dig +trace MX "$1" | grep -- "$1.*MX"
+
+    echo -e "\nTXT Records:"
+    dig +trace TXT "$1" | grep -- "$1.*TXT"
+
+    echo
+    /usr/bin/whois -h whois.internic.net -- "$1" | grep 'Registrar:\|Creation Date\|Expiration Date\|Updated Date'
+
+    echo
 } # }}}
 
 ### gitclone - git clone
