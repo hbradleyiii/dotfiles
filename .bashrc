@@ -492,7 +492,7 @@ function whois() {
     fi
     echo "Getting whois record for: $domain ."
 
-    /usr/bin/whois -h whois.internic.net $domain | sed '/NOTICE:/q'
+    /usr/bin/whois -h whois.internic.net -- $domain | sed '/NOTICE:/q'
 } # }}}
 
 # }}}
