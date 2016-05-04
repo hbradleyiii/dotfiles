@@ -224,6 +224,18 @@ function cp() {
     /bin/cp -vri $1 $2
 } # }}}
 
+### cr - CD using Ranger
+# cr() {{{2
+function cr() {
+    tempfile=$(mktemp)
+    ranger --choosedir="$tempfile" "$(pwd)"
+
+    if [[ -f "$tempfile" ]] ; then
+        cd -- "$(cat -- "$tempfile")"
+        rm -f -- "$tempfile"
+    fi
+} # }}}
+
 ### dns - dns information
 # dns() {{{2
 function dns() {
