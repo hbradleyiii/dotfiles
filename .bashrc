@@ -386,7 +386,7 @@ function path(){
     IFS=$old
 } # }}}
 
-### Search Program
+### s - Search Program
 # s() {{{2
 function s() {
     if [[ "$1" == "" ]] ; then
