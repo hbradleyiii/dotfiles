@@ -171,7 +171,7 @@ function cl() {
     cd "$@" && ls;
 } # }}}
 
-### Copy Wrapper
+### cp - Copy Wrapper
 # cp() {{{2
 function cp() {
         echo $1
@@ -224,7 +224,7 @@ function cp() {
     /bin/cp -vri $1 $2
 } # }}}
 
-### dns information
+### dns - dns information
 # dns() {{{2
 function dns() {
     if [[ $1 == '' ]] ; then
@@ -247,7 +247,7 @@ function dns() {
     dig +trace MX "$1" | grep "$1.*MX"
 } # }}}
 
-### git clone
+### gitclone - git clone
 # gitclone() {{{2
 function gitclone() {
     git clone "$1" "$2"
@@ -263,7 +263,7 @@ function gitclone() {
     fi
 } # }}}
 
-### git fetch
+### gitfetch - git fetch
 # gitfetch() {{{2
 function gitfetch() {
     local current_time=$(date +%s)
@@ -297,7 +297,7 @@ function gitfetch() {
     fi
 } # }}}
 
-### git loop
+### gitloop - git loop
 # gitloop() {{{2
 function gitloop() {
     for i in ./* ; do
@@ -317,7 +317,7 @@ function gitloop() {
     echo 'Finished.'
 } # }}}
 
-### Extract Program
+### extract - Extract Program
 # extract() {{{2
 function extract() {
     if [[ -f $1 ]] ; then
@@ -365,7 +365,7 @@ function mans() {
     man $1 | grep -iC2 "$2" | less
 } # }}}
 
-### path: displays path order in human readable format
+### path - displays path order in human readable format
 # path() {{{2
 function path(){
     old=$IFS
@@ -398,7 +398,7 @@ function s() {
     grep -rnI $1 $DIR
 } # }}}
 
-### emux: tmux setup for emerge
+### emux - tmux setup for emerge
 # emux() {{{2
 function emux() {
     tmux has-session -t emux 2>/dev/null
@@ -428,7 +428,7 @@ function emux() {
     tmux attach -t emerge
 } # }}}
 
-#### webmux: web dev tmux setup
+#### webmux - web dev tmux setup
 # webmux() {{{2
 function webmux() {
     if ! [[ -n "$TMUX" ]] ; then
