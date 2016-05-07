@@ -411,6 +411,7 @@ endif
 
 if &t_Co >= 256 || has("gui_running")  " For 256color Terminals or GVim
     set background=dark
+    set guifb=#090909
     let g:solarized_termcolors=256
     let g:solarized_termtrans=1
     colorscheme solarized
