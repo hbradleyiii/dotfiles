@@ -135,6 +135,9 @@ imap <C-g> <ESC>:call ToggleGreekKeyboard()<CR>a
 map <C-y> :call ToggleHebrewKeyboard()<CR>
 imap <C-y> <ESC>:call ToggleHebrewKeyboard()<CR>a
 
+" Reset keymap by default
+set keymap=
+
 let g:greek_keyboard = 0
 function! ToggleGreekKeyboard()
     if g:greek_keyboard
