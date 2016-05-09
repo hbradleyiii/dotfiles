@@ -405,13 +405,13 @@ if has('gui_running')  " Set up the gui for GVim
     set guicursor+=sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
     set guifont=Pragmata\ 14
     set guioptions=acer
+    set guifb=#090909
     set ttyfast
     set nolazyredraw  " Does this have consequences?
 endif
 
 if &t_Co >= 256 || has("gui_running")  " For 256color Terminals or GVim
     set background=dark
-    set guifb=#090909
     let g:solarized_termcolors=256
     let g:solarized_termtrans=1
     colorscheme solarized
