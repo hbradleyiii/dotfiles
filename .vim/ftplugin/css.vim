@@ -9,7 +9,7 @@ function! PutDeclarationsOnIndividualLines()
 endfunction
 
 function! PutDeclarationsOnOneLine()
-    execute "$va{J"
+    execute "normal! $va{J"
 endfunction
 
 noremap gqh 0120lF;a<CR><ESC>
