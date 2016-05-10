@@ -13,5 +13,5 @@ function! PutDeclarationsOnOneLine()
 endfunction
 
 noremap gqh 0120lF;a<CR><ESC>
-noremap gqj :call PutDeclarationsOnIndividualLines()<CR>
-noremap gqk :call PutDeclarationsOnOneLine()<CR>
+noremap gqj :call PutDeclarationsOnOneLine()<CR>
+noremap gqk :call PutDeclarationsOnIndividualLines()<CR>
