@@ -406,6 +406,7 @@ if has('gui_running')  " Set up the gui for GVim
     set guifont=Pragmata\ 14
     set guioptions=acer
     set guifb=#090909
+    set mouse=a
     set ttyfast
     set nolazyredraw  " Does this have consequences?
 endif
