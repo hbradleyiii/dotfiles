@@ -369,19 +369,19 @@ function extract() {
         case $1 in
             # Note that order is important! (ie, .tar.gz must come before .tar)
             *.rar)       unrar x -- $1       ;;
-            *.tar.bz2)   tar -xvjf -- $1     ;;
+            *.tar.bz2)   tar -xvjf $1        ;;
             *.bz2)       bunzip2 -- $1       ;;
-            *.tar.gz)    tar -xvzf -- $1     ;;
+            *.tar.gz)    tar -xvzf $1        ;;
             *.gz)        gunzip -- $1        ;;
-            *.tar.xz)    tar -Jxvf -- $1     ;;
-            *.tar.Z)     tar -xzf -- $1      ;;
-            *.tar)       tar -xvf -- $1      ;;
-            *.taz)       tar -xzf -- $1      ;;
-            *.tb2)       tar -xjf -- $1      ;;
-            *.tbz2)      tar --xvjf -- $1    ;;
-            *.tbz)       tar -xvjf -- $1     ;;
-            *.tgz)       tar -xvzf -- $1     ;;
-            *.txz)       tar -Jxvf -- $1     ;;
+            *.tar.xz)    tar -Jxvf $1        ;;
+            *.tar.Z)     tar -xzf $1         ;;
+            *.tar)       tar -xvf $1         ;;
+            *.taz)       tar -xzf $1         ;;
+            *.tb2)       tar -xjf $1         ;;
+            *.tbz2)      tar --xvjf $1       ;;
+            *.tbz)       tar -xvjf $1        ;;
+            *.tgz)       tar -xvzf $1        ;;
+            *.txz)       tar -Jxvf $1        ;;
             *.zip)       unzip -- $1         ;;
             *.Z)         uncompress -- $1    ;;
             *.7z)        7z x -- $1          ;;
