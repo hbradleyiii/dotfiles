@@ -405,7 +405,6 @@ if has('gui_running')  " Set up the gui for GVim
     set guicursor+=sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
     set guifont=Pragmata\ 14
     set guioptions=acer
-    highlight Normal guifg=#090909
     set mouse=a
     set ttyfast
     set nolazyredraw  " Does this have consequences?
@@ -419,6 +418,7 @@ if &t_Co >= 256 || has("gui_running")  " For 256color Terminals or GVim
     " Invisible character colors
     highlight NonText guifg=#151515
     highlight SpecialKey guifg=#151515
+    highlight Normal guibg=#090909
     " Highlight lines over 80 chars
     highlight OverLength ctermbg=234 ctermfg=white guibg=#592929
     match OverLength /\%81v./
