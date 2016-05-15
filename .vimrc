@@ -405,7 +405,7 @@ if has('gui_running')  " Set up the gui for GVim
     set guicursor+=sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
     set guifont=Pragmata\ 14
     set guioptions=acer
-    set guifb=#090909
+    highlight Normal guifg=#090909
     set mouse=a
     set ttyfast
     set nolazyredraw  " Does this have consequences?
