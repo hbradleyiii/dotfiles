@@ -6,11 +6,22 @@ function! PutDeclarationsOnIndividualLines()
     while getline(".") =~ ";.*;"
         execute "normal! 0f;a\<CR>\<ESC>"
     endwhile
+    call SortAlphabeticallyInBraces()
 endfunction
 
 function! PutDeclarationsOnOneLine()
-    execute "normal! $va{J"
+    call SortAlphabeticallyInBraces()
+    " Put declarations on one line:
+    execute "normal! va{J"
 endfunction
+
+function! SortAlphabeticallyInBraces()
+    " Sort alphabetically:
+    execute "normal! $vi{"
+    execute ":'<,'>sort"
+    execute "normal! v"
+endfunction
+
 
 noremap gqh 0120lF;a<CR><ESC>
 noremap gqj :call PutDeclarationsOnOneLine()<CR>
