@@ -12,16 +12,13 @@ endfunction
 function! PutDeclarationsOnOneLine()
     call SortAlphabeticallyInBraces()
     " Put declarations on one line:
-    execute "normal! va{J"
+    execute "normal! $va{J"
 endfunction
 
 function! SortAlphabeticallyInBraces()
     " Sort alphabetically:
-    execute "normal! $vi{"
-    execute ":'<,'>sort"
-    execute "normal! v"
+    execute "normal! $vi{:sort\<CR>"
 endfunction
-
 
 noremap gqh 0120lF;a<CR><ESC>
 noremap gqj :call PutDeclarationsOnOneLine()<CR>
