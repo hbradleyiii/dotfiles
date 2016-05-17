@@ -447,7 +447,7 @@ function s() {
 ### sudoh - sudo with my environment
 # sudoh() {{{2
 function sudoh() {
-    sudo bash -i -c '$@'
+    sudo bash -i -c "$@"
 } # }}}
 
 ### emux - tmux setup for emerge
