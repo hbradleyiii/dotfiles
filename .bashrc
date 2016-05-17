@@ -448,7 +448,7 @@ function s() {
 ### sudoh - sudo with my environment
 # sudoh() {{{2
 function sudoh() {
-    sudo bash --rcfile ~/.bash_profile -c "$@"
+    sudo bash -i -c "source ~/.bash_profile ; $@"
 } # }}}
 
 ### emux - tmux setup for emerge
