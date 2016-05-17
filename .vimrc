@@ -394,6 +394,7 @@ set incsearch
 " colorscheme must be AFTER this!
 filetype plugin indent on
 syntax on
+set synmaxcol=256
 
 if has('gui_running')  " Set up the gui for GVim
     " Set the cursor for various modes
