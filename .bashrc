@@ -76,7 +76,7 @@ alias skim='(head -5; tail -5) <'
 alias speedtest='curl -o /dev/null http://speedtest.sea01.softlayer.com/downloads/test100.zip'
 alias speedtest2='wget -O /dev/null http://speedtest.sea01.softlayer.com/downloads/test100.zip'
 alias ssagent='eval `ssh-agent` && ssh-add ~/.ssh/id_rsa'
-alias ssu='sudo bash --rcfile ~/.bash_profile'
+alias ssu='sudo SSH_CLIENT="$SSH_CLIENT" SSH_CONNECTION="$SSH_CONNECTION" bash --rcfile ~/.bash_profile'
 alias wget='wget -c'
 if [[ $MAC_OS ]] ; then
     unalias ls
