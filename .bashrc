@@ -549,6 +549,10 @@ if [[ -f ~/.OLDPWD ]] ; then
 fi
 # }}}
 
+## SECTION: Update dotfiles if necessary {{{1
+(cd ~/.dotfiles && gitfetch)
+# }}}
+
 ## SECTION: Source .bashrc_local (if it exists) {{{1
 #   Leave this at the bottom
 if [[ -f ~/.bashrc_local ]] ; then
