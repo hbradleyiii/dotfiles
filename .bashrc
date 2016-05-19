@@ -330,6 +330,8 @@ function gitfetch() {
     # Wait until next time
     if [[ $current_time -lt $next_fetch  ]] ; then return ; fi
 
+    echo -e "\nChecking for updates to ${PWD##*/} repository..."
+
     # Do the fetch
     git fetch
 
