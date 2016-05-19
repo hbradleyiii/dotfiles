@@ -59,6 +59,6 @@ else
     ln -s ~/.dotfiles/hooks ~/.dotfiles/.git/hooks
 fi
 
-rebash
+source ~/.bash_profile
 
 # vim:set ft=sh fdm=marker:
