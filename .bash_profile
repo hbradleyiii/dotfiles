@@ -88,6 +88,11 @@ if [[ -f /usr/bin/tmux ]] ; then
 fi
 # }}}
 
+## SECTION: Banner displaying domain and IP {{{1
+echo -e " \e[1;39m*\e[39m Welcome to \e[32m $(hostname) \e[39m [ $IP ]"
+echo
+# }}}
+
 ## SECTION: Source .bashrc {{{1
 #   Leave this at the bottom
 if [[ $- =~ "i" ]] && [[ "$BASH" ]] && [[ -f ~/.bashrc ]] ; then
