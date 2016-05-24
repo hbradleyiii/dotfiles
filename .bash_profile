@@ -59,6 +59,8 @@ if [[ $EXPORTS_SET != 1 ]] ; then
         export BROWSER=links
         export VISUAL=vim
     fi
+    # Check what os we are running
+    [[ "$(uname)" == "Darwin" ]] && export MAC_OS=true
 fi
 # }}}
 

@@ -14,9 +14,6 @@ if ! [[ $- =~ "i" ]] && ! [[ -n $USE_BASHRC ]] ; then return; fi
 # Check if terminal supports colors, if so, source colors
 [[ $(tput colors) -ge 8 ]] && [[ -z $_COLORS_DEFINED ]] && source $HOME/.bash_lib/colors
 
-# Check what os we are running
-[[ "$(uname)" == "Darwin" ]] && export MAC_OS=true
-
 ## SECTION: Bash Settings {{{1
 set -o vi
 shopt -s cdspell # Correct directory typos (cd)
