@@ -95,6 +95,10 @@ complete -W "$(
     [[ -f ~/.ssh/known_hosts ]] && echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;
     [[ -f ~/.ssh/config ]] && echo `cat ~/.ssh/config | grep "^Host " | awk '{print $2}'`
 )" ssh
+complete -W "$(
+    [[ -f ~/.ssh/known_hosts ]] && echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;
+    [[ -f ~/.ssh/config ]] && echo `cat ~/.ssh/config | grep "^Host " | awk '{print $2}'`
+)" ping
 
 # bash completion for the `wp` command
 _wp_complete() {
