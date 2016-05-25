@@ -91,12 +91,10 @@ wpt='wp-content/theme'
 
 ## SECTION: Tab Completion {{{1
 # tab completion for ssh hosts
-if [[ -f ~/.ssh/known_hosts ]] ; then
-    complete -W "$(
-        echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;
-        echo `cat ~/.ssh/config | grep "^Host " | awk '{print $2}'`
-    )" ssh
-fi
+complete -W "$(
+    [[ -f ~/.ssh/known_hosts ]] && echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;
+    [[ -f ~/.ssh/config ]] && echo `cat ~/.ssh/config | grep "^Host " | awk '{print $2}'`
+)" ssh
 
 # bash completion for the `wp` command
 _wp_complete() {
