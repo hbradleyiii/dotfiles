@@ -264,6 +264,9 @@ noremap <Leader>u :GundoToggle<CR>
 noremap <Leader>nt :NERDTreeToggle <CR>
 noremap <F2> :NERDTreeToggle <CR>
 
+"" PHP Manual
+let g:php_manual_online_search_shortcut = '<Leader>h'
+
 "" Syntastic
 let g:syntastic_csslint_args="--ignore=universal-selector"
 "let g:syntastic_css_checkers=["recess"]
