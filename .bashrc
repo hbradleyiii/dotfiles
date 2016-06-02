@@ -145,31 +145,28 @@ function gitstate() {
         && git_branch=${git_branch:11} \
         || local git_branch="(unnamed branch)"
 
-    # default (just branch)
-    local state="[git:"$git_branch"] "
+    local state=""
+    local extended_state=""
 
     # Check staging area and working directory
     if [[ ! $git_status =~ "working directory clean" ]] ; then
-        state="[git:"$git_branch
         if [[ $git_status =~ "Changes to be committed:" ]] ; then
-            state=$state"(+)] "
+            state=$state"(+)"
         elif [[ $git_status =~ "Changes not staged for commit:" ]] ; then
-            state=$state"+] "
+            state=$state"+"
         elif [[ $git_status =~ "Untracked files:" ]] ; then
-            state=$state"*] "
-        else
-            state=$state"] "
+            state=$state"*"
         fi
     fi
 
     # Check against remote
     if [[ $git_status =~ "Your branch is ahead of" ]] ; then
-        state=$state"(ahead of origin)"
+        extended_state="(ahead of origin)"
     elif [[ $git_status =~ "Your branch is behind" ]] ; then
-        state=$state"(behind origin)"
+        ended_state="(behind origin)"
     fi
 
-    echo $state
+    echo -e "[git\x3A"$git_branch$state"] "$extended_state
 } # }}}
 
 # TODO: Modify for if colors script doesn't exist
