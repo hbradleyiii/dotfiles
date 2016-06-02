@@ -130,8 +130,8 @@ complete -o nospace -F _wp_complete wp
 
 ## SECTION: Bash Prompts {{{1
 
-# git_state() {{{2
-function git_state() {
+# gitstate() {{{2
+function gitstate() {
 
     if ! git rev-parse 2> /dev/null; then return ; fi  # die if not a git repo
 
@@ -177,15 +177,15 @@ function git_state() {
 #   prevent expansion for commands until expansion in realtime on the prompt.
 if [[ ${EUID} == 0 ]] ; then # must be root:
     if [[ -n "$SSH_CLIENT" ]] && [[ -n "$SSH_CONNECTION" ]] ; then # root using ssh:
-        PS1="\[${_red}\][ssh] \H\[${_blue}\]"' $( pwd ) $( git_state )'"\n\[${_blue}\] #\[${_colorreset}\] "
+        PS1="\[${_red}\][ssh] \H\[${_blue}\]"' $( pwd ) $( gitstate )'"\n\[${_blue}\] #\[${_colorreset}\] "
     else # root local
-        PS1="\[${_red}\]\h\[${_blue}\]"' $( pwd ) $( git_state )'"\n\[${_blue}\] #\[${_colorreset}\] "
+        PS1="\[${_red}\]\h\[${_blue}\]"' $( pwd ) $( gitstate )'"\n\[${_blue}\] #\[${_colorreset}\] "
     fi
 else
     if [[ -n "$SSH_CLIENT" ]] && [[ -n "$SSH_CONNECTION" ]] ; then # user using ssh
-        PS1="\[${_green}\]ssh://\u@\H\[${_blue}\]"' $( pwd ) $( git_state )'"\n\[${_blue}\] \$\[${_colorreset}\] "
+        PS1="\[${_green}\]ssh://\u@\H\[${_blue}\]"' $( pwd ) $( gitstate )'"\n\[${_blue}\] \$\[${_colorreset}\] "
     else # user local
-        PS1="\[${_green}\]\u\[${_blue}\]"' $( pwd ) $( git_state ) '"\n\[${_blue}\] \$\[${_colorreset}\] "
+        PS1="\[${_green}\]\u\[${_blue}\]"' $( pwd ) $( gitstate ) '"\n\[${_blue}\] \$\[${_colorreset}\] "
     fi
 fi
 
