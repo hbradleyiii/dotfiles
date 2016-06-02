@@ -316,6 +316,23 @@ function gitclone() {
     fi
 } # }}}
 
+### gitcp - just get the contents of a git repo
+# gitcp() {{{2
+function gitcp() {
+    if [[ "$1" == "" ]] ; then
+        echo '[!] gitcp requires a repo to copy from.'
+        return
+    fi
+
+    if [[ "$2" == "" ]] ; then
+        echo '[!] gitcp requires 2 arguments.'
+        return
+    fi
+
+    echo 'Copying repo $1...'
+    git clone --depth=1 --branch=master -- $1 $2 && rm -rf $2/.git
+} # }}}
+
 ### gitfetch - git fetch
 # gitfetch() {{{2
 function gitfetch() {
