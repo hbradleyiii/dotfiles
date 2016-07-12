@@ -1,0 +1,27 @@
+snippet (-> "Smart Parens" i
+(${1}`!p
+if t[1].startswith(')'):
+    snip.rv = ''
+elif t[1].startswith(' '):
+    snip.rv = ' )'
+elif t[1] != '':
+	snip.rv = ')'
+`$0
+endsnippet
+
+snippet [-> "Smart Brackets" i
+[${1}`!p
+if t[1].startswith(']'):
+    snip.rv = ''
+elif t[1].startswith(' '):
+    snip.rv = ' ]'
+elif t[1] != '':
+	snip.rv = ']'
+`$0
+endsnippet
+
+snippet {-> "Smart Braces" i
+{
+	$0
+}
+endsnippet

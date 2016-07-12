@@ -72,10 +72,11 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 
-" Automatically close braces
-inoremap <silent> { {<CR>}<ESC>O
-inoremap <silent> ( ()<LEFT>
-inoremap <silent> [ []<LEFT>
+" Automatically close braces with UltiSnip
+imap <silent> { {-><TAB>
+imap <silent> ( (-><TAB>
+imap <silent> [ [-><TAB>
+
 
 " 'e'dit 'v'imrc
 noremap <silent> <Leader>sv :so $MYVIMRC<CR>
