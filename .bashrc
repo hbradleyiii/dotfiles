@@ -517,7 +517,7 @@ function webmux() {
             tmux set -g base-index 1
             tmux setw -g pane-base-index 1
 
-            tmux split-window -v -l 5 -t webmux 'clear && compass-watch'
+            tmux split-window -v -l 5 -t webmux 'clear && sass-watch'
             tmux select-pane -t webmux:1.1
             tmux send-keys -t webmux:1.1 'clear && ls' C-m
         fi
@@ -526,7 +526,7 @@ function webmux() {
     else
         clear
         ls
-        tmux split-window -v -l 5 -t webmux 'clear && compass-watch'
+        tmux split-window -v -l 5 -t webmux 'clear && sass-watch'
         tmux select-pane -U
     fi
 } # }}}
