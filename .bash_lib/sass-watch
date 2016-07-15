@@ -1,0 +1,15 @@
+#!/bin/bash
+
+while true; do # Restart infinitely...
+
+    inotifywait -mr -e modify "./" |
+    while read r filename event; do
+        echo "Modified: $filename"
+        sassc ./style.scss ../style.css -m
+        echo "Updated: ../style.css"
+    done
+
+    sleep 3 # Wait a few seconds before restarting
+done
+
+# vim:set ft=sh fdm=marker:
