@@ -2,10 +2,10 @@
 
 while true; do # Restart infinitely...
 
-    inotifywait -mr -e modify "./" |
+    inotifywait -mr -e modify "./sass/" |
     while read r filename event; do
         echo "Modified: $filename"
-        sassc ./style.scss ../style.css -m
+        sassc sass/style.scss style.css -m
         echo "Updated: ../style.css"
     done
 
