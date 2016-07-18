@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# name:             tmux-sass-watch
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created:          Mon 18 July 2013 11:53:35 AM EST
+#
+# description:      Acts as a sass-watch pane toggle.
+#                   When called from inside tmux, will either open a new pane
+#                   running sass-watch or will close a currently running
+#                   sass-watch pane.
+#
+
+if ((ps -o '%c' $(tmux list-panes -F '#{pane_pid}') | grep ^sass-watch$ )>/dev/null) ; then
+    kill $(ps -o '%p%c' $(tmux list-panes -F '#{pane_pid}') | grep sass-watch$ | awk '{ print $1 }')
+else
+    tmux split-window -v -l 5 'sass-watch'
+    tmux select-pane -D
+fi
+
+# vim:set ft=sh fdm=marker:
