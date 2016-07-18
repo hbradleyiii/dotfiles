@@ -1,15 +1,72 @@
 #!/bin/bash
+#
+# name:             sass-watch
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created:          Fri 15 July 2013 11:53:35 AM EST
+#
+# description:      Watches sass files for modifications and compiles them
+#
 
-while true; do # Restart infinitely...
 
-    inotifywait -mr -e modify "./sass/" |
-    while read r filename event; do
-        echo "Modified: $filename"
-        sassc sass/style.scss style.css -m
-        echo "Updated: ../style.css"
+# main() {{{1
+#   main function
+function main() {
+    local SASS_DIR="$(pwd)/sass"
+    if [[ ! -d "$SASS_DIR" ]] ; then
+        local SASS_DIR="../sass"
+        if [[ ! -d "$SASS_DIR" ]] ; then
+            local SASS_DIR="../../sass"
+        fi
+    fi
+    local SASS_FILE="$SASS_DIR/style.scss"
+    local STYLE_SHEET="$SASS_DIR/../css/style.css"
+    local FLAGS="-m"
+
+    if [[ -f "$SASS_DIR/sass.config" ]] ; then
+        source "$SASS_DIR/sass.config"
+    fi
+
+    if [[ ! -d "$SASS_DIR" ]] ; then
+        read -rsp "SASS directory not found. Press any key to continue...\n" -n1 key
+    fi
+
+    printf "        \e[0;32mRunning sass-watch\e[m\n"
+    printf "        Watching for changes...\n"
+
+    inotifywait -qmr -e create,delete,modify,move "./sass/" |
+    while read working_dir event filename; do
+        if [[ "${filename##*.}" == "scss" ]] ; then
+            case $event in
+                'CREATE')
+                    local event_name="Created"
+                    ;;
+                'DELETE')
+                    local event_name="Deleted"
+                    ;;
+                'MOVE')
+                    local event_name="Moved"
+                    ;;
+                'MODIFY')
+                    local event_name="Modified"
+                    ;;
+                *)
+                    local event_name="Modified"
+                    ;;
+            esac
+
+            printf "    \e[1;33m%s: \e[m%s\n" $event_name $filename
+            sassc $SASS_FILE $STYLE_SHEET $FLAGS &&
+            printf "    \e[0;32mSASS compiled: \e[m%s\n" "../style.css"
+        fi
     done
+}
+# }}}
 
-    sleep 3 # Wait a few seconds before restarting
-done
+
+    # Run sass-watch function if called directly
+if [[ $0 = */sass-watch ]] ; then
+    main
+fi
 
 # vim:set ft=sh fdm=marker:
