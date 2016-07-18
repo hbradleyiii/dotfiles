@@ -159,7 +159,7 @@ function! ToggleHebrewKeyboard()
         let g:hebrew_keyboard = 0
         let g:greek_keyboard = 0
     else
-        set keymap=hebrew
+        set keymap=hebrew_tiro
         let g:hebrew_keyboard = 1
         let g:greek_keyboard = 0
     endif
@@ -408,7 +408,7 @@ if has('gui_running')  " Set up the gui for GVim
     set guicursor+=i-ci:ver25-Cursor
     set guicursor+=r-cr:hor20-Cursor
     set guicursor+=sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
-    set guifont=Pragmata\ 14
+    set guifont=Pragmata\ 16
     set guioptions=acer
     set mouse=a
     set ttyfast
