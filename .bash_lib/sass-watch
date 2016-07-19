@@ -43,7 +43,7 @@ function main() {
         read -rsp "SASS directory not found. Press any key to continue...\n" -n1 key
     fi
 
-    printf "        \e[0;32mRunning sass-watch\e[m\n"
+    printf "        \e[0;32mRunning sass-watch \e[m \e[0;34m[sassc $FLAGS]\e[m\n"
     printf "        Watching for changes...\n"
 
     local LAST_MOD_TIME=0
