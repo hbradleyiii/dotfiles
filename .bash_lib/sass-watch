@@ -33,9 +33,19 @@ function main() {
     printf "        \e[0;32mRunning sass-watch\e[m\n"
     printf "        Watching for changes...\n"
 
-    inotifywait -qmr -e create,delete,modify,move "./sass/" |
-    while read working_dir event filename; do
+    local LAST_MOD_TIME=0
+
+    # Set up watches:
+    inotifywait -qmr -e create,delete,modify,move --format "%f %e %T" --timefmt "%s" "./sass/" |
+    while read filename event mod_time; do
         if [[ "${filename##*.}" == "scss" ]] ; then
+
+            # Make sure at least 1 second has changed since last mod
+            if [[ $LAST_MOD_TIME -ge $(($mod_time - 1)) ]] ; then continue ; fi
+
+            # Otherwise, save this modtime and continue compiling:
+            LAST_MOD_TIME=$mod_time
+
             case $event in
                 'CREATE')
                     local event_name="Created:  "
