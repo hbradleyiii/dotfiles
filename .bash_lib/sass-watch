@@ -44,7 +44,7 @@ function main() {
     fi
 
     printf "        \e[0;32mRunning sass-watch \e[m \e[0;34m[sassc $FLAGS]\e[m\n"
-    printf "        Watching for changes...\n"
+    printf "            Watching for changes...\n"
 
     local LAST_MOD_TIME=0
 
@@ -94,7 +94,7 @@ function main() {
 # }}}
 
 
-    # Run sass-watch function if called directly
+    # Run sass-watch main function if called directly
 if [[ $0 = */sass-watch ]] ; then
     main
 fi
