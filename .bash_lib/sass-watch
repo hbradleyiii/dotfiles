@@ -15,9 +15,9 @@
 #                   sass.config that is in the sass directory.
 #
 #                   Settings:
-#                       $sass_file - the main sass file to compile
-#                       $style_sheet - the location of the stylesheet to compile
-#                       $flags - any flags to pass to sassc
+#                       $SASS_FILE - the main sass file to compile
+#                       $STYLE_SHEET - the location of the stylesheet to compile
+#                       $FLAGS - any flags to pass to sassc
 #
 
 # compile() {{{1
@@ -25,12 +25,12 @@
 function compile() {
     local event_name=$1
     local filename=$2
-    local sass_cmd=$3
 
     printf "\e[1;33m%-11s \e[m%-30s" "    $event_name " "$filename"
     TIMEFORMAT="(%Rs)"
     time (
-        local error_msg="$($sass_cmd 2>&1 > /dev/null)"
+        local error_msg="$(sassc $SASS_FILE $STYLE_SHEET $FLAGS 2>&1 > /dev/null)"
+
         if [[  $error_msg == "" ]] ; then
             printf "\e[0;32m[compiled]\e[m "
         else
@@ -44,31 +44,29 @@ function compile() {
 # main() {{{1
 #   main function
 function main() {
-    local sass_dir="$(pwd)/sass"
-    if [[ ! -d "$sass_dir" ]] ; then
-        local sass_dir=$(readlink -f "../sass")  # Using readlink to resolve relative path
-        if [[ ! -d "$sass_dir" ]] ; then
-            local sass_dir=$(readlink -f "../../sass")  # Using readlink to resolve relative path
+    SASS_DIR="$(pwd)/sass"
+    if [[ ! -d "$SASS_DIR" ]] ; then
+        SASS_DIR=$(readlink -f "../sass")  # Using readlink to resolve relative path
+        if [[ ! -d "$SASS_DIR" ]] ; then
+            SASS_DIR=$(readlink -f "../../sass")  # Using readlink to resolve relative path
         fi
     fi
-    local sass_file="$sass_dir/style.scss"
-    local style_sheet=$(readlink -f "$sass_dir/../css/style.css")  # Using readlink to resolve relative path
-    local flags="-m"
+    SASS_FILE="$SASS_DIR/style.scss"
+    STYLE_SHEET=$(readlink -f "$SASS_DIR/../css/style.css")  # Using readlink to resolve relative path
+    FLAGS="-m"
 
     # Source sass.config if it exists
-    if [[ -f "$sass_dir/sass.config" ]] ; then
-        source "$sass_dir/sass.config"
+    if [[ -f "$SASS_DIR/sass.config" ]] ; then
+        source "$SASS_DIR/sass.config"
     fi
 
-    if [[ ! -d "$sass_dir" ]] ; then
+    if [[ ! -d "$SASS_DIR" ]] ; then
         read -rsp "SASS directory not found. Press any key to continue...\n" -n1 key
     fi
 
-    local sass_cmd="sassc $sass_file $style_sheet $flags"
-
-    printf "        \e[0;32mRunning sass-watch \e[m \e[0;34m[sassc $flags]\e[m\n"
+    printf "        \e[0;32mRunning sass-watch \e[m \e[0;34m[sassc $FLAGS]\e[m\n"
     # First compile:
-    compile "Starting: " " " "$sass_cmd"
+    compile "Starting: " "$(basename $STYLE_SHEET)"
     printf "\n\e[0;34m>>  Watching for changes...\e[m\n"
 
     local last_mod_time=0
@@ -104,7 +102,7 @@ function main() {
             esac
 
             # Compile the sass
-            compile "$event_name" "$filename" "$sass_cmd"
+            compile "$event_name" "$filename"
         fi
     done
 }
