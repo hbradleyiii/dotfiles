@@ -7,6 +7,18 @@
 #
 # description:      Watches sass files for modifications and compiles them
 #
+#                   This script assumes the sass files are in a directory named
+#                   sass either in the current directory, in the parent
+#                   directory, or in the parent's parent directory.
+#
+#                   Settings can be modified by creating a bash file named
+#                   sass.config that is in the sass directory.
+#
+#                   Settings:
+#                       $SASS_FILE - the main sass file to compile
+#                       $STYLE_SHEET - the location of the stylesheet to compile
+#                       $FLAGS - any flags to pass to sassc
+#
 
 # main() {{{1
 #   main function
@@ -22,6 +34,7 @@ function main() {
     local STYLE_SHEET="$SASS_DIR/../css/style.css"
     local FLAGS="-m"
 
+    # Source sass.config if it exists
     if [[ -f "$SASS_DIR/sass.config" ]] ; then
         source "$SASS_DIR/sass.config"
     fi
@@ -46,6 +59,7 @@ function main() {
             # Otherwise, save this modtime and continue compiling:
             LAST_MOD_TIME=$mod_time
 
+            # Set screen friendly event name
             case $event in
                 'CREATE')
                     local event_name="Created:  "
