@@ -30,11 +30,11 @@ function compile() {
     printf "    \e[1;33m$event_name \e[m$filename%-30s"
     TIMEFORMAT="(%Rs)"
     time (
-        local ERROR_MSG="$(sassc $SASS_FILE $STYLE_SHEET $FLAGS 2>&1 > /dev/null)"
-        if [[  $ERROR_MSG == "" ]] ; then
+        local error_msg="$($sass_cmd 2>&1 > /dev/null)"
+        if [[  $error_msg == "" ]] ; then
             printf "\e[0;32m[compiled]\e[m "
         else
-            printf "\n\e[0;31m $ERROR_MSG\e[m "
+            printf "\n\e[0;31m $error_msg\e[m "
         fi
     )
 }
