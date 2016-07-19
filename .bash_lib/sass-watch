@@ -15,9 +15,9 @@
 #                   sass.config that is in the sass directory.
 #
 #                   Settings:
-#                       $SASS_FILE - the main sass file to compile
-#                       $STYLE_SHEET - the location of the stylesheet to compile
-#                       $FLAGS - any flags to pass to sassc
+#                       $sass_file - the main sass file to compile
+#                       $style_sheet - the location of the stylesheet to compile
+#                       $flags - any flags to pass to sassc
 #
 
 # compile() {{{1
@@ -44,34 +44,34 @@ function compile() {
 # main() {{{1
 #   main function
 function main() {
-    local SASS_DIR="$(pwd)/sass"
-    if [[ ! -d "$SASS_DIR" ]] ; then
-        local SASS_DIR="../sass"
-        if [[ ! -d "$SASS_DIR" ]] ; then
-            local SASS_DIR="../../sass"
+    local sass_dir="$(pwd)/sass"
+    if [[ ! -d "$sass_dir" ]] ; then
+        local sass_dir=$(readlink -f "../sass")  # Using readlink to resolve relative path
+        if [[ ! -d "$sass_dir" ]] ; then
+            local sass_dir=$(readlink -f "../../sass")  # Using readlink to resolve relative path
         fi
     fi
-    local SASS_FILE="$SASS_DIR/style.scss"
-    local STYLE_SHEET="$SASS_DIR/../css/style.css"
-    local FLAGS="-m"
+    local sass_file="$sass_dir/style.scss"
+    local style_sheet=$(readlink -f "$sass_dir/../css/style.css")  # Using readlink to resolve relative path
+    local flags="-m"
 
     # Source sass.config if it exists
-    if [[ -f "$SASS_DIR/sass.config" ]] ; then
-        source "$SASS_DIR/sass.config"
+    if [[ -f "$sass_dir/sass.config" ]] ; then
+        source "$sass_dir/sass.config"
     fi
 
-    if [[ ! -d "$SASS_DIR" ]] ; then
+    if [[ ! -d "$sass_dir" ]] ; then
         read -rsp "SASS directory not found. Press any key to continue...\n" -n1 key
     fi
 
-    local sass_cmd="sassc $SASS_FILE $STYLE_SHEET $FLAGS"
+    local sass_cmd="sassc $sass_file $style_sheet $flags"
 
-    printf "        \e[0;32mRunning sass-watch \e[m \e[0;34m[sassc $FLAGS]\e[m\n"
+    printf "        \e[0;32mRunning sass-watch \e[m \e[0;34m[sassc $flags]\e[m\n"
     # First compile:
     compile "Starting:" "          " "$sass_cmd"
     printf "            Watching for changes...\n"
 
-    local LAST_MOD_TIME=0
+    local last_mod_time=0
 
     # Set up watches:
     inotifywait -qmr -e create,delete,modify,move --format "%f %e %T" --timefmt "%s" "./sass/" |
@@ -79,10 +79,10 @@ function main() {
         if [[ "${filename##*.}" == "scss" ]] ; then
 
             # Make sure at least 1 second has changed since last mod
-            if [[ $LAST_MOD_TIME -ge $(($mod_time - 1)) ]] ; then continue ; fi
+            if [[ $last_mod_time -ge $(($mod_time - 1)) ]] ; then continue ; fi
 
             # Otherwise, save this modtime and continue compiling:
-            LAST_MOD_TIME=$mod_time
+            last_mod_time=$mod_time
 
             # Set screen friendly event name
             case $event in
