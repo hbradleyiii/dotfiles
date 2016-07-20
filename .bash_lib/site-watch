@@ -8,7 +8,8 @@
 # description:      Watches website files for modifications and updates a file
 #                   called '.site-watch' in the root directory (the root that
 #                   is being watched, which does not have to be the root of the
-#                   website).
+#                   website). The file's first line is the timestamp of the
+#                   modification, and the second line is the file modified.
 #
 #                   Settings can be modified by creating a bash file named
 #                   .site-watch.config that is in the root directory.
