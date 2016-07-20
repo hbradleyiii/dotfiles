@@ -14,8 +14,15 @@
 if ((ps -o '%c' $(tmux list-panes -F '#{pane_pid}') | grep ^sass-watch$ )>/dev/null) ; then
     kill $(ps -o '%p%c' $(tmux list-panes -F '#{pane_pid}') | grep sass-watch$ | awk '{ print $1 }')
 else
-    tmux split-window -v -l 5 'sass-watch'
-    tmux select-pane -D
+    # If site-watch is running, share the screen with it:
+    if ((ps -o '%c' $(tmux list-panes -F '#{pane_pid}') | grep ^site-watch$ )>/dev/null) ; then
+        tmux select-pane -t bottom
+        tmux split-window -h 'sass-watch'
+        tmux select-pane -D
+    else # Otherwise, just be on the bottom:
+        tmux split-window -v -l 5 'sass-watch'
+        tmux select-pane -D
+    fi
 fi
 
 # vim:set ft=sh fdm=marker:

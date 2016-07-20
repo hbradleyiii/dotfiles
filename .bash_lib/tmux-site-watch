@@ -1,0 +1,28 @@
+#!/bin/bash
+#
+# name:             tmux-site-watch
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created:          Mon 18 July 2013 11:53:35 AM EST
+#
+# description:      Acts as a site-watch pane toggle.
+#                   When called from inside tmux, will either open a new pane
+#                   running site-watch or will close a currently running
+#                   site-watch pane.
+#
+
+if ((ps -o '%c' $(tmux list-panes -F '#{pane_pid}') | grep ^site-watch$ )>/dev/null) ; then
+    kill -s 9 $(ps -o '%p%c' $(tmux list-panes -F '#{pane_pid}') | grep site-watch$ | awk '{ print $1 }')
+else
+    # If sass-watch is running, share the screen with it:
+    if ((ps -o '%c' $(tmux list-panes -F '#{pane_pid}') | grep ^sass-watch$ )>/dev/null) ; then
+        tmux select-pane -t bottom
+        tmux split-window -h 'site-watch'
+        tmux select-pane -D
+    else # Otherwise, just be on the bottom:
+        tmux split-window -v -l 5 'site-watch'
+        tmux select-pane -D
+    fi
+fi
+
+# vim:set ft=sh fdm=marker:
