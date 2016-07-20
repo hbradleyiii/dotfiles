@@ -50,7 +50,8 @@ function main() {
         read -rsp "Watch directory not found. Press any key to continue...\n" -n1 key
     fi
 
-    touch $WATCH_FILE # Make sure watch file exists
+    # Make sure watch file exists
+    echo -e "$(date +%s%3N)\n[starting]" > $WATCH_FILE
 
     printf "        \e[0;32mRunning site-watch \e[m \n    \e[0;34m$WATCH_DIR\e[m\n"
     printf "\n\e[0;34m>>  Watching for changes...\e[m\n"
