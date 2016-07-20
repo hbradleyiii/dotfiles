@@ -11,9 +11,9 @@
 #                   sass-watch pane.
 #
 
-if ((ps -o '%c' $(tmux list-panes -F '#{pane_pid}') | grep ^sass-watch$ )>/dev/null) ; then
+if ((tmux list-panes -F '#{pane_start_command}' | grep ^sass-watch$ )>/dev/null) ; then
     kill $(ps -o '%p%c' $(tmux list-panes -F '#{pane_pid}') | grep sass-watch$ | awk '{ print $1 }')
-else
+else # Otherwise, it isn't yet running, start it:
     # If site-watch is running, share the screen with it:
     if ((ps -o '%c' $(tmux list-panes -F '#{pane_pid}') | grep ^site-watch$ )>/dev/null) ; then
         tmux select-pane -t bottom
