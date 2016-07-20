@@ -72,7 +72,7 @@ function main() {
     local last_mod_time=0
 
     # Set up watches:
-    inotifywait -qmr -e create,delete,modify,move --format "%f %e %T" --timefmt "%s" "./sass/" |
+    inotifywait -qmr -e create,delete,modify,move --format "%f %e %T" --timefmt "%s" $SASS_DIR |
     while read filename event mod_time; do
         if [[ "${filename##*.}" == "scss" ]] ; then
 
