@@ -12,7 +12,7 @@
 #
 
 if ((ps -o '%c' $(tmux list-panes -F '#{pane_pid}') | grep ^site-watch$ )>/dev/null) ; then
-    kill -s 9 $(ps -o '%p%c' $(tmux list-panes -F '#{pane_pid}') | grep site-watch$ | awk '{ print $1 }')
+    tmux send-keys -t $(tmux list-panes -F '#{pane_id} #{pane_start_command}' | grep site-watch$ | awk '{ print $1 }') C-c
 else
     # If sass-watch is running, share the screen with it:
     if ((ps -o '%c' $(tmux list-panes -F '#{pane_pid}') | grep ^sass-watch$ )>/dev/null) ; then
