@@ -70,17 +70,19 @@ function main() {
     printf "\n\e[0;34m>>  Watching for changes...\e[m\n"
 
     local last_mod_time=0
+    local last_file=""
 
     # Set up watches:
     inotifywait -qmr -e create,delete,modify,move --format "%f %e %T" --timefmt "%s" $SASS_DIR |
     while read filename event mod_time; do
         if [[ "${filename##*.}" == "scss" ]] ; then
 
-            # Make sure at least 1 second has changed since last mod
-            if [[ $last_mod_time -ge $(($mod_time - 1)) ]] ; then continue ; fi
+            # Make sure at least 1 second has changed since last mod of this file
+            if [[ $last_mod_time -ge $(($mod_time - 1)) ]] && [[ $last_file == $filename ]] ; then continue ; fi
 
-            # Otherwise, save this modtime and continue compiling:
+            # Otherwise, save this modtime/filename and continue compiling:
             last_mod_time=$mod_time
+            last_file=$filename
 
             # Set screen friendly event name
             case $event in
