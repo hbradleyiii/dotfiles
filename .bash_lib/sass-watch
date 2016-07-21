@@ -22,15 +22,14 @@
 
 # compile() {{{1
 #   compile sass
+SASS_WATCH_ERROR_FLAG=0
 function compile() {
     local event_name=$1
     local filename=$2
-    SASS_WATCH_ERROR_FLAG=0
 
     # Clear any previous errors
-    if [[ $SASS_WATCH_ERROR_FLAG -ne 0 ]] ; then
-        clear
-        SASS_WATCH_ERROR_FLAG=0
+    if [[ $SASS_WATCH_ERROR_FLAG != 0 ]] ; then
+        clear && SASS_WATCH_ERROR_FLAG=0
     fi
 
     printf "\e[1;33m%-11s \e[m%-30s" "    $event_name " "$filename"
@@ -43,8 +42,10 @@ function compile() {
         else
             printf "\n\e[0;31m %s\e[m " "$error_msg"
             SASS_WATCH_ERROR_FLAG=1
+            exit 1
         fi
     )
+    SASS_WATCH_ERROR_FLAG=$?
 }
 # }}}
 
