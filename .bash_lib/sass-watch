@@ -34,7 +34,7 @@ function compile() {
         if [[  $error_msg == "" ]] ; then
             printf "\e[0;32m[compiled]\e[m "
         else
-            printf "\n\e[0;31m $error_msg\e[m "
+            printf "\n\e[0;31m %s\e[m " "$error_msg"
         fi
     )
 }
@@ -64,7 +64,7 @@ function main() {
         read -rsp "SASS directory not found. Press any key to continue...\n" -n1 key
     fi
 
-    printf "        \e[0;32mRunning sass-watch \e[m \e[0;34m[sassc $FLAGS]\e[m\n"
+    printf "        \e[0;32mRunning sass-watch \e[m \e[0;34m[sassc %s]\e[m\n" "$FLAGS"
     # First compile:
     compile "Starting: " "$(basename $STYLE_SHEET)"
     printf "\n\e[0;34m>>  Watching for changes...\e[m\n"

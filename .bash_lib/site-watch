@@ -28,7 +28,7 @@ trap clean_up TERM
 #   Removes .site-watch file
 function clean_up() {
     printf "\n\e[0;34m>>  Cleaning up...\e[m\n"
-    printf "    Removing '$(basename $WATCH_FILE)'... "
+    printf "    Removing '%s'..." "$(basename $WATCH_FILE)"
     rm "$WATCH_FILE" && printf "\e[0;32m[Finished]\e[m\n"
 }
 # }}}
@@ -53,7 +53,7 @@ function main() {
     # Make sure watch file exists
     echo -e "$(date +%s%3N)\n[starting]" > $WATCH_FILE
 
-    printf "        \e[0;32mRunning site-watch \e[m \n    \e[0;34m$WATCH_DIR\e[m\n"
+    printf "        \e[0;32mRunning site-watch \e[m \n    \e[0;34m%s\e[m\n" "$WATCH_DIR"
     printf "\n\e[0;34m>>  Watching for changes...\e[m\n"
 
     local last_mod_time=0
