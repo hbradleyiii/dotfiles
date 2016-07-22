@@ -508,26 +508,24 @@ function emux() {
 #### webmux - web dev tmux setup
 # webmux() {{{2
 function webmux() {
-    if ! [[ -n "$TMUX" ]] ; then
-        tmux has-session -t webmux 2>/dev/null
+    if ! [[ -n "$TMUX" ]] ; then  # Are we in tmux?
+        tmux has-session -t webmux 2>/dev/null  # See if the session exists
 
-        if [[ $? != 0 ]] ; then
+        if [[ $? != 0 ]] ; then  # If it doesn't exist, create it:
             tmux new-session -s webmux -d
 
             tmux set -g base-index 1
             tmux setw -g pane-base-index 1
 
-            tmux split-window -v -l 5 -t webmux 'clear && sass-watch'
             tmux select-pane -t webmux:1.1
+            tmux send-keys -t webmux:1.1 'tmux-sass-watch && tmux-site-watch' C-m
             tmux send-keys -t webmux:1.1 'clear && ls' C-m
         fi
 
         tmux attach -t webmux
-    else
-        clear
-        ls
-        tmux split-window -v -l 5 -t webmux 'clear && sass-watch'
-        tmux select-pane -U
+    else  # Make this tmux session a webmux-like session
+        tmux run-shell 'tmux-sass-watch && tmux-site-watch'
+        clear && ls
     fi
 } # }}}
 
