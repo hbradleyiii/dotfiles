@@ -18,10 +18,10 @@ else # Otherwise, it isn't yet running, start it:
     if ((ps -o '%c' $(tmux list-panes -F '#{pane_pid}') | grep ^sass-watch$ )>/dev/null) ; then
         tmux select-pane -t bottom
         tmux split-window -h 'site-watch'
-        tmux select-pane -D
+        tmux select-pane -U
     else # Otherwise, just be on the bottom:
         tmux split-window -v -l 5 'site-watch'
-        tmux select-pane -D
+        tmux select-pane -U
     fi
 fi
 
