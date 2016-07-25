@@ -41,6 +41,12 @@ for file in $ROOT/.[^.]* ; do
     fi
 done
 
+# Verify (correct) Permissions
+chown $USER:$USER $ROOT/ -R
+if [[ $? != 0 ]] ; then # If that didn't work, use sudo:
+    sudo chown $USER:$USER $ROOT/ -R
+fi
+
 # Setup git hooks
 if [[ -d $ROOT/.git/hooks ]] ; then
     if [[ -L $ROOT/.git/hooks ]] ; then
