@@ -437,7 +437,10 @@ endif
 autocmd BufLeave,BufWrite,WinLeave * :call Make_the_view()
 function! Make_the_view()
     if &buftype !~ 'nofile' && expand('%') != ''
-        mkview
+        try
+            mkview
+        catch  " If the view can't be made, die gracefully
+        endtry
     endif
 endfunction
 autocmd BufEnter * :call Load_the_view()
