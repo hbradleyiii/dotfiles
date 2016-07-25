@@ -9,26 +9,28 @@
 #                   appropriate dotfile in this repo.
 #
 
-source ~/.dotfiles/.bash_lib/msg || { echo "'msg' does not exist!" >&2 ; exit 1; }
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+source $ROOT/.bash_lib/msg || { echo "'msg' does not exist!" >&2 ; exit 1; }
 
 ### creat_link()
 # create_link() {{{1
 function create_link() {
     echo Linking $filename...
-    if [[ -d ~/.dotfiles/$1 ]] ; then
-        ln -s ~/.dotfiles/$filename/ ~/$filename
+    if [[ -d $ROOT/$1 ]] ; then
+        ln -s $ROOT/$filename/ ~/$filename
     else
-        ln -s ~/.dotfiles/$filename ~/$filename
+        ln -s $ROOT/$filename ~/$filename
     fi
 } # }}}
 
 # Setup links
-for file in ~/.dotfiles/.[^.]* ; do
+for file in $ROOT/.[^.]* ; do
     filename=${file##*/}
     if [[ $filename != '.git' ]] ; then
         if [[ -f ~/$filename || -d ~/$filename ]] ; then
             link=$(readlink ~/$filename)
-            if [[ -L ~/$filename && ${link%/} == ~/.dotfiles/$filename ]] ; then
+            if [[ -L ~/$filename && ${link%/} == $ROOT/$filename ]] ; then
                 echo Skipping $filename. Already linked.
                 continue
             elif msg_ask "$filename already exists but does not link to dotfiles. Remove it?"; then
@@ -40,23 +42,23 @@ for file in ~/.dotfiles/.[^.]* ; do
 done
 
 # Setup git hooks
-if [[ -d ~/.dotfiles/.git/hooks ]] ; then
-    if [[ -L ~/.dotfiles/.git/hooks ]] ; then
-        if [[ $(readlink ~/.dotfiles/.git/hooks) == ~/.dotfiles/hooks ]] ; then
+if [[ -d $ROOT/.git/hooks ]] ; then
+    if [[ -L $ROOT/.git/hooks ]] ; then
+        if [[ $(readlink $ROOT/.git/hooks) == $ROOT/hooks ]] ; then
             echo Hooks already linked.
         elif msg_ask "A hooks link already exists but does not link to dotfiles hooks. Remove it?"; then
-            rm ~/.dotfiles/.git/hooks
+            rm $ROOT/.git/hooks
             echo Linking git hooks...
-            ln -s ~/.dotfiles/hooks ~/.dotfiles/.git/hooks
+            ln -s $ROOT/hooks $ROOT/.git/hooks
         fi
     elif msg_ask "A hooks directory already exists but does not link to dotfiles hooks. Remove it and use dotfiles hook?"; then
-        rm -r ~/.dotfiles/.git/hooks
+        rm -r $ROOT/.git/hooks
         echo Linking git hooks...
-        ln -s ~/.dotfiles/hooks ~/.dotfiles/.git/hooks
+        ln -s $ROOT/hooks $ROOT/.git/hooks
     fi
 else
     echo Linking git hooks...
-    ln -s ~/.dotfiles/hooks ~/.dotfiles/.git/hooks
+    ln -s $ROOT/hooks $ROOT/.git/hooks
 fi
 
 source ~/.bash_profile
