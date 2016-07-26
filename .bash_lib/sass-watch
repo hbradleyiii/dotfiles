@@ -35,15 +35,20 @@ function compile() {
     printf "\e[1;33m%-11s \e[m%-30s" "    $event_name " "$filename"
     TIMEFORMAT="(%Rs)"
     time (
-        local error_msg="$(sassc $SASS_FILE $STYLE_SHEET $FLAGS 2>&1 > /dev/null)"
+        while [[ true ]] ; do
+            local error_msg="$(sassc $SASS_FILE $STYLE_SHEET $FLAGS 2>&1 > /dev/null)"
 
-        if [[  $error_msg == "" ]] ; then
-            printf "\e[0;32m[compiled]\e[m "
-        else
-            printf "\n\e[0;31m %s\e[m " "$error_msg"
-            SASS_WATCH_ERROR_FLAG=1
-            exit 1
-        fi
+            if [[  $error_msg == "" ]] ; then
+                printf "\e[0;32m[compiled]\e[m "
+                break
+            else
+                printf "\n\e[0;31m %s\e[m " "$error_msg"
+                # If the error was because a file was unreadable, try again
+                if [[ $error_msg =~ '.* unreadable .*' ]] ; then continue ; fi
+                SASS_WATCH_ERROR_FLAG=1
+                exit 1
+            fi
+        done
     )
     SASS_WATCH_ERROR_FLAG=$?
 }
