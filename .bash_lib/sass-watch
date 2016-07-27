@@ -62,7 +62,7 @@ function main() {
     if [[ ! -d "$SASS_DIR" ]] ; then
         SASS_DIR=$(readlink -f "../sass")  # Using readlink to resolve relative path
         if [[ ! -d "$SASS_DIR" ]] ; then
-            SASS_DIR=$(readlink -f "../../sass")  # Using readlink to resolve relative path
+            SASS_DIR=$(readlink -f "../")  # Using readlink to resolve relative path
         fi
     fi
     SASS_FILE="$SASS_DIR/style.scss"
