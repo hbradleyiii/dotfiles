@@ -44,7 +44,7 @@ function compile() {
             else
                 printf "\n\e[0;31m %s\e[m " "$error_msg"
                 # If the error was because a file was unreadable, try again
-                if [[ $error_msg =~ '.* unreadable .*' ]] ; then continue ; fi
+                if [[ $error_msg =~ 'unreadable' ]] ; then printf '. ' ; continue ; fi
                 SASS_WATCH_ERROR_FLAG=1
                 exit 1
             fi
