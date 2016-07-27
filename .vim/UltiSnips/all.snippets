@@ -21,7 +21,15 @@ elif t[1] != '':
 endsnippet
 
 snippet {-> "Smart Braces" i
-{
-	$0
-}
+{${1}`!p
+if t[1].startswith('}'):
+    snip.rv = ''
+elif t[1].startswith(' '):
+    snip.rv = ' }'
+elif t[1].startswith('\n'):
+	if len(t[1]) == 1:  # Add an indent the first time:
+		t[1] += '    '
+	snip.rv = '\n}'
+`$0
 endsnippet
+
