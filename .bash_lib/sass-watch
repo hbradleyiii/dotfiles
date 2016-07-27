@@ -75,7 +75,11 @@ function main() {
     fi
 
     if [[ ! -d "$SASS_DIR" ]] ; then
-        read -rsp "SASS directory not found. Press any key to continue...\n" -n1 key
+        read -rsp "SASS directory ($SASS_DIR) not found. Press any key to continue..." -n1 key && exit 1
+    fi
+
+    if [[ ! -f "$SASS_FILE" ]] ; then
+        read -rsp "SASS file ($SASS_FILE) not found. Press any key to continue..." -n1 key && exit 1
     fi
 
     printf "        \e[0;32mRunning sass-watch \e[m \e[0;34m[sassc %s]\e[m\n" "$FLAGS"
