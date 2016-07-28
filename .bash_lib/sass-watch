@@ -75,7 +75,7 @@ function main() {
         fi
     fi
     SASS_FILE="$SASS_DIR/style.scss"
-    STYLE_SHEET=$(readlink -f "$SASS_DIR/../css/style.css")  # Using readlink to resolve relative path
+    STYLE_SHEET="$SASS_DIR/style.css"
     FLAGS="-m"
 
     # Source sass.config if it exists
@@ -91,6 +91,11 @@ function main() {
     # Check if SASS_FILE exists.
     if [[ ! -f "$SASS_FILE" ]] ; then
         read -rsp "SASS file ($SASS_FILE) not found. Press any key to continue..." -n1 key && exit 1
+    fi
+
+    # Check if the directory for where to write the STYLE_SHEET exists.
+    if [[ ! -d "$(dirname "$STYLE_SHEET")" ]] ; then
+        read -rsp "Style Sheet file cannot be written here: $STYLE_SHEET. Press any key to continue..." -n1 key && exit 1
     fi
 
     printf "        \e[0;32mRunning sass-watch \e[m \e[0;34m[sassc %s]\e[m\n" "$FLAGS"
