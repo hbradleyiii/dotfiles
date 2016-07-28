@@ -28,7 +28,7 @@ function compile() {
     local filename=$2
 
     # Clear any previous errors
-    if [[ $SASS_WATCH_ERROR_FLAG != 0 ]] ; then
+    if [[ "$SASS_WATCH_ERROR_FLAG" != "0" ]] ; then
         clear && SASS_WATCH_ERROR_FLAG=0
     fi
 
@@ -37,9 +37,9 @@ function compile() {
     time (
         local tries=0
         while [[ true ]] ; do
-            local error_msg="$(sassc $SASS_FILE $STYLE_SHEET $FLAGS 2>&1 > /dev/null)"
+            local error_msg="$(sassc "$SASS_FILE" "$STYLE_SHEET" $FLAGS 2>&1 > /dev/null)"
 
-            if [[  $error_msg == "" ]] ; then
+            if [[ "$error_msg" == "" ]] ; then
                 printf "\e[0;32m[compiled]\e[m "
                 break
             else
@@ -90,19 +90,19 @@ function main() {
 
     printf "        \e[0;32mRunning sass-watch \e[m \e[0;34m[sassc %s]\e[m\n" "$FLAGS"
     # First compile:
-    compile "Starting: " "$(basename $STYLE_SHEET)"
+    compile "Starting: " "$(basename "$STYLE_SHEET")"
     printf "\n\e[0;34m>>  Watching for changes...\e[m\n"
 
     local last_mod_time=0
     local last_file=""
 
     # Set up watches:
-    inotifywait -qmr -e create,delete,modify,move --format "%f %e %T" --timefmt "%s" $SASS_DIR |
+    inotifywait -qmr -e create,delete,modify,move --format "%f %e %T" --timefmt "%s" "$SASS_DIR" |
     while read filename event mod_time; do
         if [[ "${filename##*.}" == "scss" ]] ; then
 
             # Make sure at least 1 second has changed since last mod of this file
-            if [[ $last_mod_time -ge $(($mod_time - 1)) ]] && [[ $last_file == $filename ]] ; then continue ; fi
+            if [[ $last_mod_time -ge $(($mod_time - 1)) ]] && [[ "$last_file" == "$filename" ]] ; then continue ; fi
 
             # Otherwise, save this modtime/filename and continue compiling:
             last_mod_time=$mod_time
