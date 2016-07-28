@@ -83,10 +83,12 @@ function main() {
         source "$SASS_DIR/sass.config"
     fi
 
+    # Check if SASS_DIR exists. Sanity check. Should never fail
     if [[ ! -d "$SASS_DIR" ]] ; then
         read -rsp "SASS directory ($SASS_DIR) not found. Press any key to continue..." -n1 key && exit 1
     fi
 
+    # Check if SASS_FILE exists.
     if [[ ! -f "$SASS_FILE" ]] ; then
         read -rsp "SASS file ($SASS_FILE) not found. Press any key to continue..." -n1 key && exit 1
     fi
@@ -113,16 +115,16 @@ function main() {
 
             # Set screen friendly event name
             case $event in
-                'CREATE')
+                "CREATE")
                     local event_name="Created:  "
                     ;;
-                'DELETE')
+                "DELETE")
                     local event_name="Deleted:  "
                     ;;
-                'MOVE')
+                "MOVE")
                     local event_name="Moved:    "
                     ;;
-                'MODIFY')
+                "MODIFY")
                     local event_name="Modified: "
                     ;;
                 *)
