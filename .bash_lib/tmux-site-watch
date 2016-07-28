@@ -11,11 +11,11 @@
 #                   site-watch pane.
 #
 
-if ((tmux list-panes -F '#{pane_start_command}' | grep ^site-watch$ )>/dev/null) ; then
-    tmux send-keys -t $(tmux list-panes -F '#{pane_id} #{pane_start_command}' | grep site-watch$ | awk '{ print $1 }') C-c
+if ((tmux list-panes -F "#{pane_start_command}" | grep ^site-watch$ )>/dev/null) ; then
+    tmux send-keys -t $(tmux list-panes -F "#{pane_id} #{pane_start_command}" | grep site-watch$ | awk "{ print $1 }") C-c
 else # Otherwise, it isn't yet running, start it:
     # If sass-watch is running, share the screen with it:
-    if ((ps -o '%c' $(tmux list-panes -F '#{pane_pid}') | grep ^sass-watch$ )>/dev/null) ; then
+    if ((ps -o "%c" $(tmux list-panes -F "#{pane_pid}") | grep ^sass-watch$ )>/dev/null) ; then
         tmux select-pane -t bottom
         tmux split-window -c "#{pane_current_path}" -h "site-watch"
         tmux select-pane -U
