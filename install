@@ -42,11 +42,12 @@ for file in $DOTFILES_ROOT_DIR/.[^.]* ; do
 done
 
 # Verify (correct) Permissions
-echo "Checking Permissions..."
-chown $USER:$USER $DOTFILES_ROOT_DIR/ -R
-if [[ $? != 0 ]] ; then # If that didn't work, use sudo:
-    sudo chown $USER:$USER $DOTFILES_ROOT_DIR/ -R
+printf "Checking Permissions... "
+if [[ "$(find $DOTFILES_ROOT_DIR/ -not -user harold | wc -l)" -ne "0" ]] ; then
+    printf "\n"
+    sudo chown $USER $DOTFILES_ROOT_DIR/ -R
 fi
+printf "[OK]\n"
 
 # Setup git hooks
 if [[ -d $DOTFILES_ROOT_DIR/.git/hooks ]] ; then
