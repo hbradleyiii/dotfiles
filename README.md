@@ -7,12 +7,12 @@ My personal dotfile repository
 $ git clone git@github.com:hbradleyiii/dotfiles.git ~/.dotfiles
 $ ~/.dotfiles/install
 ```
-
-## Contents
+## Containing Files
 
 - .bash_lib/ - Contains various bash scripts
   - colors
   - colors_ext
+  - compass-watch
   - dirtest
   - env
   - env.conf
@@ -20,12 +20,23 @@ $ ~/.dotfiles/install
   - gen-update
   - log
   - msg
+  - sass-watch
+  - site-watch
   - symtest
+  - tmux-sass-watch
+  - tmux-site-watch
+  - wp ( wp-cli see: http://wp-cli.org/ )
+
+- hooks/
+  - post-checkout
+  - post-merge
 
 - install
 - .bash_logout
 - .bash_profile
 - .bashrc
+- .config
+- .ctags
 - .emacs
 - .fonts.conf
 - .gitconfig
