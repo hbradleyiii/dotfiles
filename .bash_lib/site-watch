@@ -41,10 +41,18 @@ function main() {
     WATCH_FILE="$WATCH_DIR/.site-watch"
     FILE_TYPES=("php" "js" "css" "html" "htm")
 
-    # Source .site-watch.config if it exists
-    if [[ -f "$WATCH_DIR/.site-watch.config" ]] ; then
-        source "$WATCH_DIR/.site-watch.config"
-    fi
+    # Search parents recursively for a 'site-watch.config' file.
+    local parent_dir="$(dirname "$WATCH_DIR")"
+    while [[ "$parent_dir" -ne "/" ]] ; do
+        # If 'site-watch.config' exists, set WATCH_DIR to this dir,
+        # then soure the config
+        if [[ -f "$parent_dir/site-watch.config" ]] ; then
+            WATCH_DIR="$parent_dir"
+            source "$parent_dir/site-watch.config"
+            break #
+        fi
+        parent_dir="$(dirname "$parent_dir")"
+    done
 
     if [[ ! -d "$WATCH_DIR" ]] ; then
         read -rsp "Watch directory not found. Press any key to continue...\n" -n1 key
