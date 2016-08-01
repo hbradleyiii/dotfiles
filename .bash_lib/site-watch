@@ -9,15 +9,20 @@
 #                   called '.site-watch' in the root directory (the root that
 #                   is being watched, which does not have to be the root of the
 #                   website). The file's first line is the timestamp of the
-#                   modification, and the second line is the file modified.
+#                   modification, and the second line is the file modified. The
+#                   file '.site-watch' is removed when the script is closed.
 #
 #                   Settings can be modified by creating a bash file named
-#                   .site-watch.config that is in the root directory.
+#                   site-watch.config that is in the root directory.
 #
 #                   Settings:
 #                       $WATCH_DIR - the directory to watch
 #                       $WATCH_FILE - the file to update with changes
 #                       $FILE_TYPES - the file extensions to watch
+#
+#                   If a site-watch.config file cannot be found in a parent
+#                   directory (recursively), the $WATCH_DIR is assumed to be
+#                   the current directory.
 #
 
 # Catch and cleanup on Ctrl-C and Terminate
