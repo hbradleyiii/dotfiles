@@ -9,20 +9,19 @@ $ ~/.dotfiles/install
 ```
 
 ## Site Watch Script
-Site watch is web development script for forcing a webpage to reload when
-watched files are changed.
+Site watch is web development script for that can be used to tell your browser
+to reload a webpage whenever a change has been made to a php, html, css, or
+other website file.
 
-### Description
-Watches website files for modifications and updates a file called '.site-watch'
-in the root directory (the root that is being watched, which does not have to
-be the root of the website). The file's first line is the timestamp of the
-modification, and the second line is the file modified. The file '.site-watch'
-is removed when the script is closed.
+It watches a website directory for modifications and updates a file called
+'.site-watch' in the root directory (the root that is being watched, which does
+not have to be the root of the website). The file's first line is the timestamp
+of the modification, and the second line is the file modified. The file
+'.site-watch' is removed when the script is closed.
 
 Settings can be modified by creating a bash file named 'site-watch.config' that
-is in the root directory.
-
-Settings file is a bash script used to modify the following bash variables:
+is in the root directory. This file can be used to modify the following bash
+variables:
 
 ```bash
 $WATCH_DIR # the directory to watch
@@ -73,7 +72,9 @@ jQuery):
 </script>
 ```
 
-It is also nice to serve this file only when debugging (using php):
+It is also nice to serve this file only when debugging. You can check for the
+XDEBUG_SESSION cooking and only load the javascript when it is present (using
+php):
 ```php
 if ( isset($_COOKIE['XDEBUG_SESSION']) ) {
     // ...
