@@ -53,6 +53,7 @@ function main() {
         # then soure the config
         if [[ -f "$parent_dir/site-watch.config" ]] ; then
             WATCH_DIR="$parent_dir"
+            WATCH_FILE="$WATCH_DIR/.site-watch"
             source "$parent_dir/site-watch.config"
             break #
         fi
