@@ -48,7 +48,7 @@ function main() {
 
     # Search parents recursively for a 'site-watch.config' file.
     local parent_dir="$(dirname "$WATCH_DIR")"
-    while [[ "$parent_dir" -ne "/" ]] ; do
+    while [[ "$parent_dir" != "/" ]] ; do
         # If 'site-watch.config' exists, set WATCH_DIR to this dir,
         # then soure the config
         if [[ -f "$parent_dir/site-watch.config" ]] ; then
