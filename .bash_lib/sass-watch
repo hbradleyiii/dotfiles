@@ -64,16 +64,18 @@ function compile() {
 # main() {{{1
 #   main function
 function main() {
-    SASS_DIR="$(pwd)/sass"
-    if [[ ! -d "$SASS_DIR" ]] ; then
-        SASS_DIR=$(readlink -f "../sass")  # Using readlink to resolve relative path
-        if [[ ! -d "$SASS_DIR" ]] ; then
-            SASS_DIR=$(readlink -f "../../sass")
-            if [[ ! -d "$SASS_DIR" ]] ; then  # Just use current directory
-                SASS_DIR=$(readlink -f "../")
-            fi
+    SASS_DIR="$(pwd)/sass" # Default sass dir is in current directory.
+    # Search parents recursively for a 'sass' directory.
+    local parent_dir="$(pwd)"
+    while [[ "$parent_dir" != "/" ]] ; do
+        # If 'sass' directory exists, set SASS_DIR to this dir,
+        if [[ -d "$parent_dir/sass" ]] ; then
+            SASS_DIR="$parent_dir/sass"
+            break #
         fi
-    fi
+        parent_dir="$(dirname "$parent_dir")"
+    done
+
     SASS_FILE="$SASS_DIR/style.scss"
     STYLE_SHEET="$SASS_DIR/style.css"
     FLAGS="-m"
