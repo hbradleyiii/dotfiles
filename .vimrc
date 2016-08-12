@@ -72,10 +72,12 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 
+" Commenting these out for now... They don't seem to work well with my
+" workflow.
 " Automatically close braces with UltiSnip
-imap <silent> { {-><TAB>
-imap <silent> ( (-><TAB>
-imap <silent> [ [-><TAB>
+" imap <silent> { {-><TAB>
+" imap <silent> ( (-><TAB>
+" imap <silent> [ [-><TAB>
 
 
 " 'e'dit 'v'imrc
