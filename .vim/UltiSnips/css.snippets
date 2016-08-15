@@ -20,12 +20,6 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 }
 endsnippet
 
-snippet . "Generic Style"
-$1 {
-	${VISUAL}$0
-}
-endsnippet
-
 snippet wp "WordPress Theme Stylesheet" b
 /*
 Theme Name: $1
@@ -41,16 +35,26 @@ Tags: $13}
 $0
 endsnippet
 
-snippet backimg
-background-image: url("$0");
+
+#############################
+### CSS Rule Set Snippets ###
+
+snippet . "CSS Class Rule Set"
+.$1 {
+    ${VISUAL}$0
+}
 endsnippet
 
-snippet margin4
-margin: ${1:top} ${2:right} ${3:bottom} ${0:left};
+snippet # "CSS ID Rule Set"
+#$1 {
+    ${VISUAL}$0
+}
 endsnippet
 
-snippet margin3
-margin: ${1:top} ${2:right_left} ${0:bottom};
+snippet { "CSS Rule Set"
+{
+    ${VISUAL}$0
+}
 endsnippet
 
 snippet margin2
@@ -112,9 +116,9 @@ snippet rgba "color rgba"
 rgba(${1:255}, ${2:255}, ${3:255}, ${4:0.5})$0
 endsnippet
 
-#
-# Selectors
-#
+
+############################
+### CSS Pseudo Selectors ###
 
 snippet :fc
 :first-child
@@ -136,11 +140,6 @@ snippet :oc
 :only-child
 endsnippet
 
-
-#
-# Pseudo-elements
-#
-
 snippet :a
 :after
 endsnippet
@@ -155,32 +154,6 @@ endsnippet
 
 snippet ::b
 ::before
-endsnippet
-
-
-
-snippet background "background-attachment: scroll:fixed (background)"
-background-attachment: ${1:scroll/fixed};$0
-endsnippet
-
-snippet background "background-color:  color-hex (background)"
-background-color: #${1:DDD};$0
-endsnippet
-
-snippet background "background-color:  color-name (background)"
-background-color: ${1:red};$0
-endsnippet
-
-snippet background "background-color:  color-rgb (background)"
-background-color: rgb(${1:255},${2:255},${3:255});$0
-endsnippet
-
-snippet background "background-color:  transparent (background)"
-background-color: transparent;$0
-endsnippet
-
-snippet background "background-image:  none (background)"
-background-image: none;$0
 endsnippet
 
 
