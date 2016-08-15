@@ -1,4 +1,34 @@
 
+global !p
+def complete(t, options):
+    if t:
+        options = [ s[len(t):] for s in options if s.startswith(t) ]
+    if len(options) == 1:
+        return options[0]
+    if len(options) == 0:
+        return ' -invalid-'
+    return " (" + ", ".join(options) + ")"
+
+def fuzzy_complete(match, options):
+    matched_options = []
+    if match:
+        for option in options:
+            cindex = 0
+            for char in option:
+                if cindex < len(match) and match[cindex] == char:
+                    cindex += 1
+            if cindex == len(match):
+                matched_options.append(option)
+    if len(matched_options) == 1:
+        return '\b' + matched_options[0]
+    if len(match) != 0 and len(matched_options) == 0:
+        return ' -invalid-'
+    return " (" + ", ".join(options) + ")"
+
+
+endglobal
+
+########################
 ### General Snippets ###
 
 snippet reset "CSS Reset"
@@ -57,31 +87,120 @@ snippet { "CSS Rule Set"
 }
 endsnippet
 
-snippet margin2
-margin: ${1:top_bottom} ${0:right_left};
+
+#############################
+### CSS Property Snippets ###
+
+## Background
+snippet background "background"
+background: ${1:color}${2: url("$3")${4: no-repeat}${5: top${6: right}}};
+$0
 endsnippet
+
+snippet ba "background-attachment"
+background-attachment: ${1:fixed};
+$0
+endsnippet
+
+snippet bc "background-color"
+background-color: $1;
+$0
+endsnippet
+
+snippet bi "background-image"
+background-image: url("$1");
+$0
+endsnippet
+
+snippet bp "background-position"
+background-position: ${1:top}${2: right};
+$0
+endsnippet
+
+snippet br "background-repeat"
+background-repeat: $1`!p
+options = ['repeat', 'no-repeat', 'repeat-x', 'repeat-y', 'initial', 'inherit']
+snip.rv = complete(t[1], options)
+`;
+$0
+endsnippet
+
+
+#   border
+#   border-collapse
+#   border-color
+#   border-spacing
+#   border-style
+#   border-width
+
+# Margin
+snippet margin "margin full (4 args)"
+margin: ${1:top} ${2:right} ${3:bottom} ${4:left};
+$0
+endsnippet
+
+snippet marg "margin full (4 args)"
+margin: ${1:top} ${2:right} ${3:bottom} ${4:left};
+$0
+endsnippet
+
+snippet mar "margin with 3 args"
+margin: ${1:top} ${2:right/left} ${3:bottom};
+$0
+endsnippet
+
+snippet ma "margin with 2 args"
+margin: ${1:top/bottom} ${2:right/left};
+$0
+endsnippet
+
+snippet m "margin with 1 arg."
+margin: ${1:0};
+$0
+endsnippet
+
+# Padding
+snippet padding "padding full (4 args)"
+padding: ${1:top} ${2:right} ${3:bottom} ${4:left};
+$0
+endsnippet
+
+snippet padd "padding full (4 args)"
+padding: ${1:top} ${2:right} ${3:bottom} ${4:left};
+$0
+endsnippet
+
+snippet pad "padding with 3 args"
+padding: ${1:top} ${2:right/left} ${3:bottom};
+$0
+endsnippet
+
+snippet pa "padding with 2 args"
+padding: ${1:top/bottom} ${2:right/left};
+$0
+endsnippet
+
+snippet p "padding with 1 arg"
+padding: ${1:0};
+$0
+endsnippet
+
 
 snippet border
 border: ${1:1px} ${2:solid} ${0:black};
-endsnippet
-
-
-
-
-
-
-
-snippet p "padding"
-padding: ${1:0};$0
-endsnippet
-
-snippet m "margin"
-margin: ${1:0};$0
+$0
 endsnippet
 
 snippet bd "border"
-border: ${1:0};$0
+border: ${1:none};
+$0
 endsnippet
+
+
+
+
+
+
 
 snippet d "display"
 display: ${1:none};$0
@@ -92,7 +211,8 @@ background: ${1:none};$0
 endsnippet
 
 snippet ff "font-family"
-font-family: ${1:"Helvetica Neue", Helvetica, Arial, sans-serif};$0
+font-family: ${1:"Helvetica Neue", Helvetica, Arial, sans-serif};
+$0
 endsnippet
 
 snippet h "height"
@@ -106,7 +226,6 @@ endsnippet
 snippet pos "position"
 position: ${1:relative};$0
 endsnippet
-
 
 snippet rgb "color rgb"
 rgb(${1:255}, ${2:255}, ${3:255})$0
@@ -175,12 +294,6 @@ endsnippet
 #   white-space
 #
 #   color
-#   background-color
-#   background
-#   background-image
-#   background-repeat
-#   background-position
-#   background-attachment
 #
 #   padding, padding-top, padding-right, padding-bottom, padding-left
 #   border, border-top, border-right, border-bottom, border-left
@@ -238,18 +351,6 @@ endsnippet
 #   direction
 #   unicode-bidi
 #
-#   background
-#   background-attachment
-#   background-color
-#   background-image
-#   background-position
-#   background-repeat
-#   border
-#   border-collapse
-#   border-color
-#   border-spacing
-#   border-style
-#   border-width
 #   bottom
 #   caption-side
 #   clear
