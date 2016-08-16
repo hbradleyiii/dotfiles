@@ -126,14 +126,39 @@ $0
 endsnippet
 
 
-#   border
-#   border-collapse
-#   border-color
-#   border-spacing
-#   border-style
-#   border-width
+## Border
+snippet border "border"
+background-position: ${1:top}${2: right};
+$0
+endsnippet
 
-# Margin
+snippet bc "border-color"
+background-position: ${1:top}${2: right};
+$0
+endsnippet
+
+snippet bco "border"
+border: ${1:top}${2: right};
+$0
+endsnippet
+
+snippet bs "border-style"
+border-style: ${1:top}${2: right};
+$0
+endsnippet
+
+snippet bsp "border-spacing"
+border-spacing: ${1:top}${2: right};
+$0
+endsnippet
+
+snippet bw "border-width"
+border-width: ${1:top}${2: right};
+$0
+endsnippet
+
+
+## Margin
 snippet margin "margin full (4 args)"
 margin: ${1:top} ${2:right} ${3:bottom} ${4:left};
 $0
@@ -159,7 +184,8 @@ margin: ${1:0};
 $0
 endsnippet
 
-# Padding
+
+## Padding
 snippet padding "padding full (4 args)"
 padding: ${1:top} ${2:right} ${3:bottom} ${4:left};
 $0
