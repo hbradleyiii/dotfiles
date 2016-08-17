@@ -1,5 +1,20 @@
 extends css
 
+snippet ext "@extend" b
+@extend $1;
+$0
+endsnippet
+
+snippet imp "@import" b
+@import $1;
+$0
+endsnippet
+
+snippet inc "@include" b
+@include $1;
+$0
+endsnippet
+
 snippet border-gradient "Creates a gradient on a border"
 	border-top-width: 1px;
 	border-top-style: solid;
