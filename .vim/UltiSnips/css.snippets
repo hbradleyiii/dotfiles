@@ -97,6 +97,11 @@ background: ${1:color}${2: url("$3")${4: no-repeat}${5: top${6: right}}};
 $0
 endsnippet
 
+snippet bg "background"
+background: ${1:color}${2: url("$3")${4: no-repeat}${5: top${6: right}}};
+$0
+endsnippet
+
 snippet ba "background-attachment"
 background-attachment: ${1:fixed};
 $0
@@ -128,22 +133,17 @@ endsnippet
 
 ## Border
 snippet border "border"
-background-position: ${1:top}${2: right};
+border: ${1:1px} ${2:solid} ${3:black};
 $0
 endsnippet
 
-snippet bc "border-color"
-background-position: ${1:top}${2: right};
-$0
-endsnippet
-
-snippet bco "border"
-border: ${1:top}${2: right};
+snippet boc "border-color"
+border-color: ${1:black};
 $0
 endsnippet
 
 snippet bs "border-style"
-border-style: ${1:top}${2: right};
+border-style: ${1:solid};
 $0
 endsnippet
 
@@ -153,10 +153,56 @@ $0
 endsnippet
 
 snippet bw "border-width"
-border-width: ${1:top}${2: right};
+border-width: ${1:1px};
 $0
 endsnippet
 
+
+## Display
+snippet d "display"
+display: ${1:none};
+$0
+endsnippet
+
+#   bottom
+#   caption-side
+#   clear
+#   clip
+#   color
+#   content
+#   counter-increment
+#   counter-reset
+#   cursor
+#   direction
+#   empty-cells
+#   float
+
+## Fonts
+snippet ff "font-family"
+font-family: ${1:"Helvetica Neue", Helvetica, Arial, sans-serif};
+$0
+endsnippet
+
+#   font
+#   font-size
+#   font-style
+#   font-variant
+#   font-weight
+
+
+## Height
+snippet h "height"
+height: ${1:auto};
+$0
+endsnippet
+
+#   left
+#   letter-spacing
+#   line-height
+#   list-style
+#   list-style-image
+#   list-style-position
+#   list-style-type
 
 ## Margin
 snippet margin "margin full (4 args)"
@@ -183,6 +229,18 @@ snippet m "margin with 1 arg."
 margin: ${1:0};
 $0
 endsnippet
+
+#   max-height
+#   max-width
+#   min-height
+#   min-width
+
+#   orphans
+#   outline
+#   outline-color
+#   outline-style
+#   outline-width
+#   overflow
 
 
 ## Padding
@@ -212,53 +270,53 @@ $0
 endsnippet
 
 
-snippet border
-border: ${1:1px} ${2:solid} ${0:black};
-$0
-endsnippet
-
-snippet bd "border"
-border: ${1:none};
-$0
-endsnippet
-
-
-
-
-
-
-
-snippet d "display"
-display: ${1:none};$0
-endsnippet
-
-snippet bg "background"
-background: ${1:none};$0
-endsnippet
-
-snippet ff "font-family"
-font-family: ${1:"Helvetica Neue", Helvetica, Arial, sans-serif};
-$0
-endsnippet
-
-snippet h "height"
-height: ${1:auto};$0
-endsnippet
-
-snippet w "width"
-width: ${1:auto};$0
-endsnippet
-
+## Position
 snippet pos "position"
-position: ${1:relative};$0
+position: ${1:relative};
+$0
 endsnippet
 
+#   padding, padding-top, padding-right, padding-bottom, padding-left
+#   page-break-after
+#   page-break-before
+#   page-break-inside
+#   position
+#   quotes
+
+
+## RGB(A) Colors
 snippet rgb "color rgb"
 rgb(${1:255}, ${2:255}, ${3:255})$0
 endsnippet
 
 snippet rgba "color rgba"
 rgba(${1:255}, ${2:255}, ${3:255}, ${4:0.5})$0
+endsnippet
+
+#   right
+#   table-layout
+#   text-align
+#   text-decoration
+#   text-indent
+#   text-transform
+#   top
+#   unicode-bidi
+#   vertical-align
+#   visibility
+#   white-space
+#   widows
+#   word-spacing
+
+## Width
+snippet w "width"
+width: ${1:auto};$0
+endsnippet
+
+
+## z-index
+snippet z
+z-index: $1;
+$0
 endsnippet
 
 
@@ -300,139 +358,3 @@ endsnippet
 snippet ::b
 ::before
 endsnippet
-
-
-#
-#   font
-#   font-family
-#   font-size
-#   font-weight
-#   font-style
-#   font-variant
-#   line-height
-#   letter-spacing
-#   word-spacing
-#   text-align
-#   text-decoration
-#   text-indent
-#   text-transform
-#   vertical-align
-#   white-space
-#
-#   color
-#
-#   padding, padding-top, padding-right, padding-bottom, padding-left
-#   border, border-top, border-right, border-bottom, border-left
-#   border-style, border-top-style, border-right-style, border-bottom-style, border-left-style
-#   border-color, border-top-color, border-right-color, border-bottom-color, border-left-color
-#   border-width, border-top-width, border-right-width, border-bottom-width, border-left-width
-#   outline
-#   outline-style
-#   outline-color
-#   outline-width
-#   margin, margin-top, margin-right, margin-bottom, margin-left
-#   width
-#   height
-#   min-width
-#   max-width
-#   min-height
-#   max-height
-#
-#   position
-#   top
-#   right
-#   bottom
-#   left
-#   clip
-#   overflow
-#   z-index
-#   float
-#   clear
-#   display
-#   visibility
-#
-#   list-style
-#   list-style-type
-#   list-style-image
-#   list-style-position
-#
-#   table-layout
-#   border-collapse
-#   border-spacing
-#   empty-cells
-#   caption-side
-#
-#   content
-#   counter-increment
-#   counter-reset
-#   quotes
-#
-#   page-break-before
-#   page-break-after
-#   page-break-inside
-#   orphans
-#   widows
-#
-#   cursor
-#   direction
-#   unicode-bidi
-#
-#   bottom
-#   caption-side
-#   clear
-#   clip
-#   color
-#   content
-#   counter-increment
-#   counter-reset
-#   cursor
-#   direction
-#   display
-#   empty-cells
-#   float
-#   font
-#   font-family
-#   font-size
-#   font-style
-#   font-variant
-#   font-weight
-#   height
-#   left
-#   letter-spacing
-#   line-height
-#   list-style
-#   list-style-image
-#   list-style-position
-#   list-style-type
-#   margin
-#   max-height
-#   max-width
-#   min-height
-#   min-width
-#   orphans
-#   outline
-#   outline-color
-#   outline-style
-#   outline-width
-#   overflow
-#   padding
-#   page-break-after
-#   page-break-before
-#   page-break-inside
-#   position
-#   quotes
-#   right
-#   table-layout
-#   text-align
-#   text-decoration
-#   text-indent
-#   text-transform
-#   top
-#   unicode-bidi
-#   vertical-align
-#   visibility
-#   white-space
-#   widows
-#   width
-#   word-spacing
-#   z-index
