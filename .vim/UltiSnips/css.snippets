@@ -108,17 +108,17 @@ $0
 endsnippet
 
 snippet bc "background-color"
-background-color: $1;
+background-color: ${1:#${2:000}};
 $0
 endsnippet
 
 snippet bi "background-image"
-background-image: url("$1");
+background-image: ${1:url("$2")};
 $0
 endsnippet
 
 snippet bp "background-position"
-background-position: ${1:top}${2: right};
+background-position: ${1:${2:[top]}px} ${3:${4:[right]}px};
 $0
 endsnippet
 
@@ -133,12 +133,12 @@ endsnippet
 
 ## Border
 snippet border "border"
-border: ${1:1px} ${2:solid} ${3:black};
+border: ${1:${2:px}} ${3:solid} ${4:#${6:000}};
 $0
 endsnippet
 
 snippet boc "border-color"
-border-color: ${1:black};
+border-color: ${1:#${2:000}};
 $0
 endsnippet
 
@@ -153,7 +153,7 @@ $0
 endsnippet
 
 snippet bw "border-width"
-border-width: ${1:1px};
+border-width: ${1:${2:1}px};
 $0
 endsnippet
 
@@ -164,11 +164,22 @@ display: ${1:none};
 $0
 endsnippet
 
-#   bottom
+## Bottom
+snippet b "bottom"
+bottom: ${1:${2:0}px};
+$0
+endsnippet
+
 #   caption-side
 #   clear
 #   clip
-#   color
+
+## Color
+snippet c "color"
+color: ${1:#${2:000}};
+$0
+endsnippet
+
 #   content
 #   counter-increment
 #   counter-reset
@@ -182,7 +193,6 @@ snippet ff "font-family"
 font-family: ${1:"Helvetica Neue", Helvetica, Arial, sans-serif};
 $0
 endsnippet
-
 #   font
 #   font-size
 #   font-style
@@ -192,13 +202,20 @@ endsnippet
 
 ## Height
 snippet h "height"
-height: ${1:auto};
+height: ${1:${2:100}px};
 $0
 endsnippet
 
-#   left
+## Left
+snippet l "left"
+left: ${1:${2:0}px};
+$0
+endsnippet
+
 #   letter-spacing
 #   line-height
+
+## List Style
 #   list-style
 #   list-style-image
 #   list-style-position
@@ -206,69 +223,96 @@ endsnippet
 
 ## Margin
 snippet margin "margin full (4 args)"
-margin: ${1:top} ${2:right} ${3:bottom} ${4:left};
+margin: ${1:${2:[top]}px} ${3:${4:[right]}px} ${5:${6:[bottom]}px} ${7:${8:[left]}px};
 $0
 endsnippet
 
 snippet marg "margin full (4 args)"
-margin: ${1:top} ${2:right} ${3:bottom} ${4:left};
+margin: ${1:${2:[top]}px} ${3:${4:[right]}px} ${5:${6:[bottom]}px} ${7:${8:[left]}px};
 $0
 endsnippet
 
 snippet mar "margin with 3 args"
-margin: ${1:top} ${2:right/left} ${3:bottom};
+margin: ${1:${2:[top]}px} ${3:${4:[right/left]}px} ${5:${6:[bottom]}px};
 $0
 endsnippet
 
 snippet ma "margin with 2 args"
-margin: ${1:top/bottom} ${2:right/left};
+margin: ${1:${2:[top/bottom]}px} ${3:${4:[right/left]}px};
 $0
 endsnippet
 
 snippet m "margin with 1 arg."
-margin: ${1:0};
+margin: ${1:${2:0}px};
 $0
 endsnippet
 
-#   max-height
-#   max-width
-#   min-height
-#   min-width
+
+## Min/Max height/width
+snippet mxh "max-height"
+max-height: ${1:${2:0}px};
+$0
+endsnippet
+
+snippet mxw "max-width"
+max-width: ${1:${2:0}px};
+$0
+endsnippet
+
+snippet mnh "min-height"
+min-height: ${1:${2:0}px};
+$0
+endsnippet
+
+snippet mnw "min-width"
+min-width: ${1:${2:0}px};
+$0
+endsnippet
 
 #   orphans
+
+## Outline
 #   outline
 #   outline-color
 #   outline-style
 #   outline-width
-#   overflow
+
+## Overflow
+snippet o "overflow"
+overflow: ${1:hidden};
+$0
+endsnippet
 
 
 ## Padding
 snippet padding "padding full (4 args)"
-padding: ${1:top} ${2:right} ${3:bottom} ${4:left};
+padding: ${1:${2:[top]}px} ${3:${4:[right]}px} ${5:${6:[bottom]}px} ${7:${8:[left]}px};
 $0
 endsnippet
 
 snippet padd "padding full (4 args)"
-padding: ${1:top} ${2:right} ${3:bottom} ${4:left};
+padding: ${1:${2:[top]}px} ${3:${4:[right]}px} ${5:${6:[bottom]}px} ${7:${8:[left]}px};
 $0
 endsnippet
 
 snippet pad "padding with 3 args"
-padding: ${1:top} ${2:right/left} ${3:bottom};
+padding: ${1:${2:[top]}px} ${3:${4:[right/left]}px} ${5:${6:[bottom]}px};
 $0
 endsnippet
 
 snippet pa "padding with 2 args"
-padding: ${1:top/bottom} ${2:right/left};
+padding: ${1:${2:[top/bottom]}px} ${3:${4:[right/left]}px};
 $0
 endsnippet
 
 snippet p "padding with 1 arg"
-padding: ${1:0};
+padding: ${1:${2:0}px};
 $0
 endsnippet
 
+#   page-break-after
+#   page-break-before
+#   page-break-inside
 
 ## Position
 snippet pos "position"
@@ -276,13 +320,7 @@ position: ${1:relative};
 $0
 endsnippet
 
-#   padding, padding-top, padding-right, padding-bottom, padding-left
-#   page-break-after
-#   page-break-before
-#   page-break-inside
-#   position
 #   quotes
-
 
 ## RGB(A) Colors
 snippet rgb "color rgb"
@@ -293,13 +331,25 @@ snippet rgba "color rgba"
 rgba(${1:255}, ${2:255}, ${3:255}, ${4:0.5})$0
 endsnippet
 
-#   right
+## Right
+snippet r "right"
+right: ${1:${2:0}px};
+$0
+endsnippet
+
 #   table-layout
+
 #   text-align
 #   text-decoration
 #   text-indent
 #   text-transform
-#   top
+
+## Top
+snippet t "top"
+top: ${1:${2:0}px};
+$0
+endsnippet
+
 #   unicode-bidi
 #   vertical-align
 #   visibility
@@ -309,11 +359,11 @@ endsnippet
 
 ## Width
 snippet w "width"
-width: ${1:auto};$0
+width: ${1:${2:100}px};
+$0
 endsnippet
 
-
-## z-index
+## Z-index
 snippet z
 z-index: $1;
 $0
@@ -324,37 +374,37 @@ endsnippet
 ### CSS Pseudo Selectors ###
 
 snippet :fc
-:first-child
+:first-child $0
 endsnippet
 
 snippet :lc
-:last-child
+:last-child $0
 endsnippet
 
 snippet :nc
-:nth-child($0)
+:nth-child($1) $0
 endsnippet
 
 snippet :nlc
-:nth-last-child($0)
+:nth-last-child($1) $0
 endsnippet
 
 snippet :oc
-:only-child
+:only-child $0
 endsnippet
 
 snippet :a
-:after
+:after $0
 endsnippet
 
 snippet :b
-:before
+:before $0
 endsnippet
 
 snippet ::a
-::after
+::after $0
 endsnippet
 
 snippet ::b
-::before
+::before $0
 endsnippet
