@@ -621,7 +621,7 @@ function! RangerExplorer()
     if filereadable($HOME.'/.vim/ranger_selected_file')
         let first_file = 1
         for file in readfile($HOME.'/.vim/ranger_selected_file', '', 10)
-            exec 'edit ' . file
+            exec 'tabnew ' . file
             if first_file == 1
                 let first_file = file
             endif
