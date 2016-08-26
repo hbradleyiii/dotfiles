@@ -250,6 +250,8 @@ let g:ctrlp_abbrev = {
 "" Fugitive
 noremap <silent> <Leader>ga :Git add %<CR>
 noremap <silent> <Leader>gc :Gcommit -v -q<CR>
+noremap <silent> <Leader>gi :Git add -i<CR>
+noremap <silent> <Leader>gt :Git add --patch %<CR>
 noremap <silent> <Leader>gl :Git l1<CR>
 noremap <silent> <Leader>gs :Gstatus<CR>
 noremap <silent> <Leader>gp :Gpull<CR>:Gpush<CR>
