@@ -9,9 +9,9 @@ set nocompatible
     " - KEY MAPPINGS {{{
 " Leader key
 let mapleader=","  " By default ',' just repeats latest f, t, F or T in opposite direction
-" Map ,, to do what ',' used to do
-nnoremap <Leader>, ,
-vnoremap <Leader>, ,
+" Map \ to do what ',' used to do
+nnoremap \ ,
+vnoremap \ ,
 
 " Windows-like mods
 " * is the X11 primary selection (when text is highlighted)
