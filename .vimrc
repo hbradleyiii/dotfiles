@@ -13,6 +13,15 @@ let mapleader=","  " By default ',' just repeats latest f, t, F or T in opposite
 nnoremap \ ,
 vnoremap \ ,
 
+" Omnicompletion (C-space
+inoremap <C-Space> <C-x><C-o>
+inoremap <C-o> <C-x><C-o>
+" Sometimes the terminal seees C-space as C-@
+inoremap <C-@> <C-x><C-o>
+" Use C-j and C-k for navigating matches
+inoremap <expr> <c-j> ("\<C-n>")
+inoremap <expr> <c-k> ("\<C-p>")
+
 " Windows-like mods
 " * is the X11 primary selection (when text is highlighted)
 " + is the X11 clipboard
