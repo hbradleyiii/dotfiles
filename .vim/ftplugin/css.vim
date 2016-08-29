@@ -1,6 +1,10 @@
 setlocal iskeyword=@,_,-,?,!,%,#,48-57,192-255
 setlocal textwidth=120
 
+setlocal formatoptions=ro
+
+setlocal omnifunc=csscomplete#CompleteCSS
+
 function! PutDeclarationsOnIndividualLines()
     execute "normal! 0f}i\<CR>\<ESC>k0f{a\<CR>\<ESC>"
     while getline(".") =~ ";.*;"
