@@ -1,5 +1,7 @@
-
+########################
+### Global Functions ###
 global !p
+
 def complete(t, options):
     if t:
         options = [ s[len(t):] for s in options if s.startswith(t) ]
@@ -27,6 +29,8 @@ def fuzzy_complete(match, options):
 
 
 endglobal
+
+
 
 ########################
 ### General Snippets ###
