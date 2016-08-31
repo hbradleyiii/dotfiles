@@ -88,8 +88,6 @@ fi
 
 ## SECTION: Bash Variables {{{1
 ww='/var/www'
-wp='htdocs/wp-content/theme'
-wpt='wp-content/theme'
 # }}}
 
 ## SECTION: Tab Completion {{{1
