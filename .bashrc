@@ -541,6 +541,14 @@ function wpt() {
         echo 'Directory not found.'
     else
         cd $plugin_dir  # cd to the dir
+
+        # If there is only one dir here, cd to it
+        if [[ "$(find ./* -maxdepth 0 -type d | wc -l)" == "1" ]] ; then
+            cd "$(find ./* -maxdepth 0 -type d)"
+        else
+            # Otherwise, just show the directories
+            find ./* -maxdepth 0 -type d
+        fi
     fi
 } # }}}
 
