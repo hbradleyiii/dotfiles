@@ -504,6 +504,27 @@ function sudoh() {
     sudo bash -i -c "source ~/.bash_profile ; $@"
 } # }}}
 
+#### wpl - Moves to the nearest wordpress log directory
+# wpl() {{{2
+function wpl() {
+    local plugin_dir=""
+    local current_dir="$(pwd)"
+    while [[ "$plugin_dir" == "" ]] ; do
+        plugin_dir="$(find "$current_dir" -type d -name "log" | grep "/log$")"
+        current_dir="$(dirname "$current_dir")"  # Next time check parent directory
+        if [[ "$current_dir" == "/" ]] ; then
+            break # Don't continue to root dir
+        fi
+    done
+
+    if [[ "$plugin_dir" == "" ]] ; then
+        echo 'Directory not found.'
+    else
+        cd $plugin_dir  # cd to the dir
+        ls
+    fi
+} # }}}
+
 #### wpp - Moves to the nearest wordpress plugin directory
 # wpp() {{{2
 function wpp() {
