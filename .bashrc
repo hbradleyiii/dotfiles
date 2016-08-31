@@ -521,6 +521,7 @@ function wpp() {
         echo 'Directory not found.'
     else
         cd $plugin_dir  # cd to the dir
+        ls
     fi
 } # }}}
 
