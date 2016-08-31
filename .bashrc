@@ -510,7 +510,7 @@ function wpl() {
     local plugin_dir=""
     local current_dir="$(pwd)"
     while [[ "$plugin_dir" == "" ]] ; do
-        plugin_dir="$(find "$current_dir" -type d -name "log" | grep "/log$")"
+        plugin_dir="$(find "$current_dir" -maxdepth 1 -type d -name "log" | grep "/log$")"
         current_dir="$(dirname "$current_dir")"  # Next time check parent directory
         if [[ "$current_dir" == "/" ]] ; then
             break # Don't continue to root dir
