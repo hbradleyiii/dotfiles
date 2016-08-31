@@ -506,6 +506,46 @@ function sudoh() {
     sudo bash -i -c "source ~/.bash_profile ; $@"
 } # }}}
 
+#### wpp - Moves to the nearest wordpress plugin directory
+# wpp() {{{2
+function wpp() {
+    local plugin_dir=""
+    local current_dir="$(pwd)"
+    while [[ "$plugin_dir" == "" ]] ; do
+        plugin_dir="$(find "$current_dir" -type d -name "plugins" | grep "wp-content/plugins$")"
+        current_dir="$(dirname "$current_dir")"  # Next time check parent directory
+        if [[ "$current_dir" == "/" ]] ; then
+            break # Don't continue to root dir
+        fi
+    done
+
+    if [[ "$plugin_dir" == "" ]] ; then
+        echo 'Directory not found.'
+    else
+        cd $plugin_dir  # cd to the dir
+    fi
+} # }}}
+
+#### wpt - Moves to the nearest wordpress theme directory
+# wpt() {{{2
+function wpt() {
+    local plugin_dir=""
+    local current_dir="$(pwd)"
+    while [[ "$plugin_dir" == "" ]] ; do
+        plugin_dir="$(find "$current_dir" -type d -name "themes" | grep "wp-content/themes$")"
+        current_dir="$(dirname "$current_dir")"  # Next time check parent directory
+        if [[ "$current_dir" == "/" ]] ; then
+            break # Don't continue to root dir
+        fi
+    done
+
+    if [[ "$plugin_dir" == "" ]] ; then
+        echo 'Directory not found.'
+    else
+        cd $plugin_dir  # cd to the dir
+    fi
+} # }}}
+
 #### webmux - web dev tmux setup
 # webmux() {{{2
 function webmux() {
