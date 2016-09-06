@@ -1,9 +1,7 @@
 *.pyc
 *.pyo
 .bash_lib/local
-.config/ranger/bookmarks
-.config/ranger/history
-.config/ranger/tagged
+.config/
 .vim/.backup
 .vim/bundle
 .vim/.netrwhist
