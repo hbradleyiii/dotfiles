@@ -11,11 +11,6 @@
 #                   site-watch pane.
 #
 
-# Sanity check
-if test `tmux -V | sed "s/[^0-9]//g"` -lt 19 ; then
-    echo "Tmux-site-watch doesn't support versions less than 1.9"; exit
-fi
-
 
 if ((tmux list-panes -F "#{pane_start_command}" | grep ^site-watch$ )>/dev/null) ; then
     tmux send-keys -t $(tmux list-panes -F "#{pane_id} #{pane_start_command}" | grep site-watch$ | awk "{ print $1 }") C-c
@@ -23,10 +18,10 @@ else # Otherwise, it isn't yet running, start it:
     # If sass-watch is running, share the screen with it:
     if ((ps -o "%c" $(tmux list-panes -F "#{pane_pid}") | grep ^sass-watch$ )>/dev/null) ; then
         tmux select-pane -t bottom
-        tmux split-window -c "#{pane_current_path}" -h "site-watch"
+        tmux split-window -c "$(tmux display-message -p -F "#{pane_current_path}" -t0)" -h "site-watch"
         tmux select-pane -U
     else # Otherwise, just be on the bottom:
-        tmux split-window -c "#{pane_current_path}" -v -l 5 "site-watch"
+        tmux split-window -c "$(tmux display-message -p -F "#{pane_current_path}" -t0)" -v -l 5 "site-watch"
         tmux select-pane -U
     fi
 fi
