@@ -11,6 +11,12 @@
 #                   site-watch pane.
 #
 
+# Sanity check
+if test `tmux -V | sed "s/[^0-9]//g"` -lt 19 ; then
+    echo "Tmux-site-watch doesn't support versions less than 1.9"; exit
+fi
+
+
 if ((tmux list-panes -F "#{pane_start_command}" | grep ^site-watch$ )>/dev/null) ; then
     tmux send-keys -t $(tmux list-panes -F "#{pane_id} #{pane_start_command}" | grep site-watch$ | awk "{ print $1 }") C-c
 else # Otherwise, it isn't yet running, start it:

@@ -11,6 +11,12 @@
 #                   sass-watch pane.
 #
 
+# Sanity check
+if test `tmux -V | sed "s/[^0-9]//g"` -lt 19 ; then
+    echo "Tmux-sass-watch doesn't support versions less than 1.9"; exit
+fi
+
+
 if ((tmux list-panes -F "#{pane_start_command}" | grep ^sass-watch$ )>/dev/null) ; then
     kill $(ps -o "%p%c" $(tmux list-panes -F "#{pane_pid}") | grep sass-watch$ | awk "{ print $1 }")
 else # Otherwise, it isn't yet running, start it:
