@@ -93,16 +93,16 @@ ww='/var/www'
 ## SECTION: Tab Completion {{{1
 # tab completion for ssh hosts
 complete -W "$(
-    [[ -f ~/.ssh/known_hosts ]] && echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;
-    [[ -f ~/.ssh/config ]] && echo `cat ~/.ssh/config | grep "^Host " | awk '{print $2}'`
+    [[ -f ~/.ssh/known_hosts ]] && echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep --color=never -v "\["`;
+    [[ -f ~/.ssh/config ]] && echo `cat ~/.ssh/config | grep --color=never "^Host " | awk '{print $2}'`
 )" ssh
 complete -W "$(
-    [[ -f ~/.ssh/known_hosts ]] && echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;
-    [[ -f ~/.ssh/config ]] && echo `cat ~/.ssh/config | grep "^Host " | awk '{print $2}'`
+    [[ -f ~/.ssh/known_hosts ]] && echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep --color=never -v "\["`;
+    [[ -f ~/.ssh/config ]] && echo `cat ~/.ssh/config | grep --color=never "^Host " | awk '{print $2}'`
 )" ping
 complete -W "$(
-    [[ -f ~/.ssh/known_hosts ]] && echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep -v "\["`;
-    [[ -f ~/.ssh/config ]] && echo `cat ~/.ssh/config | grep "^Host " | awk '{print $2}'`
+    [[ -f ~/.ssh/known_hosts ]] && echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep --color=never -v "\["`;
+    [[ -f ~/.ssh/config ]] && echo `cat ~/.ssh/config | grep --color=never "^Host " | awk '{print $2}'`
 )" dns
 
 # bash completion for the `wp` command
@@ -510,7 +510,7 @@ function wpl() {
     local plugin_dir=""
     local current_dir="$(pwd)"
     while [[ "$plugin_dir" == "" ]] ; do
-        plugin_dir="$(find "$current_dir" -maxdepth 1 -type d -name "log" | grep "/log$")"
+        plugin_dir="$(find "$current_dir" -maxdepth 1 -type d -name "log" | grep --color=never "/log$")"
         current_dir="$(dirname "$current_dir")"  # Next time check parent directory
         if [[ "$current_dir" == "/" ]] ; then
             break # Don't continue to root dir
@@ -531,7 +531,7 @@ function wpp() {
     local plugin_dir=""
     local current_dir="$(pwd)"
     while [[ "$plugin_dir" == "" ]] ; do
-        plugin_dir="$(find "$current_dir" -type d -name "plugins" | grep "wp-content/plugins$")"
+        plugin_dir="$(find "$current_dir" -type d -name "plugins" | grep --color=never "wp-content/plugins$")"
         current_dir="$(dirname "$current_dir")"  # Next time check parent directory
         if [[ "$current_dir" == "/" ]] ; then
             break # Don't continue to root dir
@@ -552,7 +552,7 @@ function wpt() {
     local plugin_dir=""
     local current_dir="$(pwd)"
     while [[ "$plugin_dir" == "" ]] ; do
-        plugin_dir="$(find "$current_dir" -type d -name "themes" | grep "wp-content/themes$")"
+        plugin_dir="$(find "$current_dir" -type d -name "themes" | grep --color=never "wp-content/themes$")"
         current_dir="$(dirname "$current_dir")"  # Next time check parent directory
         if [[ "$current_dir" == "/" ]] ; then
             break # Don't continue to root dir
