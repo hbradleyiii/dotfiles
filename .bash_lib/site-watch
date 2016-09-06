@@ -25,6 +25,13 @@
 #                   the current directory.
 #
 
+# Sanity checks
+# Make sure inotifywait is installed
+if ! $(type "inotifywait" &> /dev/null) ; then
+    echo "inotifywait is not installed." ; exit 1
+fi
+
+
 # Catch and cleanup on Ctrl-C and Terminate
 trap clean_up INT
 trap clean_up TERM

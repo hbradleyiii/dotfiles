@@ -20,6 +20,18 @@
 #                       $FLAGS - any flags to pass to sassc
 #
 
+# Sanity checks
+# Make sure sassc is installed
+if ! $(type "sassc" &> /dev/null) ; then
+    echo "sassc is not installed." ; exit 1
+fi
+
+# Make sure inotifywait is installed
+if ! $(type "inotifywait" &> /dev/null) ; then
+    echo "inotifywait is not installed." ; exit 1
+fi
+
+
 # compile() {{{1
 #   compile sass
 SASS_WATCH_ERROR_FLAG=0
