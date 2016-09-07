@@ -1,16 +1,15 @@
-
 ### HTML TAGS ###
 
 snippet a "Hyperlink HTML tag" w
-<a href="${1:#}">$2${VISUAL}$0</a>
+<a href="${1:#}">$2${VISUAL}$3</a>$0
 endsnippet
 
 snippet abbr "abbr HTML tag"
-<abbr>$0</abbr>
+<abbr>$1</abbr>$0
 endsnippet
 
 snippet address "address HTML tag"
-<address>$0</address>
+<address>$1</address>$0
 endsnippet
 
 snippet area "area HTML tag"
@@ -23,41 +22,59 @@ ${VISUAL}$0
 </article>
 endsnippet
 
+snippet ar "article HTML tag"
+<article$1>
+${VISUAL}$0
+</article>
+endsnippet
+
 snippet aside "aside HTML tag"
-<aside>$0</aside>
+<aside>$1</aside>$0
 endsnippet
 
 snippet audio "audio HTML tag"
-<audio>$0</audio>
+<audio>$1</audio>$0
 endsnippet
 
 snippet base "base HTML tag"
-<base>$0</base>
+<base>$1</base>$0
 endsnippet
 
 snippet basefont "basefont HTML tag"
-<basefont>$0</basefont>
+<basefont>$1</basefont>$0
 endsnippet
 
 snippet bdi "bdi HTML tag"
-<bdi>$0</bdi>
+<bdi>$1</bdi>$0
 endsnippet
 
 snippet bdo "bdo HTML tag"
-<bdo>$0</bdo>
+<bdo>$1</bdo>$0
 endsnippet
 
 snippet big "big HTML tag"
-<big>$0</big>
+<big>$1</big>$0
 endsnippet
 
 snippet blockquote "blockquote HTML tag"
 <blockquote$1>
-${VISUAL}$0
-</blockquote>
+${VISUAL}$2
+</blockquote>$0
+endsnippet
+
+snippet bl "blockquote HTML tag"
+<blockquote$1>
+${VISUAL}$2
+</blockquote>$0
 endsnippet
 
 snippet body "body HTML tag"
+<body>
+${VISUAL}$0
+</body>
+endsnippet
+
+snippet bo "body HTML tag"
 <body>
 ${VISUAL}$0
 </body>
@@ -69,65 +86,65 @@ $0
 endsnippet
 
 snippet canvas "canvas HTML tag"
-<canvas>$0</canvas>
+<canvas>$1</canvas>$0
 endsnippet
 
 snippet caption "caption HTML tag"
-<caption>$0</caption>
+<caption>$1</caption>$0
 endsnippet
 
 snippet cite "cite HTML tag"
-<cite>$0</cite>
+<cite>$1</cite>$0
 endsnippet
 
 snippet code "code HTML tag"
-<code>$0</code>
+<code>$1</code>$0
 endsnippet
 
 snippet col "col HTML tag"
-<col>$0</col>
+<col>$1</col>$0
 endsnippet
 
 snippet colgroup "colgroup HTML tag"
-<colgroup>$0</colgroup>
+<colgroup>$1</colgroup>$0
 endsnippet
 
 snippet command "command HTML tag"
-<command>$0</command>
+<command>$1</command>$0
 endsnippet
 
 snippet datalist "datalist HTML tag"
-<datalist>$0</datalist>
+<datalist>$1</datalist>$0
 endsnippet
 
 snippet dd "dd HTML tag"
-<dd>$0</dd>
+<dd>$1</dd>$0
 endsnippet
 
 snippet del "del HTML tag"
-<del>$0</del>
+<del>$1</del>$0
 endsnippet
 
 snippet details "details HTML tag"
-<details>$0</details>
+<details>$1</details>$0
 endsnippet
 
 snippet dfn "dfn HTML tag"
-<dfn>$0</dfn>
+<dfn>$1</dfn>$0
 endsnippet
 
 snippet dir "dir HTML tag"
-<dir>$0</dir>
+<dir>$1</dir>$0
 endsnippet
 
 snippet div "div HTML tag" b
 <div$1>
-${VISUAL}$0
-</div>
+${VISUAL}$2
+</div>$0
 endsnippet
 
 snippet dl "dl HTML tag"
-<dl>$0</dl>
+<dl>$1</dl>$0
 endsnippet
 
 snippet doc "DOCTYPE HTML tag" b
@@ -135,47 +152,48 @@ snippet doc "DOCTYPE HTML tag" b
 endsnippet
 
 snippet dt "dt HTML tag"
-<dt>$0</dt>
+<dt>$1</dt>$0
 endsnippet
 
 snippet em "em HTML tag" w
-<em>${VISUAL}$0</em>
+<em>${VISUAL}$1</em>$0
 endsnippet
 
 snippet embed "embed HTML tag"
-<embed>$0</embed>
+<embed>$1</embed>$0
 endsnippet
 
 snippet fieldset "fieldset HTML tag"
-<fieldset>$0</fieldset>
+<fieldset>$1</fieldset>$0
 endsnippet
 
 snippet figcaption "figcaption HTML tag"
-<figcaption>$0</figcaption>
+<figcaption>$1</figcaption>$0
 endsnippet
 
 snippet figure "figure HTML tag"
-<figure>$0</figure>
+<figure>$1</figure>$0
 endsnippet
 
 snippet footer "footer HTML tag" b
 <footer$1>
-${VISUAL}$0
-</footer>
+${VISUAL}$2
+</footer>$0
 endsnippet
 
 snippet form "form HTML tag" b
 <form action="$1" method="${2:POST}"${3: name="$4"}${5: class="$6"}>
-$7${VISUAL}$0
-</form>
+	$7${VISUAL}
+	<input type="submit" value="${8:Submit}"$9>$10
+</form>$0
 endsnippet
 
 snippet frame "frame HTML tag"
-<frame>$0</frame>
+<frame>$1</frame>$0
 endsnippet
 
 snippet frameset "frameset HTML tag"
-<frameset>$0</frameset>
+<frameset>$1</frameset>$0
 endsnippet
 
 snippet h1 "Header HTML tag"
@@ -184,18 +202,18 @@ endsnippet
 
 snippet head "head HTML tag" b
 <head$1>
-$0
-</head>
+$2
+</head>$0
 endsnippet
 
 snippet header "header HTML tag" b
 <header$1>
-${VISUAL}$0
-</header>
+${VISUAL}$2
+</header>$0
 endsnippet
 
 snippet hgroup "hgroup HTML tag"
-<hgroup>$0</hgroup>
+<hgroup>$1</hgroup>$0
 endsnippet
 
 snippet html "Basic HTML5 Template" b
@@ -230,7 +248,7 @@ snippet html "Basic HTML5 Template" b
 endsnippet
 
 snippet iframe "iframe HTML tag"
-<iframe>$0</iframe>
+<iframe>$1</iframe>$0
 endsnippet
 
 snippet img "img HTML tag" w
@@ -240,52 +258,58 @@ endsnippet
 snippet input "input HTML tag" w
 <input type="${1:text}"${2: name="$3"}${4: id="${5:$3}"}${6: value="$7"}${8: size="$9"}>$0
 endsnippet
-snippet submit "Submit button" w
-<input type="submit" value="$2"$3>$0
-endsnippet
-snippet linput "Label and Input" w
+
+snippet in "input HTML tag" w
 <label for="${2:$1}">${1}</label>
 <input type="${3:text}" name="${4:$2}"${5: id="${6:$2}"} value="${7}">$0
 endsnippet
 
+snippet submit "Submit button" w
+<input type="submit" value="$2"$3>$0
+endsnippet
+
+snippet sub "Submit button" w
+<input type="submit" value="$2"$3>$0
+endsnippet
+
 snippet ins "ins HTML tag"
-<ins>$0</ins>
+<ins>$1</ins>$0
 endsnippet
 
 snippet kbd "kbd HTML tag"
-<kbd>$0</kbd>
+<kbd>$1</kbd>$0
 endsnippet
 
 snippet keygen "keygen HTML tag"
-<keygen>$0</keygen>
+<keygen>$1</keygen>$0
 endsnippet
 
 snippet label "label HTML tag" w
-<label$1>${VISUAL}$0</label>
+<label$1>${VISUAL}$1</label>$0
 endsnippet
 
 snippet legend "legend HTML tag"
-<legend>$0</legend>
+<legend>$1</legend>$0
 endsnippet
 
 snippet li "li HTML tag"
-<li${1}>${VISUAL}$0</li>
+<li${1}>${VISUAL}$1</li>$0
 endsnippet
 
 snippet link "link HTML tag"
-<link>$0</link>
+<link>$1</link>$0
 endsnippet
 
 snippet map "map HTML tag"
-<map>$0</map>
+<map>$1</map>$0
 endsnippet
 
 snippet mark "mark HTML tag"
-<mark>$0</mark>
+<mark>$1</mark>$0
 endsnippet
 
 snippet menu "menu HTML tag"
-<menu>$0</menu>
+<menu>$1</menu>$0
 endsnippet
 
 snippet meta "Additional HTML meta tags" b
@@ -296,7 +320,7 @@ $0
 endsnippet
 
 snippet meter "meter HTML tag"
-<meter>$0</meter>
+<meter>$1</meter>$0
 endsnippet
 
 snippet nav "nav HTML tag" b
@@ -306,120 +330,120 @@ ${VISUAL}$0
 endsnippet
 
 snippet noframes "noframes HTML tag"
-<noframes>$0</noframes>
+<noframes>$1</noframes>$0
 endsnippet
 
 snippet noscript "noscript HTML tag"
-<noscript>$0</noscript>
+<noscript>$1</noscript>$0
 endsnippet
 
 snippet object "object HTML tag"
-<object>$0</object>
+<object>$1</object>$0
 endsnippet
 
 snippet ol "ol HTML tag"
 <ol$1>
-$0
-</ol>
+$2
+</ol>$0
 endsnippet
 
 snippet optgroup "optgroup HTML tag"
-<optgroup>$0</optgroup>
+<optgroup>$1</optgroup>$0
 endsnippet
 
 snippet option "option HTML tag"
-<option>$0</option>
+<option>$1</option>$0
 endsnippet
 
 snippet output "output HTML tag"
-<output>$0</output>
+<output>$1</output>$0
 endsnippet
 
 snippet p "p HTML tag"
 <p>
-${VISUAL}$0
-</p>
+${VISUAL}$1
+</p>$0
 endsnippet
 
 snippet param "param HTML tag"
-<param>$0</param>
+<param>$1</param>$0
 endsnippet
 
 snippet pre "pre HTML tag"
 <pre$1>
-${VISUAL}$0
-</pre>
+${VISUAL}$1
+</pre>$0
 endsnippet
 
 snippet progress "progress HTML tag"
-<progress>$0</progress>
+<progress>$1</progress>$0
 endsnippet
 
 snippet q "q HTML tag"
-<q>$0</q>
+<q>$1</q>$0
 endsnippet
 
 snippet rp "rp HTML tag"
-<rp>$0</rp>
+<rp>$1</rp>$0
 endsnippet
 
 snippet rt "rt HTML tag"
-<rt>$0</rt>
+<rt>$1</rt>$0
 endsnippet
 
 snippet s "s HTML tag"
-<s>$0</s>
+<s>$1</s>$0
 endsnippet
 
 snippet samp "samp HTML tag"
-<samp>$0</samp>
+<samp>$1</samp>$0
 endsnippet
 
 snippet script "script HTML tag"
-<script>$0</script>
+<script>$1</script>$0
 endsnippet
 
 snippet section "section HTML tag" b
 <section$1>
 	${2:<h${3:1}>$4</h$3>}
-	$5${VISUAL}$0
-</section>
+	$5${VISUAL}$6
+</section>$0
 endsnippet
 
 snippet select "select HTML tag"
-<select>$0</select>
+<select>$1</select>$0
 endsnippet
 
 snippet source "source HTML tag"
-<source>$0</source>
+<source>$1</source>$0
 endsnippet
 
 snippet span "span HTML tag" w
-<span>${VISUAL}$0</span>
+<span>${VISUAL}$1</span>$0
 endsnippet
 
 snippet strike "strike HTML tag"
-<strike>$0</strike>
+<strike>$1</strike>$0
 endsnippet
 
 snippet strong "strong HTML tag" w
-<strong>${VISUAL}$0</strong>
+<strong>${VISUAL}$1</strong>$0
 endsnippet
 
 snippet style "style HTML tag"
-<style>$0</style>
+<style>$1</style>$0
 endsnippet
 
 snippet sub "sub HTML tag"
-<sub>$0</sub>
+<sub>$1</sub>$0
 endsnippet
 
 snippet summary "summary HTML tag"
-<summary>$0</summary>
+<summary>$1</summary>$0
 endsnippet
 
 snippet sup "sup HTML tag"
-<sup>$0</sup>
+<sup>$1</sup>$0
 endsnippet
 
 snippet table "table HTML tag"
@@ -435,70 +459,66 @@ $0
 endsnippet
 
 snippet td "td HTML tag"
-<td>$0</td>
+<td>$1</td>$0
 endsnippet
 
 snippet textarea "textarea HTML tag"
-<textarea name="$2"${3: id="$4"}>$0</textarea>
+<textarea name="$2"${3: id="$4"}>$1</textarea>$0
 endsnippet
 
 snippet tfoot "tfoot HTML tag"
-<tfoot>$0</tfoot>
+<tfoot>$1</tfoot>$0
 endsnippet
 
 snippet th "th HTML tag"
-<th>$0</th>
+<th>$1</th>$0
 endsnippet
 
 snippet thead "thead HTML tag"
-<thead>$0</thead>
+<thead>$1</thead>$0
 endsnippet
 
 snippet time "time HTML tag"
-<time>$0</time>
+<time>$1</time>$0
 endsnippet
 
 snippet title "title HTML tag" b
-<title>${VISUAL}$0</title>
+<title>${VISUAL}$1</title>$0
 endsnippet
 
 snippet tr "tr HTML tag"
-<tr>$0</tr>
+<tr>$1</tr>$0
 endsnippet
 
 snippet track "track HTML tag"
-<track>$0</track>
+<track>$1</track>$0
 endsnippet
 
 snippet tt "tt HTML tag"
-<tt>$0</tt>
+<tt>$1</tt>$0
 endsnippet
 
 snippet u "u HTML tag"
-<u>$0</u>
+<u>$1</u>$0
 endsnippet
 
 snippet ul "Unordered List" b
 <ul$1>
-	${VISUAL}$0
-</ul>
+	${VISUAL}$2
+</ul>$0
 endsnippet
 
 snippet var "var HTML tag"
-<var>$0</var>
+<var>$1</var>$0
 endsnippet
 
 snippet video "video HTML tag"
-<video>$0</video>
+<video>$1</video>$0
 endsnippet
 
 snippet wbr "wbr HTML tag"
-<wbr>$0</wbr>
+<wbr>$1</wbr>$0
 endsnippet
-
-###
-
-
 
 
 ### ATTRIBUTES ###
@@ -510,9 +530,6 @@ endsnippet
 snippet class "Class attribute" w
 class="$1"$0
 endsnippet
-
-###
-
 
 
 ### OTHER SNIPPETS ###
@@ -548,6 +565,7 @@ endsnippet
 snippet t "Generic HTML tag" b
 <${1:div}>$0</${1/(\w+).*/$1/}>
 endsnippet
+
 snippet tag "Generic HTML tag" b
 <${1:div}>
 $0
