@@ -11,26 +11,38 @@ def complete(t, options):
         return ' -invalid-'
     return " (" + ", ".join(options) + ")"
 
-def fuzzy_complete(match, options):
-    matched_options = []
-    if match:
-        for option in options:
-            cindex = 0
-            for char in option:
-                if cindex < len(match) and match[cindex] == char:
-                    cindex += 1
-            if cindex == len(match):
-                matched_options.append(option)
-    if len(matched_options) == 1:
-        return '\b' + matched_options[0]
-    if len(match) != 0 and len(matched_options) == 0:
-        return ' -invalid-'
-    return " (" + ", ".join(options) + ")"
+def vi():
+	vim.command("let g:OldCompletions = g:Completions")
+	vim.command("let g:Completions = ['ger', 'asdf', 'three', 'four']")
 
+def reset():
+	vim.command("let g:Completions = g:OldCompletions")
+
+def cmd():
+	if (vim.eval('mode()') == 'i'):
+		print snip._start
+		print snip._end
+		print snip._end
+		vim.command("call complete(col('.'), ['abc', 'what', 'ever'])")
 
 endglobal
 
+snippet test "background"
+background: $1`!p
+vi()
+`;`!p
+`$2$3`!v
+  call complete(col('.'), g:Completions)
+  `
+endsnippet
 
+snippet tx "test"
+background: $1`!p cmd()`;$2;$0
+endsnippet
+
+snippet tt "test"
+background: $1`!v complete(col('.'), ['none', 'forward', 'backwards'])`$0
+endsnippet
 
 ########################
 ### General Snippets ###
@@ -164,9 +176,15 @@ snippet b "bottom"
 bottom: ${1:${2:0}px};$0
 endsnippet
 
+## caption-side
+snippet ca "caption-side"
+caption-side: $1;$0
+endsnippet
 
-#   caption-side
-#   clip
+## clip
+snippet cli "clip"
+clip: $1;$0
+endsnippet
 
 ## Color
 snippet c "color"
@@ -185,7 +203,6 @@ endsnippet
 #   cursor
 #   direction
 #   empty-cells
-#   float
 
 ## Float
 snippet f "float"
