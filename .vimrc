@@ -60,6 +60,9 @@ noremap tg :tabprevious <CR>
 " Highlight last inserted text
 nnoremap gV `[v`]
 
+" Delete contents of entire file
+nnoremap da ggdG
+
 " Clone a paragraph
 noremap cp yap<S-}>p
 
