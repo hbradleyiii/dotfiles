@@ -113,13 +113,18 @@ noremap <silent> ,ss :%s/\s\+$//<Enter>
 noremap  ,rr :1,$retab<CR>
 
 " Option Toggles
-noremap <Leader>l :set list!<CR>
-noremap <Leader>w :set wrap!<CR>
+" Pastetoggle works in both normal and insert mode.
+" Not using <Leader><space> as this could be in the text being pasted.
+set pastetoggle=<F6>
 noremap <Leader><SPACE> :set paste!<CR>
-nnoremap <F6> :set paste!<CR>
-inoremap <F6> <ESC>:set paste!<CR>a
+noremap <Leader>l :set list!<CR>
+inoremap <Leader>l <ESC>:set list!<CR>a
+noremap <Leader>w :set wrap!<CR>
+inoremap <Leader>w <ESC>:set wrap!<CR>a
 noremap <Leader>. :set relativenumber!<CR>
+inoremap <Leader>. <ESC>:set relativenumber!<CR>a
 noremap <SPACE> :call ToggleSHighlights()<CR>
+
 
 let g:s_highlights = 0
 function! ToggleSHighlights()
