@@ -39,7 +39,15 @@ function is_running() {
 function _kill() {
     local cmd_to_kill=$1
 
-    kill $(ps -o "%p%c" $(tmux list-panes -F "#{pane_pid}") | grep $cmd_to_kill$ | awk "{ print \$1 }")
+    local pid=$(ps -o "%p%c" $(tmux list-panes -F "#{pane_pid}") | grep $cmd_to_kill$ | awk "{ print \$1 }")
+
+    kill $pid
+
+    # If it is still running (site-watch...), try sending Ctr-C
+    if is_running "$cmd_to_kill" ; then
+        local pane_id=$(tmux list-panes -F "#{pane_id} #{pane_start_command}" | grep $cmd_to_kill$ | awk "{ print \$1 }")
+        tmux send-keys -t $pane_id C-c
+    fi
 }
 
 
