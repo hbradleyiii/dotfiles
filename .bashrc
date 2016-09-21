@@ -136,7 +136,12 @@ function gitstate() {
 
     if ! git rev-parse 2> /dev/null; then return ; fi  # die if not a git repo
 
-    gitfetch  # Automatically do a git fetch at the prompt every 30 minutes
+    gitroot=$(git rev-parse --show-toplevel)
+    if ! test -r "$gitroot/.git/FETCH_HEAD" ; then echo -e "[permission denied]" ; return ; fi
+
+    if test -w "$gitroot/.git/FETCH_HEAD" ; then  # (if writable
+        gitfetch  # Automatically do a git fetch at the prompt every 30 minutes
+    fi
 
     # Check status after fetch
     local git_status="$(git status 2> /dev/null)"
