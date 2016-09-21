@@ -33,15 +33,17 @@ fi
 
 
 # Catch and cleanup on Ctrl-C and Terminate
-trap clean_up INT
-trap clean_up TERM
+trap clean_up SIGINT SIGTERM
 
 # clean_up() {{{1
 #   Removes .site-watch file
 function clean_up() {
-    printf "\n\e[0;34m>>  Cleaning up...\e[m\n"
-    printf "    Removing '%s'..." "$(basename $WATCH_FILE)"
-    rm "$WATCH_FILE" && printf "\e[0;32m[Finished]\e[m\n"
+    if [[ -f "$(basename $WATCH_FILE)" ]] ; then
+        printf "\n\e[0;34m>>  Cleaning up...\e[m\n"
+        printf "    Removing '%s'..." "$(basename $WATCH_FILE)"
+        rm "$WATCH_FILE" && printf "\e[0;32m[Finished]\e[m\n"
+        sleep .5
+    fi
 }
 # }}}
 
