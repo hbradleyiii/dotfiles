@@ -1,0 +1,76 @@
+#!/bin/bash
+#
+# name:             tmux-split
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created:          Sep 21, 2016 13:50 PM
+#
+# description:      Functions and variables for splitting windows in tmux.
+#
+
+# Set up TMUX_SPLIT_CMD based on tmux version
+if test `tmux -V | sed "s/[^0-9]//g"` -lt 19 ; then
+    # Tmux 1.8 or older
+    TMUX_SPLIT_CMD='tmux split-window -c "$(tmux display-message -p -F "#{pane_current_path}" -t0)"'
+else
+    # Tmux 1.9 or newer
+    TMUX_SPLIT_CMD='tmux split-window -c "#{pane_current_path}"'
+fi
+
+
+# Checks to see if a command is running (in tmux)
+#   $1 - command to check
+function is_running() {
+    local CMD=$1
+
+    # Make sure command isn't an empty string
+    [[ "$CMD" = "" ]] && return 1
+
+    if ps -o "%c" $(tmux list-panes -F "#{pane_pid}") | grep ^$CMD$ >/dev/null ; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+
+# Kill a command
+#   $1 - command to kill
+function _kill() {
+    local cmd_to_kill=$1
+
+    kill $(ps -o "%p%c" $(tmux list-panes -F "#{pane_pid}") | grep $cmd_to_kill$ | awk "{ print \$1 }")
+}
+
+
+# Toggles a split on screen bottom running a command
+#   $1 - command to run
+#   $2 - optional command to share bottom with
+function toggle_split() {
+    local CMD=$1
+    local SHARE_WITH=$2
+
+    # If $CMD is already running, kill running process
+    if is_running "$CMD" ; then
+        _kill "$CMD"
+
+    else # Otherwise, it isn't yet running, start it:
+        # If $SHARE_WITH is running, share the screen with it:
+        if is_running "$SHARE_WITH" ; then
+            tmux select-pane -t bottom
+            eval $TMUX_SPLIT_CMD -h "$CMD"
+            tmux select-pane -U
+        else # Otherwise, just run $CMD on the bottom:
+            eval $TMUX_SPLIT_CMD -v -l 5 "$CMD"
+            tmux select-pane -U
+        fi
+    fi
+}
+
+
+# Just create a small split if called directly
+if [[ $0 = */tmux-split ]] ; then
+    eval $TMUX_SPLIT_CMD -v -l 5
+fi
+
+# vim:set ft=sh fdm=marker:
