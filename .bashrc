@@ -378,6 +378,9 @@ function gitfetch() {
     # Does the file exist?
     if [[ ! -f $git_fetch_file ]] ; then return ; fi
 
+    # Exit if no internet
+    if ! ping -c 1 github.com &> /dev/null ; then return ; fi
+
     if [[ $MAC_OS ]] ; then
         eval local `stat -s $git_fetch_file`
         local last_fetch=$st_mtime
