@@ -139,8 +139,11 @@ function gitstate() {
     gitroot=$(git rev-parse --show-toplevel)
     if ! test -r "$gitroot/.git/FETCH_HEAD" ; then echo -e "[permission denied]" ; return ; fi
 
+    local perms=""
     if test -w "$gitroot/.git/FETCH_HEAD" ; then  # (if writable
         gitfetch  # Automatically do a git fetch at the prompt every 30 minutes
+    else
+        perms="[RO]"
     fi
 
     # Check status after fetch
@@ -172,7 +175,7 @@ function gitstate() {
         ended_state="(behind origin)"
     fi
 
-    echo -e "[git\x3A"$git_branch$state"] "$extended_state
+    echo -e "[git\x3A"$git_branch$state"] "$extended_state$perms
 } # }}}
 
 # TODO: Modify for if colors script doesn't exist
