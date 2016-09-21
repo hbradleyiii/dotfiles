@@ -598,9 +598,10 @@ function webmux() {
             tmux set -g base-index 1
             tmux setw -g pane-base-index 1
 
+            tmux split-window -v -l 5 -t webmux 'sass-watch'
+            tmux select-pane -t webmux:1.2
+            tmux split-window -h -t webmux 'site-watch'
             tmux select-pane -t webmux:1.1
-            tmux send-keys -t webmux:1.1 'tmux-sass-watch && tmux-site-watch' C-m
-            tmux send-keys -t webmux:1.1 'clear && ls' C-m
         fi
 
         tmux attach -t webmux
