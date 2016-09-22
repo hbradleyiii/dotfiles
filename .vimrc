@@ -480,6 +480,10 @@ function! ToggleGeneralEdits()
         augroup END
     endif
 endfunction
+" Upon loading vimrc, empty the group, then toggle it on.
+augroup general_edit_group
+    autocmd!
+augroup END
 call ToggleGeneralEdits()
 " }}}
 
