@@ -99,6 +99,7 @@ noremap <silent> <Leader>ee :tabedit $HOME/.emacs<CR>
 " 'e'dit 'b'ashrc
 noremap <silent> <Leader>sb :!rebash<CR>
 noremap <silent> <Leader>eb :tabedit $HOME/.bashrc<CR>
+noremap <silent> <Leader>ep :tabedit $HOME/.bash_profile<CR>
 
 " save session
 noremap <Leader>s :mksession<CR>
