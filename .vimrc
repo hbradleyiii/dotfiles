@@ -462,7 +462,7 @@ noremap <F5> :call ToggleGeneralEdits()<CR>
 noremap <Leader>ge :call ToggleGeneralEdits()<CR>
 function! ToggleGeneralEdits()
     if !exists('#general_edit_group#BufWritePre')
-        echom "Creating general edit autocommands."
+        silent echom "Creating general edit autocommands."
         augroup general_edit_group
             autocmd!
             autocmd BufWritePre * :let b:winview=winsaveview()
