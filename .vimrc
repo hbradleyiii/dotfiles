@@ -1,7 +1,7 @@
 " ~/.vimrc
 "
 " created by:       Harold Bradley III
-" email:            hbradleyiii@bradleystudio.net
+" email:            hbradleyiii@gmail.com
 "
 
 set nocompatible
