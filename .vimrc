@@ -630,7 +630,14 @@ endfunction
 " }}}
 
     " -- Ranger File Explorer {{{
-noremap <Leader>, :RangerExplorer<CR>
+if has('gui_running') || $MAC_OS == 'true'
+    " Ranger doesn't work in gui or MAC
+    noremap <Leader>, :tabe ./<CR>
+    noremap <F2> :tabe ./<CR>
+else
+    noremap <Leader>, :RangerExplorer<CR>
+    noremap <F2> :RangerExplorer<CR>
+endif
 command! RangerExplorer call RangerExplorer()
 function! RangerExplorer()
     exec "silent !ranger --choosefiles=$HOME/.vim/ranger_selected_file " .expand("%:p:h")
