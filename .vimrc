@@ -457,31 +457,6 @@ endif
 
     " - FUNCTIONS AND AUTOCOMMANDS {{{
 
-    " -- Reopen files on last used line {{{
-autocmd BufLeave,BufWrite,WinLeave * :call Make_the_view()
-function! Make_the_view()
-    if &buftype !~ 'nofile' && expand('%') != ''
-        try
-            mkview
-        catch  " If the view can't be made, die gracefully
-        endtry
-    endif
-endfunction
-autocmd BufEnter * :call Load_the_view()
-function! Load_the_view()
-    " A hack to prevent tagbar from creating an infinite loop
-    if bufwinnr('__Tagbar__') != -1 && bufwinnr('__Tagbar__') == winnr('$')
-        return
-    endif
-    " Ignore for special buffers
-    if &buftype !~ 'nofile' || &buftype !~ '' || expand('%') == ''
-        return
-    endif
-    loadview
-    cd %:h  " Force cd to dir of current file.
-endfunction
-" }}}
-
     " -- General file edits and cleanup {{{
 noremap <F5> :call ToggleGeneralEdits()<CR>
 noremap <Leader>ge :call ToggleGeneralEdits()<CR>
@@ -520,6 +495,31 @@ function! PromptSetUnixLineEndings()
         execute '%s//\r/ge'
     else
     endif
+endfunction
+" }}}
+
+    " -- Reopen files on last used line {{{
+autocmd BufLeave,BufWrite,WinLeave * :call Make_the_view()
+function! Make_the_view()
+    if &buftype !~ 'nofile' && expand('%') != ''
+        try
+            mkview
+        catch  " If the view can't be made, die gracefully
+        endtry
+    endif
+endfunction
+autocmd BufEnter * :call Load_the_view()
+function! Load_the_view()
+    " A hack to prevent tagbar from creating an infinite loop
+    if bufwinnr('__Tagbar__') != -1 && bufwinnr('__Tagbar__') == winnr('$')
+        return
+    endif
+    " Ignore for special buffers
+    if &buftype !~ 'nofile' || &buftype !~ '' || expand('%') == ''
+        return
+    endif
+    loadview
+    cd %:h  " Force cd to dir of current file.
 endfunction
 " }}}
 
