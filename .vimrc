@@ -285,10 +285,6 @@ noremap <silent> <Leader>g+ :Silent Git stash pop<CR>:e<CR>
 " Gundo
 noremap <Leader>u :GundoToggle<CR>
 
-"" NerdTree
-noremap <Leader>nt :NERDTreeToggle <CR>
-noremap <F2> :NERDTreeToggle <CR>
-
 "" PHP Manual
 let g:php_manual_online_search_shortcut = '<Leader>h'
 
