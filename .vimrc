@@ -483,16 +483,29 @@ endfunction
 " }}}
 
     " -- General file edits and cleanup {{{
-augroup general_edit_group
-    autocmd!
-    autocmd BufWritePre * :let b:winview=winsaveview()
-    " Remove all trailing whitespace before saving
-    autocmd BufWritePre * if getline('$') !~ "allow_trailing_whitespace" | :%s/\s\+$//e | endif
-    " Replace tabs with spaces before saving
-    autocmd BufWritePre * :1,$retab<CR>
-    autocmd BufWritePre * :call PromptSetUnixLineEndings()
-    autocmd BufWritePre * :call winrestview(b:winview)
-augroup END
+noremap <F5> :call ToggleGeneralEdits()<CR>
+noremap <Leader>ge :call ToggleGeneralEdits()<CR>
+function! ToggleGeneralEdits()
+    if !exists('#general_edit_group#BufWritePre')
+        echom "Creating general edit autocommands."
+        augroup general_edit_group
+            autocmd!
+            autocmd BufWritePre * :let b:winview=winsaveview()
+            " Remove all trailing whitespace before saving
+            autocmd BufWritePre * if getline('$') !~ "allow_trailing_whitespace" | :%s/\s\+$//e | endif
+            " Replace tabs with spaces before saving
+            autocmd BufWritePre * :1,$retab<CR>
+            autocmd BufWritePre * :call PromptSetUnixLineEndings()
+            autocmd BufWritePre * :call winrestview(b:winview)
+        augroup END
+    else
+        echom "Removing general edit autocommands."
+        augroup general_edit_group
+            autocmd!
+        augroup END
+    endif
+endfunction
+call ToggleGeneralEdits()
 " }}}
 
     " -- Prompt to change line endings to Unix format {{{
