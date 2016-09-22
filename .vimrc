@@ -428,9 +428,10 @@ if has('gui_running')  " Set up the gui for GVim
     set guicursor+=i-ci:ver25-Cursor
     set guicursor+=r-cr:hor20-Cursor
     set guicursor+=sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
-    set guifont=Pragmata\ 16
     if $MAC_OS == 'true'
         set guifont=Pragmata\ TT:h18
+    else
+        set guifont=Pragmata\ 16
     endif
     set guioptions=acer
     set mouse=a
