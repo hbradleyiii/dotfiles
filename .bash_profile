@@ -91,11 +91,17 @@ fi
 # }}}
 
 ## SECTION: Banner displaying domain and IP {{{1
+if [[ "$IP" = "" ]] ; then
+    ip="no network"
+else
+    ip="$IP"
+fi
+
 if [[ $MAC_OS ]] ; then
-    printf " \e[1;39m*\e[39m Welcome to \e[32m $(hostname) \e[39m [ $IP ]"
+    printf " \e[1;39m*\e[39m Welcome to \e[32m $(hostname) \e[39m [ $ip ]"
     echo
 else
-    echo -e " \e[1;39m*\e[39m Welcome to \e[32m $(hostname) \e[39m [ $IP ]"
+    echo -e " \e[1;39m*\e[39m Welcome to \e[32m $(hostname) \e[39m [ $ip ]"
     echo
 fi
 # }}}
