@@ -643,6 +643,14 @@ function! Rm()
 endfunction
 " }}}
 
+    " -- Automatically source vimrc changes {{{
+augroup general_edit_group
+    autocmd!
+    autocmd BufWritePost .vimrc source %
+    autocmd BufWritePost .gvimrc source %
+augroup END
+" }}}
+
     " -- Ranger File Explorer {{{
 if has('gui_running') || $MAC_OS == 'true'
     " Ranger doesn't work in gui or MAC
