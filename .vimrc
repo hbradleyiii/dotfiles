@@ -461,8 +461,8 @@ endif
 noremap <F5> :call ToggleGeneralEdits()<CR>
 noremap <Leader>ge :call ToggleGeneralEdits()<CR>
 function! ToggleGeneralEdits()
-    if !exists('#general_edit_group#BufWritePre')
-        silent echom "Creating general edit autocommands."
+    if !exists('#general_edit_group') || !exists('#general_edit_group#BufWritePre')
+        echom "Creating general edit autocommands."
         augroup general_edit_group
             autocmd!
             autocmd BufWritePre * :let b:winview=winsaveview()
@@ -480,11 +480,7 @@ function! ToggleGeneralEdits()
         augroup END
     endif
 endfunction
-" Upon loading vimrc, empty the group, then toggle it on.
-augroup general_edit_group
-    autocmd!
-augroup END
-call ToggleGeneralEdits()
+autocmd VimEnter * call ToggleGeneralEdits()
 " }}}
 
     " -- Prompt to change line endings to Unix format {{{
