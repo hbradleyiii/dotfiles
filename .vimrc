@@ -659,10 +659,10 @@ endfunction
 " }}}
 
     " -- Functions to map to frequent typos {{{
-command! Tabnew tabnew
+command! -nargs=* -complete=file Tabnew tabnew <args>
+command! -nargs=* -complete=file E e <args>
 command! Q q
 command! Qa qall
-command! E e
 " }}}
 " }}}
 
