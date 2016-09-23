@@ -69,6 +69,16 @@ else
     ln -s $DOTFILES_ROOT_DIR/hooks $DOTFILES_ROOT_DIR/.git/hooks
 fi
 
+# Run ctags
+type -P "ctags-exuberant" &>/dev/null
+if [[ $? -eq 0 ]] ; then
+    ctags-exuberant -eRf./tags --exclude=.git/* --exclude=.vim/* --exclude=.bash_lib/wp --exclude=.bash_lib/composer .[^.]?*
+    ctags-exuberant -eaf./tags --language-force=sh .bashrc .bash_profile
+else
+    echo 'ctags-exuberant is not installed. Skipping ctags.'
+fi
+
+
 source ~/.bash_profile
 
 # vim:set ft=sh fdm=marker:
