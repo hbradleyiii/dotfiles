@@ -47,9 +47,12 @@ noremap <Enter> o<ESC>
 nnoremap j gj
 nnoremap k gk
 
+" Make (un)indenting one keypress
+nnoremap > >>
+nnoremap < <<
 " Keep visual selection when indenting text
-vmap > >gv
-vmap < <gv
+vnoremap > >gv
+vnoremap < <gv
 
 " Playback in register 'q' (record: qq)
 nnoremap Q @q
