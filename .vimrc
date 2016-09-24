@@ -76,7 +76,6 @@ noremap <Leader>a =ip
 noremap gf :e <cfile><CR>
 
 " Moving in the buffer
-noremap <silent> <Leader>f :e ./<CR>
 noremap <silent> <Leader>b :bp<CR>
 noremap <silent> <Leader>n :bn<CR>
 noremap <silent> <Leader>m :b#<CR>
@@ -230,6 +229,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-vinegar'
 Plugin 'tommcdo/vim-exchange'
 Plugin 'vim-scripts/timestamp.vim'
 call vundle#end()  " Must be AFTER plugin list
@@ -257,6 +257,9 @@ let g:ctrlp_show_hidden = 1
 let g:ctrlp_switch_buffer = 'Et'
 let g:ctrlp_working_path_mode = 'rwc'
 noremap <Leader>p :CtrlP<CR>
+noremap <Leader>t :CtrlPBufTag<CR>
+noremap <C-t> :CtrlPBufTag<CR>
+noremap <Leader>f :CtrlPMRUFiles<CR>
 
 " Ignore spaces when searching
 let g:ctrlp_abbrev = {
