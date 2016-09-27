@@ -354,7 +354,7 @@ set sessionoptions=buffers,folds,globals,help,localoptions,options,resize,tabpag
 set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 
 " Tags
-set tags=tags
+set tags=./tags,tags;
 
 " Status Line
 set stl=%h%w%m\ %f\ %r\ (b:%n)\ %=%30(Line:\ %l/%L\ [%p%%]\ %)%8(Col:%3c\ %)%13([%b][0x%B]%)
