@@ -86,6 +86,12 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 
+" Jump to tags
+" alternative to <C-]>
+nnoremap <leader>] :tag /<c-r>=expand('<cword>')<cr><cr>
+" alternative to <C-w>}
+nnoremap <leader>} :ptag /<c-r>=expand('<cword>')<cr><cr>
+
 " Commenting these out for now... They don't seem to work well with my
 " workflow.
 " Automatically close braces with UltiSnip
