@@ -197,6 +197,8 @@ class EditableInteractiveConsole(InteractiveConsole):
         return InteractiveConsole.runsource(self, source, *args)
 
     def raw_input(self, *args):
+        # Think about reimplementing raw_input for automatically adding spaces
+        # appropriately. Maybe even backspace to previous line?
         line = InteractiveConsole.raw_input(self, *args)
         if line in ['quit', 'exit']:
             sys.exit()
