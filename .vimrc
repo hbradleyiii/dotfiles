@@ -697,6 +697,22 @@ command! -nargs=* -complete=file E e <args>
 command! Q q
 command! Qa qall
 " }}}
+
+    " -- Extra php syntax highlighting {{{
+function! PhpSyntaxMod()
+    hi! def link phpDocTags  phpDefine
+    hi! def link phpDocParam phpType
+endfunction
+
+let php_parent_error_close=1
+let php_noShortTags = 1
+
+augroup php_syntax
+    autocmd!
+    autocmd FileType php call PhpSyntaxMod()
+augroup END
+" }}}
+
 " }}}
 
 " vim:set fdm=marker:
