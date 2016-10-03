@@ -395,7 +395,10 @@ snippet section "section HTML tag" b
 endsnippet
 
 snippet select "select HTML tag"
-<select>${VISUAL}$1</select>$0
+<select>
+	<option>$1</option>
+	${VISUAL}$2
+</select>$0
 endsnippet
 
 snippet source "source HTML tag"
