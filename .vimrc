@@ -92,13 +92,6 @@ nnoremap <leader>] :tag /<c-r>=expand('<cword>')<cr><cr>
 " alternative to <C-w>}
 nnoremap <leader>} :ptag /<c-r>=expand('<cword>')<cr><cr>
 
-" Commenting these out for now... They don't seem to work well with my
-" workflow.
-" Automatically close braces with UltiSnip
-" imap <silent> { {-><TAB>
-" imap <silent> ( (-><TAB>
-" imap <silent> [ [-><TAB>
-
 
 " 'e'dit 'v'imrc
 noremap <silent> <Leader>sv :so $MYVIMRC<CR>
