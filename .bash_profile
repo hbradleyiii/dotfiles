@@ -49,7 +49,12 @@ if [[ $EXPORTS_SET != 1 ]] ; then
     export EXPORTS_SET=1
     export IP=$(curl -s http://techterminal.net/myip/)
     export LESS='-isMR'
-    export PATH=$PATH:~/.bash_lib:~/.bash_lib/local
+    if [[ -z "$_PATH" ]] ; then
+        # Save the default path once This is used so that when doing a
+        # 'rebash', paths aren't duplicated.
+        export _PATH=$PATH
+    fi
+    export PATH=$_PATH:~/.bash_lib:~/.bash_lib/local
     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
     export PYTHONSTARTUP=~/.pythonrc.py
     if [[ -n "$DISPLAY" ]] ; then
