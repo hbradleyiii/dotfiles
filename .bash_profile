@@ -55,6 +55,12 @@ if [[ $EXPORTS_SET != 1 ]] ; then
         export _PATH=$PATH
     fi
     export PATH=$_PATH:~/.bash_lib:~/.bash_lib/local
+    if [[ -d "$HOME/.composer/vendor/bin" ]] ; then
+        export PATH=$PATH:~/.composer/vendor/bin
+    fi
+    if [[ -d "$HOME/.config/composer/vendor/bin" ]] ; then
+        export PATH=$PATH:~/.config/composer/vendor/bin
+    fi
     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
     export PYTHONSTARTUP=~/.pythonrc.py
     if [[ -n "$DISPLAY" ]] ; then
