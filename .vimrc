@@ -63,6 +63,12 @@ noremap tg :tabprevious <CR>
 " Highlight last inserted text
 nnoremap gV `[v`]
 
+" Yank all the contents of the file
+nnoremap ya :%y+<Enter>
+
+" Put the register contents register in current buffer
+nnoremap yp ggpkdd
+
 " Delete contents of entire file
 nnoremap da ggdG
 
