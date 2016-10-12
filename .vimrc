@@ -67,7 +67,7 @@ nnoremap gV `[v`]
 nnoremap ya :%y+<Enter>
 
 " Put the register contents register in current buffer
-nnoremap yp ggpkdd
+nnoremap yp ggdG"0pkdd
 
 " Delete contents of entire file
 nnoremap da ggdG
