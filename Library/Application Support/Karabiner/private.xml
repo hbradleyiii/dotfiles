@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<root>
+    <appdef>
+        <appname>MACVIM</appname>
+        <equal>org.vim.MacVim</equal>
+    </appdef>
+    <appdef>
+        <appname>TERMINAL</appname>
+        <equal>com.apple.Terminal</equal>
+    </appdef>
+    <appdef>
+        <appname>AQUAMACS</appname>
+        <equal>org.gnu.Aquamacs</equal>
+    </appdef>
+    <appdef>
+        <appname>RDC</appname>
+        <equal>com.microsoft.rdc.mac</equal>
+    </appdef>
+    <vkopenurldef>
+        <name>KeyCode::VK_OPEN_URL_ITERM</name>
+        <url>file:///Applications/Utilities/Terminal.app</url>
+    </vkopenurldef>
+    <item>
+        <name>F5 for Refresh</name>
+        <identifier>private.f5_key</identifier>
+        <autogen>__KeyToKey__ KeyCode::F5, KeyCode::R, ModifierFlag::COMMAND_L</autogent>
+    </item>
+    <item>
+        <name>Natural Home and End keys</name>
+        <identifier>private.home_end_keys</identifier>
+        <autogen>__KeyToKey__ KeyCode::HOME, KeyCode::CURSOR_LEFT, ModifierFlag::COMMAND_L</autogent>
+        <autogen>__KeyToKey__ KeyCode::END, KeyCode::CURSOR_RIGHT, ModifierFlag::COMMAND_L</autogent>
+    </item>
+    <item>
+        <name>Ctrl Key for Vim</name>
+        <identifier>private.vim_ctrl_key</identifier>
+        <autogen>__KeyToKey__ KeyCode::COMMAND_L, KeyCode:: CONTROL_L</autogent>
+        <autogen>__KeyToKey__ KeyCode::CONTROL_L, KeyCode:: COMMAND_L</autogent>
+        <autogen>
+            __KeyToKey__
+            KeyCode::C, ModifierFlag::CONTROL_L,
+            KeyCode::C, ModifierFlag::COMMAND_L
+        </autogent>
+        <autogen>
+            __KeyToKey__
+            KeyCode::X, ModifierFlag::CONTROL_L,
+            KeyCode::X, ModifierFlag::COMMAND_L
+        </autogent>
+        <autogen>
+            __KeyToKey__
+            KeyCode::V, ModifierFlag::CONTROL_L,
+            KeyCode::V, ModifierFlag::COMMAND_L
+        </autogent>
+        <autogen>
+            __KeyToKey__
+            KeyCode::Z, ModifierFlag::CONTROL_L,
+            KeyCode::Z, ModifierFlag::COMMAND_L
+        </autogent>
+        <autogen>
+            __KeyToKey__
+            KeyCode::S, ModifierFlag::CONTROL_L,
+            KeyCode::S, ModifierFlag::COMMAND_L
+        </autogent>
+        <only>MACVIM</only>
+    </item>
+    <item>
+        <name>Ctrl Key for Terminal</name>
+        <identifier>private.terminal_ctrl_key</identifier>
+        <autogen>__KeyToKey__ KeyCode::COMMAND_L, KeyCode:: CONTROL_L</autogent>
+        <autogen>__KeyToKey__ KeyCode::CONTROL_L, KeyCode:: COMMAND_L</autogent>
+        <autogen>
+            __KeyToKey__
+            KeyCode::X, ModifierFlag::CONTROL_L,
+            KeyCode::X, ModifierFlag::COMMAND_L
+        </autogent>
+        <autogen>
+            __KeyToKey__
+            KeyCode::V, ModifierFlag::CONTROL_L,
+            KeyCode::V, ModifierFlag::COMMAND_L
+        </autogent>
+        <autogen>
+            __KeyToKey__
+            KeyCode::S, ModifierFlag::CONTROL_L,
+            KeyCode::S, ModifierFlag::COMMAND_L
+        </autogent>
+        <only>TERMINAL</only>
+    </item>
+    <item>
+        <name>Ctrl Key for Emacs</name>
+        <identifier>private.emacs_ctrl_key</identifier>
+        <autogen>__KeyToKey__ KeyCode::COMMAND_L, KeyCode:: CONTROL_L</autogent>
+        <autogen>__KeyToKey__ KeyCode::CONTROL_L, KeyCode:: COMMAND_L</autogent>
+        <only>AQUAMACS</only>
+    </item>
+    <item>
+        <name>Natural Windows Keys in Remote Desktop</name>
+        <identifier>private.remote_desktop_ctrl_win</identifier>
+        <autogen>__KeyToKey__ KeyCode::COMMAND_L, KeyCode:: CONTROL_L</autogent>
+        <autogen>__KeyToKey__ KeyCode::CONTROL_L, KeyCode:: COMMAND_L</autogent>
+        <only>RDC</only>
+    </item>
+    <item>
+        <name>Application Launcher Shortcuts</name>
+        <identifier>private.app_launchers</identifier>
+        <autogen>__KeyToKey__ KeyCode::CONTROL_L, ModifierFlag::SHIFT_R, ModifierFlag::RETURN, KeyCode::VK_OPEN_URL_ITERM</autogen>
+    </item>
+</root>
