@@ -82,4 +82,9 @@ fi
 
 source ~/.bash_profile
 
+# Copy Mac Config files on Macs
+if [[ $MAC_OS ]] ; then
+    cp ~/.dotfiles/Library ~/Library
+fi
+
 # vim:set ft=sh fdm=marker:
