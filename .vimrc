@@ -714,4 +714,8 @@ augroup END
 
 " }}}
 
+if filereadable(expand("~/.vimrc_local"))
+    source $HOME/.vimrc_local
+endif
+
 " vim:set fdm=marker:
