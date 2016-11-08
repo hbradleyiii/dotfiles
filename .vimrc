@@ -713,7 +713,7 @@ augroup php_syntax
 augroup END
 " }}}
 
-au BufRead,BufNewFile *.twig set filetype=htmljinja
+au BufRead,BufNewFile *.twig set filetype=jinja
 
 " }}}
 
