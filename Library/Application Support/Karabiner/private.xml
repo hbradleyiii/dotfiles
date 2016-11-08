@@ -9,6 +9,10 @@
         <equal>com.apple.Terminal</equal>
     </appdef>
     <appdef>
+        <appname>ITERM</appname>
+        <equal>com.googlecode.iterm2</equal>
+    </appdef>
+    <appdef>
         <appname>AQUAMACS</appname>
         <equal>org.gnu.Aquamacs</equal>
     </appdef>
@@ -84,6 +88,28 @@
             KeyCode::S, ModifierFlag::COMMAND_L
         </autogent>
         <only>TERMINAL</only>
+    </item>
+    <item>
+        <name>Ctrl Key for iTerm</name>
+        <identifier>private.iterm_ctrl_key</identifier>
+        <autogen>__KeyToKey__ KeyCode::COMMAND_L, KeyCode:: CONTROL_L</autogent>
+        <autogen>__KeyToKey__ KeyCode::CONTROL_L, KeyCode:: COMMAND_L</autogent>
+        <autogen>
+            __KeyToKey__
+            KeyCode::X, ModifierFlag::CONTROL_L,
+            KeyCode::X, ModifierFlag::COMMAND_L
+        </autogent>
+        <autogen>
+            __KeyToKey__
+            KeyCode::V, ModifierFlag::CONTROL_L,
+            KeyCode::V, ModifierFlag::COMMAND_L
+        </autogent>
+        <autogen>
+            __KeyToKey__
+            KeyCode::S, ModifierFlag::CONTROL_L,
+            KeyCode::S, ModifierFlag::COMMAND_L
+        </autogent>
+        <only>ITERM</only>
     </item>
     <item>
         <name>Ctrl Key for Emacs</name>
