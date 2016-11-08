@@ -224,6 +224,7 @@ Plugin 'joonty/vdebug.git'
 Plugin 'junegunn/gv.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 "Plugin 'klen/python-mode'
+Plugin 'lepture/vim-jinja'
 Plugin 'majutsushi/tagbar'
 Plugin 'SirVer/ultisnips'
 Plugin 'sjl/gundo.vim'
@@ -711,6 +712,8 @@ augroup php_syntax
     autocmd FileType php call PhpSyntaxMod()
 augroup END
 " }}}
+
+au BufRead,BufNewFile *.twig set filetype=htmljinja
 
 " }}}
 
