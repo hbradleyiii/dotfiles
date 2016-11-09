@@ -664,7 +664,7 @@ augroup END
 " }}}
 
     " -- Ranger File Explorer {{{
-if has('gui_running') || $MAC_OS == 'true'
+if has('gui_running') || ! executable('ranger')
     " Ranger doesn't work in gui or MAC
     noremap <Leader>, :tabe ./<CR>
     noremap <F2> :tabe ./<CR>
