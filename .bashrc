@@ -128,6 +128,11 @@ _wp_complete() {
     return 0
 }
 complete -o nospace -F _wp_complete wp
+
+# Mac tab completion
+if [[ $MAC_OS && -f $(brew --prefix)/etc/bash_completion ]]; then
+	source $(brew --prefix)/etc/bash_completion
+fi
 # }}}
 
 ## SECTION: Bash Prompts {{{1
