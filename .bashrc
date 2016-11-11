@@ -647,9 +647,9 @@ function whois() {
 # }}}
 
 #TODO: Fix this:
-#if [[ -e /usr/share/terminfo/x/rxvt-unicode ]] ; then
+if [[ -e /usr/share/terminfo/x/rxvt-unicode ]] ; then
     export TERM='rxvt-unicode-256color'
-#fi
+fi
 
 ## SECTION: Set OLDPWD (if ~/.OLDPWD exists) {{{1
 if [[ -f ~/.OLDPWD ]] ; then
