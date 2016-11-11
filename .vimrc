@@ -39,7 +39,7 @@ noremap <F1> :tab help <CR>
 " Movement Mods
 nnoremap gg ggzz
 " jj Escape in insert mode
-inoremap jj <ESC>
+inoremap jj <ESC>l
 inoremap hh <ESC>^i
 inoremap kk <ESC>$a
 noremap <Enter> o<ESC>
