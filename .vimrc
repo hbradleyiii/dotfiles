@@ -81,6 +81,9 @@ noremap <Leader>a =ip
 " Forces creation of a file if it doesn't exist
 noremap gf :e <cfile><CR>
 
+" Forces reloading the file
+noremap  <leader>re :e!<CR>
+
 " Moving in the buffer
 noremap <silent> <Leader>b :bp<CR>
 noremap <silent> <Leader>n :bn<CR>
