@@ -356,6 +356,10 @@ set splitright
 set shellslash
 set visualbell t_vb=
 
+set autoread
+au BufEnter * checktime
+au CursorHold * checktime
+
 " Session options
 set sessionoptions=buffers,folds,globals,help,localoptions,options,resize,tabpages,winsize,winpos
 
