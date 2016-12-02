@@ -3,7 +3,7 @@
 # name:             tmux-sass-watch
 # author:           Harold Bradley III
 # email:            harold@bradleystudio.net
-# created:          Mon 18 July 2013 11:53:35 AM EST
+# created:          Mon 18 July 2016 11:53:35 AM EST
 #
 # description:      Acts as a sass-watch pane toggle.
 #                   When called from inside tmux, will either open a new pane
