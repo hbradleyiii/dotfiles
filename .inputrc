@@ -53,6 +53,9 @@ $endif
 "\t":       menu-complete
 "\S-\t":    menu-complete-backward
 "\e[Z":     menu-complete-backward  # Sometimes the previous line doesn't work?
+# NOTE: menu-complete-backward doesn't work by default in Macs since Mac uses
+# an old version of bash.
+
 
 set keymap vi-command
 "gg":       beginning-of-history
