@@ -512,7 +512,7 @@ function s() {
         DIR='./*'
     fi
 
-    grep -rnI -- "$1" $DIR | GREP_COLOR="0;39" grep --color=always -ox "^.\{0,150\}"
+    grep -rnI -- "$1" $DIR | GREP_COLOR="0;39" grep --color=always -ox "^.\{0,250\}"
 } # }}}
 
 ### sudoh - sudo with my environment
