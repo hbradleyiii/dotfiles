@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# name:             tmux-gulp-watch
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created:          Mon 02 December 2016 09:23:35 AM EST
+#
+# description:      Acts as a gulp sass:watch pane toggle.
+#                   When called from inside tmux, will either open a new pane
+#                   running gulp sass:watch or will close a currently running
+#                   gulp sass:watch pane.
+#
+
+source $(dirname $0)/tmux-split
+[[ ! "$?" = "0" ]] && echo "[WARN] tmux-status-window not found." && exit
+
+toggle_split "gulp sass:watch"
+
+
+# vim:set ft=sh fdm=marker:
