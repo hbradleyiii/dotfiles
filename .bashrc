@@ -563,6 +563,27 @@ function wpp() {
     fi
 } # }}}
 
+#### wpr - Moves to the nearest wordpress root directory
+# wpr() {{{2
+function wpr() {
+    local admin_dir=""
+    local current_dir="$(pwd)"
+    while [[ "$admin_dir" == "" ]] ; do
+		if [[ -d "$current_dir/wp-admin" ]] && [[ -d "$current_dir/wp-admin" ]] ; then
+			admin_dir="$current_dir"
+            break # Don't continue to admin dir
+		fi
+        current_dir="$(dirname "$current_dir")"  # Next time check parent directory
+    done
+
+    if [[ "$admin_dir" == "" ]] ; then
+        echo 'Directory not found.'
+    else
+		# cd to the admin_dir
+        cd "$admin_dir"
+    fi
+} # }}}
+
 #### wpt - Moves to the nearest wordpress theme directory
 # wpt() {{{2
 function wpt() {
