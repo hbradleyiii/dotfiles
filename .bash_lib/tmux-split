@@ -26,7 +26,7 @@ function is_running() {
     # Make sure command isn't an empty string
     [[ "$CMD" = "" ]] && return 1
 
-    if ps -o "%c" $(tmux list-panes -F "#{pane_pid}") | grep ^$CMD$ >/dev/null ; then
+    if tmux list-panes -F "#{pane_id} #{pane_start_command}" | grep $CMD$ ; then
         return 0
     else
         return 1
