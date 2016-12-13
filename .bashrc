@@ -75,7 +75,7 @@ alias skim='(head -5; tail -5) <'
 alias speedtest='curl -o /dev/null http://speedtest.sea01.softlayer.com/downloads/test100.zip'
 alias speedtest2='wget -O /dev/null http://speedtest.sea01.softlayer.com/downloads/test100.zip'
 alias ssagent='eval `ssh-agent` && ssh-add ~/.ssh/id_rsa'
-alias ssu='sudo SSH_CLIENT="$SSH_CLIENT" SSH_CONNECTION="$SSH_CONNECTION" bash --rcfile ~/.bash_profile'
+alias ssu='sudo HOME="$HOME" SSH_CLIENT="$SSH_CLIENT" SSH_CONNECTION="$SSH_CONNECTION" bash --rcfile $HOME/.bash_profile'
 alias ta='tmux attach'
 alias uup='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade'
 alias wget='wget -c'
@@ -131,7 +131,7 @@ complete -o nospace -F _wp_complete wp
 
 # Mac tab completion
 if [[ $MAC_OS && -f $(brew --prefix)/etc/bash_completion ]]; then
-	source $(brew --prefix)/etc/bash_completion
+    source $(brew --prefix)/etc/bash_completion
 fi
 # }}}
 
@@ -569,17 +569,17 @@ function wpr() {
     local admin_dir=""
     local current_dir="$(pwd)"
     while [[ "$admin_dir" == "" ]] ; do
-		if [[ -d "$current_dir/wp-admin" ]] && [[ -d "$current_dir/wp-admin" ]] ; then
-			admin_dir="$current_dir"
+        if [[ -d "$current_dir/wp-admin" ]] && [[ -d "$current_dir/wp-admin" ]] ; then
+            admin_dir="$current_dir"
             break # Don't continue to admin dir
-		fi
+        fi
         current_dir="$(dirname "$current_dir")"  # Next time check parent directory
     done
 
     if [[ "$admin_dir" == "" ]] ; then
         echo 'Directory not found.'
     else
-		# cd to the admin_dir
+        # cd to the admin_dir
         cd "$admin_dir"
     fi
 } # }}}
