@@ -43,6 +43,9 @@ $endif
 
 "\C-b": 'cd -\015'
 
+# Open ranger with ',,'
+",,": 'cr\015'
+
 "\C-i": re-read-init-file  # Reload init file with C-i
 
 "\C-w": unix-filename-rubout
