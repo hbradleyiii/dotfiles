@@ -14,7 +14,7 @@
 source $(dirname $0)/tmux-split
 [[ ! "$?" = "0" ]] && echo "[WARN] tmux-status-window not found." && exit
 
-toggle_split "gulp sass:watch"
+toggle_split "gulp watch"
 
 
 # vim:set ft=sh fdm=marker:
