@@ -92,6 +92,14 @@ ww='/var/www'
 # }}}
 
 ## SECTION: Tab Completion {{{1
+if ! shopt -oq posix; then
+	if [ -f /usr/share/bash-completion/bash_completion ]; then
+		source /usr/share/bash-completion/bash_completion
+	elif [ -f /etc/bash_completion ]; then
+		source /etc/bash_completion
+	fi
+fi
+
 # tab completion for ssh hosts
 complete -W "$(
     [[ -f ~/.ssh/known_hosts ]] && echo `cat ~/.ssh/known_hosts | cut -f 1 -d ' ' | sed -e s/,.*//g | uniq | grep --color=never -v "\["`;
