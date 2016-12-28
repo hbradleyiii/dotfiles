@@ -43,7 +43,7 @@ done
 
 # Verify (correct) Permissions
 printf "Checking Permissions... "
-if [[ "$(find $DOTFILES_ROOT_DIR/ -not -user harold | wc -l)" -ne "0" ]] ; then
+if [[ "$(find $DOTFILES_ROOT_DIR/ -not -user $USER | wc -l)" -ne "0" ]] ; then
     printf "\n"
     sudo chown -R $USER $DOTFILES_ROOT_DIR/
 fi
