@@ -609,6 +609,15 @@ function wpt() {
         else
             # Otherwise, just show the directories
             find ./* -maxdepth 0 -type d
+
+			# Find the first theme that isn't a twenty* theme.
+			for theme_dir in *; do
+				if [[ -d $theme_dir ]] && [[ $theme_dir != twenty* ]]; then
+					echo "Entering $theme_dir..."
+					cd $theme_dir &> /dev/null
+					break
+				fi
+			done
         fi
     fi
 } # }}}
