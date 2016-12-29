@@ -282,6 +282,10 @@ let g:ctrlp_abbrev = {
     \ ]
 \ }
 
+"" Comfortable Motion
+let g:comfortable_motion_interval = 1000.0 / 20
+let g:comfortable_motion_friction = 200.0
+let g:comfortable_motion_air_drag = 0.0
 
 "" Fugitive
 noremap <silent> <Leader>ga :Git add %<CR>
