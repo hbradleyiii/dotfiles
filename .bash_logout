@@ -18,3 +18,4 @@ fi
 
 # Clear the screen for security's sake.
 clear
+[[ -x /usr/bin/clear_console ]] && /usr/bin/clear_console -q
