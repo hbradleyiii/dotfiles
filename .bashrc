@@ -573,6 +573,21 @@ function wpp() {
     fi
 } # }}}
 
+#### wp-perms - From a wordpress root directory, set proper permissions
+# wp-perms() {{{2
+function wp-perms() {
+    if [[ $(wpr) == "Directory not found." ]] ; then
+        echo 'WordPress directory not found.'
+    else
+        echo 'Setting proper WordPress ownership and permissions...'
+        chown $(apache-usr):$(apache-usr)  -R * # Let Apache be owner
+        find . -type d -exec chmod 775 {} \;  # Change directory permissions rwxrwxr-x
+        find . -type f -exec chmod 664 {} \;  # Change file permissions rw-rw-r--
+        find 'wp-config.php' -exec chmod 600 {} \;
+        find '.htaccess' -exec chmod 600 {} \;
+    fi
+} # }}}
+
 #### wpr - Moves to the nearest wordpress root directory
 # wpr() {{{2
 function wpr() {
