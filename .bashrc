@@ -577,7 +577,7 @@ function wpp() {
 function wpr() {
     local admin_dir=""
     local current_dir="$(pwd)"
-    while [[ "$admin_dir" == "" ]] ; do
+    while [[ "$current_dir" == "/" ]] ; do
         if [[ -d "$current_dir/wp-admin" ]] && [[ -d "$current_dir/wp-admin" ]] ; then
             admin_dir="$current_dir"
             break # Don't continue to admin dir
