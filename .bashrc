@@ -593,8 +593,8 @@ function wp-perms() {
 function wpr() {
     local admin_dir=""
     local current_dir="$(pwd)"
-    while [[ "$current_dir" == "/" ]] ; do
-        if [[ -d "$current_dir/wp-admin" ]] && [[ -d "$current_dir/wp-admin" ]] ; then
+    while [[ "$current_dir" != "/" ]] ; do
+        if [[ -d "$current_dir/wp-admin" ]] && [[ -d "$current_dir/wp-includes" ]] ; then
             admin_dir="$current_dir"
             break # Don't continue to admin dir
         fi
