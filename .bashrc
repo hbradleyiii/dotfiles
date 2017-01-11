@@ -39,6 +39,7 @@ alias ~='cd ~'
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias apache-usr='ps axo user,group,comm | egrep "(apache|httpd)" | grep -v ^root | uniq | cut -d\  -f 1'
 alias bh='cat ~/.bash_history | grep'
 alias catw='cat /var/lib/portage/world'
 alias cd='cd -P'
@@ -575,13 +576,28 @@ function wpp() {
     fi
 } # }}}
 
+#### wp-perms - From a wordpress root directory, set proper permissions
+# wp-perms() {{{2
+function wp-perms() {
+    if [[ $(wpr) == "Directory not found." ]] ; then
+        echo 'WordPress directory not found.'
+    else
+        echo 'Setting proper WordPress ownership and permissions...'
+        chown $(apache-usr):$(apache-usr)  -R * # Let Apache be owner
+        find . -type d -exec chmod 775 {} \;  # Change directory permissions rwxrwxr-x
+        find . -type f -exec chmod 664 {} \;  # Change file permissions rw-rw-r--
+        find 'wp-config.php' -exec chmod 600 {} \;
+        find '.htaccess' -exec chmod 600 {} \;
+    fi
+} # }}}
+
 #### wpr - Moves to the nearest wordpress root directory
 # wpr() {{{2
 function wpr() {
     local admin_dir=""
     local current_dir="$(pwd)"
-    while [[ "$admin_dir" == "" ]] ; do
-        if [[ -d "$current_dir/wp-admin" ]] && [[ -d "$current_dir/wp-admin" ]] ; then
+    while [[ "$current_dir" != "/" ]] ; do
+        if [[ -d "$current_dir/wp-admin" ]] && [[ -d "$current_dir/wp-includes" ]] ; then
             admin_dir="$current_dir"
             break # Don't continue to admin dir
         fi
