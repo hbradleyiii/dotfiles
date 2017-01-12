@@ -240,7 +240,7 @@ Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-vinegar'
-Plugin 'yuttie/comfortable-motion.vim'
+"Plugin 'yuttie/comfortable-motion.vim'
 Plugin 'vim-scripts/timestamp.vim'
 call vundle#end()  " Must be AFTER plugin list
 
