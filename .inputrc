@@ -56,8 +56,11 @@ $endif
 "\t":       menu-complete
 "\S-\t":    menu-complete-backward
 "\e[Z":     menu-complete-backward  # Sometimes the previous line doesn't work?
+
 # NOTE: menu-complete-backward doesn't work by default in Macs since Mac uses
-# an old version of bash.
+# an old version of bash. You can update bash on mac, then you have to make
+# sure your terminal emulater (iterm2) is using the correct version of bash.
+# You should set it to: '/path/to/bash --login'
 
 
 set keymap vi-command
