@@ -5,6 +5,8 @@ elinks
 emacs
 git
 htop
+inotify-tools
+ranger
 keychain
 lsof
 mutt
@@ -14,8 +16,11 @@ nmap
 ranger
 strace
 tmux
+ufw
 unison
 unzip
 vifm
 vim
+wget
 whois
+zip
