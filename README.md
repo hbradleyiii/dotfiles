@@ -8,6 +8,12 @@ $ git clone git@github.com:hbradleyiii/dotfiles.git ~/.dotfiles
 $ ~/.dotfiles/install
 ```
 
+## Adding only some files in a Directory
+To add only some files in a directory (i.e. ~/.config) copy the entire
+directory into ~/.dotfiles, then add the directory to the .gitignore file, and,
+finally, force add the particular files into the repository to track. Caution
+is needed to avoid writing over or removing files on other systems.
+
 ## Site Watch Script
 Site watch is web development script for that can be used to tell your browser
 to reload a webpage whenever a change has been made to a php, html, css, or

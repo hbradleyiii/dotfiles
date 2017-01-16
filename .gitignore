@@ -2,6 +2,7 @@
 *.pyo
 .bash_lib/local
 .config/
+.vagrant.d/
 .vim/.backup
 .vim/bundle
 .vim/.netrwhist
