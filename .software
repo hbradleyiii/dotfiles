@@ -1,4 +1,3 @@
-ag
 axel
 clamav
 curl
@@ -15,6 +14,7 @@ netcat
 nmap
 ranger
 ripgrep
+silversearcher-ag
 strace
 tmux
 ufw
