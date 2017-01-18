@@ -262,6 +262,11 @@ endif  " }}}
 
     " -- Plugin Options/Keybindings {{{
 
+"" Awk
+if executable('ag')
+	let g:ackprg = 'ag --vimgrep'
+endif
+
 "" CtrlP
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_show_hidden = 1
