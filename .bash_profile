@@ -61,6 +61,10 @@ if [[ $EXPORTS_SET != 1 ]] ; then
     if [[ -d "$HOME/.config/composer/vendor/bin" ]] ; then
         export PATH=$PATH:~/.config/composer/vendor/bin
     fi
+    if [[ $MAC_OS && -d "/usr/local/opt/coreutils/libexec/gnubin" ]] ; then
+		export COREUTILS=true
+        export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+    fi
     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
     export PYTHONSTARTUP=~/.pythonrc.py
     if [[ -n "$DISPLAY" ]] ; then

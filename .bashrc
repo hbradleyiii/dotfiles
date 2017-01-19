@@ -84,7 +84,7 @@ alias ssu='sudo HOME="$HOME" SSH_CLIENT="$SSH_CLIENT" SSH_CONNECTION="$SSH_CONNE
 alias ta='tmux attach'
 alias uup='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade'
 alias wget='wget -c'
-if [[ $MAC_OS ]] ; then
+if [[ $MAC_OS && ! $COREUTILS ]] ; then
     unalias ls
     alias ls='ls -A'
     unalias lsg
@@ -401,7 +401,7 @@ function gitfetch() {
     # Exit if no internet
     if ! ping -c 1 github.com &> /dev/null ; then return ; fi
 
-    if [[ $MAC_OS ]] ; then
+    if [[ $MAC_OS && ! $COREUTILS ]] ; then
         eval local `stat -s $git_fetch_file`
         local last_fetch=$st_mtime
     else
