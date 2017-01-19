@@ -392,7 +392,8 @@ function gitcp() {
 # gitfetch() {{{2
 function gitfetch() {
     local current_time=$(date +%s)
-    local git_fetch_file=$(git rev-parse --show-toplevel)"/.git/FETCH_HEAD"
+	local git_root=$(git rev-parse --show-toplevel)
+    local git_fetch_file=$git_root"/.git/FETCH_HEAD"
 
     # Does the file exist?
     if [[ ! -f $git_fetch_file ]] ; then return ; fi
@@ -411,7 +412,7 @@ function gitfetch() {
     # Wait until next time
     if [[ $current_time -lt $next_fetch  ]] ; then return ; fi
 
-    echo -e "\nChecking for updates to ${PWD##*/} repository..."
+    echo -e "\nChecking for updates to ${git_root##*/} repository..."
 
     # Do the fetch
     git fetch
