@@ -1,3 +1,4 @@
+*Generic
 axel
 clamav
 curl
@@ -25,3 +26,21 @@ vim
 wget
 whois
 zip
+
+*Mac-
+brew
+**Mac with brew
+bash
+bash-completion
+colordiff
+coreutils
+git
+ncdu
+ranger
+ripgrep
+sassc
+the_silver_searcher
+tmux
+vim
+wget
+yarn
