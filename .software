@@ -27,7 +27,11 @@ wget
 whois
 zip
 
-*Mac-
+*Desktop
+parcellite
+xdotool
+
+*Mac
 brew
 **Mac with brew
 bash
