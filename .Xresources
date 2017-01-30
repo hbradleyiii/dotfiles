@@ -158,3 +158,8 @@ URxvt*urlLauncher:                google-chrome
 *color7:                  S_base2
 *color15:                 S_base3
 
+
+URxvt.perl-ext-common: default,clipboard
+URxvt.keysym.C-S-c: perl:clipboard:copy
+URxvt.keysym.C-v: perl:clipboard:paste
+URxvt.keysym.C-a-v: perl:clipboard:paste_escaped
