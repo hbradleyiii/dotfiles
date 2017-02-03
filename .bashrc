@@ -99,11 +99,11 @@ ww='/var/www'
 
 ## SECTION: Tab Completion {{{1
 if ! shopt -oq posix; then
-	if [ -f /usr/share/bash-completion/bash_completion ]; then
-		source /usr/share/bash-completion/bash_completion
-	elif [ -f /etc/bash_completion ]; then
-		source /etc/bash_completion
-	fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        source /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        source /etc/bash_completion
+    fi
 fi
 
 # tab completion for ssh hosts
@@ -393,7 +393,7 @@ function gitcp() {
 # gitfetch() {{{2
 function gitfetch() {
     local current_time=$(date +%s)
-	local git_root=$(git rev-parse --show-toplevel)
+    local git_root=$(git rev-parse --show-toplevel)
     local git_fetch_file=$git_root"/.git/FETCH_HEAD"
 
     # Does the file exist?
@@ -640,14 +640,14 @@ function wpt() {
             # Otherwise, just show the directories
             find ./* -maxdepth 0 -type d
 
-			# Find the first theme that isn't a twenty* theme.
-			for theme_dir in *; do
-				if [[ -d $theme_dir ]] && [[ $theme_dir != twenty* ]]; then
-					echo "Entering $theme_dir..."
-					cd $theme_dir &> /dev/null
-					break
-				fi
-			done
+            # Find the first theme that isn't a twenty* theme.
+            for theme_dir in *; do
+                if [[ -d $theme_dir ]] && [[ $theme_dir != twenty* ]]; then
+                    echo "Entering $theme_dir..."
+                    cd $theme_dir &> /dev/null
+                    break
+                fi
+            done
         fi
     fi
 } # }}}
