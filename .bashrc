@@ -55,6 +55,7 @@ alias eixt='exit'
 alias free='free -h'
 alias fstab='sudo vim /etc/fstab'
 alias g='git'
+alias ga='git commit --amend'
 alias ghist='git log --follow -p -- '
 alias gitac='git add --all && git commit'
 alias gitall='git add --all'
@@ -527,7 +528,7 @@ function s() {
         DIR='./*'
     fi
 
-    grep -rnI -- "$1" $DIR | GREP_COLOR="0;39" grep --color=always -ox "^.\{0,250\}"
+    grep -rnI --exclude="*node_modules*" -- "$1" $DIR | GREP_COLOR="0;39" grep --color=always -ox "^.\{0,250\}"
 } # }}}
 
 ### sudoh - sudo with my environment
