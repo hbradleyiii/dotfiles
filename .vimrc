@@ -136,6 +136,14 @@ noremap <Leader>. :set relativenumber!<CR>
 inoremap <Leader>. <ESC>:set relativenumber!<CR>a
 noremap <SPACE> :call ToggleSHighlights()<CR>
 
+if $MAC_OS == 'true'
+	" set clipboard=unnamed " Needed??
+	noremap <Leader>c :!tee >(pbcopy)<CR>
+	noremap <Leader>v :set paste<CR>:r!pbpaste<CR>:set nopaste<CR>
+	inoremap <Leader>v <ESC>:set paste<CR>:r!pbpaste<CR>:set nopaste<CR>a
+endif
+
+
 
 let g:s_highlights = 0
 function! ToggleSHighlights()
@@ -165,6 +173,7 @@ map <C-g> :call ToggleGreekKeyboard()<CR>
 imap <C-g> <ESC>:call ToggleGreekKeyboard()<CR>a
 map <C-y> :call ToggleHebrewKeyboard()<CR>
 imap <C-y> <ESC>:call ToggleHebrewKeyboard()<CR>a
+
 
 " Reset keymap by default
 set keymap=
