@@ -358,6 +358,7 @@ set scrolloff=2
 set virtualedit=all
 set fillchars=""  " separator chars
 set mousehide
+set mouse=a
 set wildignore+=*~,*.bak,*.pyc,*.swp,*.tmp,.git
 set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.so,*.zip
 set wildignore+=.sass-cache
@@ -465,7 +466,6 @@ if has('gui_running')  " Set up the gui for GVim
         set guifont=Pragmata\ 16
     endif
     set guioptions=acer
-    set mouse=a
     set ttyfast
     set nolazyredraw  " Does this have consequences?
 endif
