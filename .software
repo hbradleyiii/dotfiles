@@ -41,6 +41,7 @@ coreutils
 git
 ncdu
 ranger
+reattach-to-user-namespace
 ripgrep
 sassc
 the_silver_searcher
