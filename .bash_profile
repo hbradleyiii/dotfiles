@@ -14,6 +14,11 @@
 # Login Shells:
 #       A login shell is when you first login to a computer, when you log in
 #       from a tty, or when you login remotely, as in SSH.
+#
+#       Note that tmux runs a login shell when first loaded. Hence, it
+#       re-sources /etc/profile and ~/.bash_profile. The same is true for most
+#       terminal emulators on OSX.
+#
 # 1. /etc/profile
 #       This is the system wide bash profile used for interactive login shells.
 # 2. ~/.bash_profile
@@ -35,8 +40,8 @@
 #       most configuration should be done.
 # 2(b). ~/.bash_login
 # 2(c). ~/.profile
-#       It's probably best to not use the previous files. They exist primarily
-#       for historical reasons.
+#       It's probably best to not use the ~/.bash_login or ~/.profile. They
+#       exist primarily for historical reasons.
 #
 # Logout:
 # Upon logout ~/.bash_logout is executed
@@ -54,6 +59,8 @@ if [[ $EXPORTS_SET != 1 ]] ; then
     export LESS='-isMR'
     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
     export PYTHONSTARTUP=~/.pythonrc.py
+
+	# GUI/Non-GUI exports
     if [[ -n "$DISPLAY" ]] ; then
         export BROWSER=chrome
         export VISUAL=gvim
