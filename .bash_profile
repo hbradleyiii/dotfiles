@@ -52,22 +52,6 @@ if [[ $EXPORTS_SET != 1 ]] ; then
     export EXPORTS_SET=1
     export IP=$(curl -s http://techterminal.net/myip/)
     export LESS='-isMR'
-    if [[ -z "$_PATH" ]] ; then
-        # Save the default path once This is used so that when doing a
-        # 'rebash', paths aren't duplicated.
-        export _PATH=$PATH
-    fi
-    export PATH=$_PATH:~/.bash_lib:~/.bash_lib/local
-    if [[ -d "$HOME/.composer/vendor/bin" ]] ; then
-        export PATH=$PATH:~/.composer/vendor/bin
-    fi
-    if [[ -d "$HOME/.config/composer/vendor/bin" ]] ; then
-        export PATH=$PATH:~/.config/composer/vendor/bin
-    fi
-    if [[ $MAC_OS && -d "/usr/local/opt/coreutils/libexec/gnubin" ]] ; then
-		export COREUTILS=true
-        export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-    fi
     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
     export PYTHONSTARTUP=~/.pythonrc.py
     if [[ -n "$DISPLAY" ]] ; then
@@ -77,6 +61,35 @@ if [[ $EXPORTS_SET != 1 ]] ; then
         export BROWSER=links
         export VISUAL=vim
     fi
+fi
+# }}}
+
+## SECTION: Path {{{1
+
+# PATH should be set everytime profile/bash_profile is sourced. (For example,
+# running tmux.) This is particularly important on a Mac since /etc/profile runs
+# 'path_helper' which mangles the path.
+
+if [[ -z "$_PATH" ]] ; then
+	# Save the default (original) path only once This is used so that when
+	# doing a 'rebash', paths aren't duplicated.
+	export _PATH=$PATH
+fi
+
+export PATH=$_PATH:~/.bash_lib:~/.bash_lib/local
+
+if [[ $MAC_OS && -d "/usr/local/opt/coreutils/libexec/gnubin" ]] ; then
+	# Coreutils path must be first to override default binaries
+	export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+	export COREUTILS=true
+fi
+
+if [[ -d "$HOME/.composer/vendor/bin" ]] ; then
+	export PATH=$PATH:~/.composer/vendor/bin
+fi
+
+if [[ -d "$HOME/.config/composer/vendor/bin" ]] ; then
+	export PATH=$PATH:~/.config/composer/vendor/bin
 fi
 # }}}
 
