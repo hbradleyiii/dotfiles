@@ -44,6 +44,9 @@
 
 ## SECTION: Exports {{{1
 if [[ $EXPORTS_SET != 1 ]] ; then
+    # Check what os we are running
+    [[ "$(uname)" == "Darwin" ]] && export MAC_OS=true
+
     export CDPATH='.:~/'
     export EDITOR=vim
     export EXPORTS_SET=1
@@ -74,8 +77,6 @@ if [[ $EXPORTS_SET != 1 ]] ; then
         export BROWSER=links
         export VISUAL=vim
     fi
-    # Check what os we are running
-    [[ "$(uname)" == "Darwin" ]] && export MAC_OS=true
 fi
 # }}}
 
