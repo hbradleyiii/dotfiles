@@ -1,0 +1,65 @@
+#
+# name:             .inputrc
+# author:           Harold Bradley III
+# email:            harold@bradleystudio.net
+# created:          Jan 12 2017
+#
+# description:      This file is sourced during editline initilization.  Any
+#                   program that uses editline (including mysql) sources it.
+
+
+set bind-tty-special-chars on
+set blink-matching-paren on
+set byte-oriented off
+set completion-ignore-case off
+set convert-meta off
+set disable-completion off
+set enable-keypad off
+set expand-tilde off
+set history-preserve-point off
+set horizontal-scroll-mode off
+set input-meta on
+set mark-directories on
+set mark-modified-lines off
+set mark-symlinked-directories off
+set match-hidden-files on
+set meta-flag on
+set output-meta on
+set page-completions on
+set prefer-visible-bell on
+set print-completions-horizontally off
+set show-all-if-ambiguous off
+set show-all-if-unmodified off
+set visible-stats off
+set bell-style none
+set comment-begin #
+set completion-query-items 100
+set editing-mode vi
+set keymap vi-insert
+
+bind -v
+bind \\t rl_complete
+
+# Keybinding
+## Up
+bind "\e[A" ed-prev-history
+## Down
+bind  "\e[B" ed-next-history
+## Home
+bind "\e[1~" ed-move-to-beg
+## End
+bind "\e[4~" ed-move-to-end
+## Page Up
+bind "\e[5~" ed-search-prev-history
+## Page Down
+bind "\e[6~" ed-search-next-history
+## Delete
+bind "\e[3~" ed-delete-next-char
+## Kill word forward
+bind "\e(" em-delete-next-word
+## ^K  to Copy prev shell word
+bind "^K" em-copy-prev-word
+## Inc search backwards
+bind "^R" em-inc-search-prev
+
+# vim:set ft=sh:
