@@ -60,7 +60,7 @@ if [[ $EXPORTS_SET != 1 ]] ; then
     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
     export PYTHONSTARTUP=~/.pythonrc.py
 
-	# GUI/Non-GUI exports
+    # GUI/Non-GUI exports
     if [[ -n "$DISPLAY" ]] ; then
         export BROWSER=chrome
         export VISUAL=gvim
@@ -78,25 +78,25 @@ fi
 # 'path_helper' which mangles the path.
 
 if [[ -z "$_PATH" ]] ; then
-	# Save the default (original) path only once This is used so that when
-	# doing a 'rebash', paths aren't duplicated.
-	export _PATH=$PATH
+    # Save the default (original) path only once This is used so that when
+    # doing a 'rebash', paths aren't duplicated.
+    export _PATH=$PATH
 fi
 
 export PATH=$_PATH:~/.bash_lib:~/.bash_lib/local
 
 if [[ $MAC_OS && -d "/usr/local/opt/coreutils/libexec/gnubin" ]] ; then
-	# Coreutils path must be first to override default binaries
-	export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-	export COREUTILS=true
+    # Coreutils path must be first to override default binaries
+    export PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+    export COREUTILS=true
 fi
 
 if [[ -d "$HOME/.composer/vendor/bin" ]] ; then
-	export PATH=$PATH:~/.composer/vendor/bin
+    export PATH=$PATH:~/.composer/vendor/bin
 fi
 
 if [[ -d "$HOME/.config/composer/vendor/bin" ]] ; then
-	export PATH=$PATH:~/.config/composer/vendor/bin
+    export PATH=$PATH:~/.config/composer/vendor/bin
 fi
 # }}}
 
