@@ -15,6 +15,12 @@
 #       A login shell is when you first login to a computer, when you log in
 #       from a tty, or when you login remotely, as in SSH.
 #
+#       Some terminals seem to open a login shell. You can check if a shell is
+#       login shell by:
+#           $ shopt login_shell
+#       The result will be 'on' if it is a login shell and 'off' otherwise.
+#
+#
 #       Note that tmux runs a login shell when first loaded. Hence, it
 #       re-sources /etc/profile and ~/.bash_profile. The same is true for most
 #       terminal emulators on OSX.
