@@ -58,11 +58,11 @@ if [[ $EXPORTS_SET != 1 ]] ; then
     # Check what os we are running
     [[ "$(uname)" == "Darwin" ]] && export MAC_OS=true
 
-    export CDPATH='.:~/'
+    export CDPATH=".:~/"
     export EDITOR=vim
     export EXPORTS_SET=1
     export IP=$(curl -s http://techterminal.net/myip/)
-    export LESS='-isMR'
+    export LESS="-isMR"
     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
     export PYTHONSTARTUP=~/.pythonrc.py
 
