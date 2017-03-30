@@ -66,6 +66,10 @@ if [[ $EXPORTS_SET != 1 ]] ; then
     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
     export PYTHONSTARTUP=~/.pythonrc.py
 
+	if [[ $MAC_OS && -f "/usr/local/bin/bash" ]] ; then
+		export SHELL="/usr/local/bin/bash"
+	fi
+
     # GUI/Non-GUI exports
     if [[ -n "$DISPLAY" ]] ; then
         export BROWSER=chrome
