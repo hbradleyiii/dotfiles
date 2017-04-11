@@ -59,6 +59,7 @@
     ff = only
 [push]
     default = matching
+    followTags = true
 [url "https://github.com/"]
     insteadOf = gh:
 [include]
