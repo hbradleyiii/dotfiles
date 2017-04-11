@@ -6,6 +6,14 @@
 #
 # description:      This file is sourced during readline initilization.  Any
 #                   program that uses readline (including bash) sources it.
+#
+#                   To manually load this file use:
+#                   $ bind -f ~/.inputrc
+#
+#                   Note that this doesn't 'reload' the configuration it just
+#                   'loads' the configuration on top of the existing what was
+#                   already loaded. Hence, deleting a setting will not 'unset'
+#                   that setting without reloading bash.
 
 
 set bind-tty-special-chars on
