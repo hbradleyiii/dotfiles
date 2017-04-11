@@ -10,6 +10,7 @@
     d = diff
     dc = diff --cached
     s = status
+    stall = stash save --include-untracked
     l = log
     l1 = log --pretty=format:'%C(bold green)%h%C(reset) %C(bold blue)%ad%C(reset) %s' --date=format:'%b %d, %Y %I:%M'
     lg = !"git lg1"
