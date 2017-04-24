@@ -47,5 +47,6 @@ sassc
 the_silver_searcher
 tmux
 vim
+wdiff
 wget
 yarn
