@@ -1,3 +1,7 @@
+setlocal textwidth=79
+
+setlocal formatoptions=croqvj
+
 setlocal iskeyword=$,@,_,-,48-57,192-255
 setlocal include=\\\(require\\\|include\\\)\\\(_once\\\)\\\?
 setlocal comments=sr:/*,mb:*,ex:*/,://,b:#
