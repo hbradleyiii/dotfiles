@@ -24,6 +24,6 @@ function! SortAlphabeticallyInBraces()
     execute "normal! $vi{:sort\<CR>"
 endfunction
 
-noremap gqh 0120lF;a<CR><ESC>
-noremap gqj :call PutDeclarationsOnOneLine()<CR>
-noremap gqk :call PutDeclarationsOnIndividualLines()<CR>
+"noremap gqh 0120lF;a<CR><ESC>
+"noremap gqj :call PutDeclarationsOnOneLine()<CR>
+"noremap gqk :call PutDeclarationsOnIndividualLines()<CR>
