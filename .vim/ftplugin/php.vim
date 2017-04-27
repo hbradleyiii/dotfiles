@@ -6,7 +6,6 @@ setlocal define=define
 compiler php
 
 setlocal cindent
-setlocal cindent
 setlocal cinwords=if,elseif,else,while,do,for,foreach,switch,case
 setlocal cinkeys=0{,0},0),!^F,o,O,e
 setlocal cinoptions=:1s,p1s,t0,)40,*40
