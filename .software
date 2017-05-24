@@ -38,6 +38,8 @@ bash
 bash-completion
 colordiff
 coreutils
+ctags
+fswatch
 git
 ncdu
 ranger
