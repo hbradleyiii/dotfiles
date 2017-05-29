@@ -66,9 +66,9 @@ if [[ $EXPORTS_SET != 1 ]] ; then
     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
     export PYTHONSTARTUP=~/.pythonrc.py
 
-	if [[ $MAC_OS && -f "/usr/local/bin/bash" ]] ; then
-		export SHELL="/usr/local/bin/bash"
-	fi
+    if [[ $MAC_OS && -f "/usr/local/bin/bash" ]] ; then
+        export SHELL="/usr/local/bin/bash"
+    fi
 
     # GUI/Non-GUI exports
     if [[ -n "$DISPLAY" ]] ; then
@@ -137,10 +137,9 @@ fi
 # }}}
 
 ## SECTION: Banner displaying domain and IP {{{1
-if [[ "$IP" = "" ]] ; then
+ip="$IP"
+if [[ "$ip" = "" ]] ; then
     ip="no network"
-else
-    ip="$IP"
 fi
 
 if [[ $MAC_OS ]] ; then
