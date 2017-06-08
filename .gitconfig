@@ -6,7 +6,7 @@
     amend = commit --amend -m
     br = branch
     c = commit -m
-    co = checkout
+    co = checkout -b
     d = diff
     dc = diff --cached
     s = status
