@@ -5,8 +5,9 @@
     ac = !git add . && git commit -m
     amend = commit --amend -m
     br = branch
+    bo = checkout -b
     c = commit -m
-    co = checkout -b
+    co = checkout
     d = diff
     dc = diff --cached
     s = status
