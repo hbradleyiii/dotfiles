@@ -585,7 +585,8 @@ endfunction
 " }}}
 
     " -- Write function to check for write access and SudoWrite if necessary {{{
-noremap <C-s> W
+noremap <C-s> :W<CR>
+inoremap <C-s> <Esc>:W<CR>a
 command! W call Write()
 function! Write()
     if &readonly

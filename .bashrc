@@ -537,6 +537,19 @@ function sudoh() {
     sudo bash -i -c "source ~/.bash_profile ; $@"
 } # }}}
 
+### vim - vim wrapper (allows vim to understand Ctrl-s)
+# vim() {{{2
+function vim() {
+	if [[ $MAC_OS ]] ; then
+		local STTYOPTS="$(stty -g)"
+	else
+		local STTYOPTS="$(stty --save)"
+	fi
+    stty stop '' -ixoff
+    command vim "$@"
+    stty "$STTYOPTS"
+} # }}}
+
 #### wpl - Moves to the nearest wordpress log directory
 # wpl() {{{2
 function wpl() {
