@@ -101,6 +101,9 @@ nnoremap <leader>] :tag /<c-r>=expand('<cword>')<cr><cr>
 " alternative to <C-w>}
 nnoremap <leader>} :ptag /<c-r>=expand('<cword>')<cr><cr>
 
+" Searching keymaps
+nnoremap <C-/> :grep -R<space>
+
 
 " 'e'dit 'v'imrc
 noremap <silent> <Leader>sv :so $MYVIMRC<CR>
