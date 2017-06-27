@@ -2,6 +2,7 @@
 *.pyo
 .bash_lib/local
 .config/
+.tmux/plugins
 .vagrant.d/
 .vim/.backup
 .vim/bundle
