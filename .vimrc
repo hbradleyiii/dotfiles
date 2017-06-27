@@ -140,10 +140,10 @@ inoremap <Leader>. <ESC>:set relativenumber!<CR>a
 noremap <SPACE> :call ToggleSHighlights()<CR>
 
 if $MAC_OS == 'true'
-	" set clipboard=unnamed " Needed??
-	noremap <Leader>c :!tee >(pbcopy)<CR>
-	noremap <Leader>v :set paste<CR>:r!pbpaste<CR>:set nopaste<CR>
-	inoremap <Leader>v <ESC>:set paste<CR>:r!pbpaste<CR>:set nopaste<CR>a
+    " set clipboard=unnamed " Needed??
+    noremap <Leader>c :!tee >(pbcopy)<CR>
+    noremap <Leader>v :set paste<CR>:r!pbpaste<CR>:set nopaste<CR>
+    inoremap <Leader>v <ESC>:set paste<CR>:r!pbpaste<CR>:set nopaste<CR>a
 endif
 
 
@@ -278,7 +278,7 @@ endif  " }}}
 
 "" Awk
 if executable('ag')
-	let g:ackprg = 'ag --vimgrep'
+    let g:ackprg = 'ag --vimgrep'
 endif
 
 "" CtrlP
