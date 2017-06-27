@@ -82,7 +82,7 @@ noremap <Leader>a =ip
 noremap gf :e <cfile><CR>
 
 " Forces reloading the file
-noremap  <leader>re :e!<CR>
+noremap  <Leader>re :e!<CR>
 
 " Moving in the buffer
 noremap <silent> <Leader>b :bp<CR>
@@ -97,9 +97,9 @@ noremap <C-k> <C-w>k
 
 " Jump to tags
 " alternative to <C-]>
-nnoremap <leader>] :tag /<c-r>=expand('<cword>')<cr><cr>
+nnoremap <Leader>] :tag /<C-r>=expand('<cword>')<CR><CR>
 " alternative to <C-w>}
-nnoremap <leader>} :ptag /<c-r>=expand('<cword>')<cr><cr>
+nnoremap <Leader>} :ptag /<C-r>=expand('<cword>')<CR><CR>
 
 " Searching keymaps
 nnoremap <C-/> :grep -R<space>
