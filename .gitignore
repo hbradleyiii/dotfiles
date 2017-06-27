@@ -3,6 +3,7 @@
 .bash_lib/local
 .config/
 .tmux/plugins
+.tmux/resurrect
 .vagrant.d/
 .vim/.backup
 .vim/bundle
