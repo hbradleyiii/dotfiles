@@ -227,6 +227,7 @@ endif  " }}}
 call vundle#begin()  " Vundle Initialization
 Plugin 'gmarik/Vundle.vim'  " Let Vundle manage Vundle, required
 
+Plugin 'airblade/vim-gitgutter'
 Plugin 'alfredodeza/pytest.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'alvan/vim-php-manual'
