@@ -225,6 +225,28 @@ PS4='+ ${FUNCNAME[0]:+${FUNCNAME[0]}():} line ${LINENO}: '
 # }}}
 
 ## SECTION: Bash Functions {{{1
+
+### art - Laravel's artisan command from any directory in the project
+# art() {{{2
+function art() {
+    local artisan_dir=""
+    local current_dir="$(pwd)"
+    while [[ "$current_dir" != "/" ]] ; do
+        if [[ -f "$current_dir/artisan" ]] && [[ -f "$current_dir/composer.json" ]] ; then
+            artisan_dir="$current_dir"
+            break # Don't continue to admin dir
+        fi
+        current_dir="$(dirname "$current_dir")"  # Next time check parent directory
+    done
+
+    if [[ "$artisan_dir" == "" ]] ; then
+        echo 'Artisan command not found. Are you inside a laravel project?'
+    else
+        # run the artisan command
+		php $current_dir/artisan $@
+    fi
+} # }}}
+
 ### cl - cd && ls
 # cl() {{{2
 function cl() {
