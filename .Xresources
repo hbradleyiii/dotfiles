@@ -20,7 +20,7 @@ Xcursor.theme:Vanilla-DMZ
 
 
 URxvt*termName:                  rxvt-unicode-256color
-URxvt*font:                      xft:Pragmata:pixelsize=16:antialias=true:hinting=true
+URxvt*font:                      xft:Pragmata:size=16:antialias=true:hinting=true
 
 
 URxvt*geometry:                   100x40
