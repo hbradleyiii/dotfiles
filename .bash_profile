@@ -108,6 +108,10 @@ fi
 if [[ -d "$HOME/.config/composer/vendor/bin" ]] ; then
     export PATH=$PATH:~/.config/composer/vendor/bin
 fi
+
+if [[ -d "$HOME/.yarn/bin" ]] ; then
+	export PATH=$PATH:~/.yarn/bin
+fi
 # }}}
 
 ## SECTION: SSH keychain {{{1
