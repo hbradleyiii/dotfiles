@@ -144,6 +144,21 @@ _wp_complete() {
 }
 complete -o nospace -F _wp_complete wp
 
+# bash completion for `php artisan` command
+_artisan()
+{
+    local OLD_IFS="$IFS"
+    local CURRENT_STR=${COMP_WORDS[COMP_CWORD]}
+
+	IFS=$'\n';
+	local opts=$(art | sed '/Available commands:/,$!d' | tail -n+2 | awk '{$1=$1};1' | cut -d' ' -f1 | awk '$1 ~ /^'$CURRENT_STR'/')
+	COMPREPLY=( ${opts[*]} )
+
+	IFS="$OLD_IFS"
+	return 0
+}
+complete -F _artisan art
+
 # Mac tab completion
 if [[ $MAC_OS && -f $(brew --prefix)/etc/bash_completion ]]; then
     source $(brew --prefix)/etc/bash_completion
