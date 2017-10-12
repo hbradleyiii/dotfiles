@@ -568,6 +568,27 @@ function s() {
     grep -rnI --exclude="*vendor*" --exclude="*node_modules*" -- "$1" $DIR | GREP_COLOR="0;39" grep --color=always -ox "^.\{0,250\}"
 } # }}}
 
+### sv - Open files from search results in vim
+# sv() {{{2
+function sv() {
+    if [[ "$1" == "" ]] ; then
+        echo 'sv is a search program that opens files with matches in vim.'
+        echo ''
+        echo 'usage:'
+        echo '    sv 'string' /the/path'
+        echo ''
+        return
+    fi
+
+    if [[ -n "$2" ]] ; then
+        DIR=$2
+    else
+        DIR='./*'
+    fi
+
+	vim "-c bufdo /$1" $(grep -rnI --color=never --exclude="*vendor*" --exclude="*node_modules*" -- "$1" $DIR |  awk -F ":" '{ if (a[$1]++ == 0) print $1}')
+} # }}}
+
 ### sudoh - sudo with my environment
 # sudoh() {{{2
 function sudoh() {
