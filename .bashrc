@@ -586,7 +586,7 @@ function sv() {
         DIR='./*'
     fi
 
-	vim "-c bufdo /$1" $(grep -rnI --color=never --exclude="*vendor*" --exclude="*node_modules*" -- "$1" $DIR |  awk -F ":" '{ if (a[$1]++ == 0) print $1}')
+	vim "-c bufdo /$1" $(grep -rl --color=never --exclude="*vendor*" --exclude="*node_modules*" -- "$1" $DIR)
 } # }}}
 
 ### sudoh - sudo with my environment
