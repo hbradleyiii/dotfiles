@@ -753,6 +753,31 @@ augroup END
 
 au BufRead,BufNewFile *.twig set filetype=jinja
 
+    " -- Get project root {{{
+" Adapted from:
+" s:guessProjectRoot() in
+" https://github.com/rking/ag.vim/blob/master/autoload/ag.vim
+" Attempts to guess the root directory.
+function! GetProjectRoot()
+	let split_directories = split(getcwd(), "/")
+
+	while len(split_directories) > 2
+		let path = '/'.join(split_directories, '/').'/'
+
+		for marker in ['.rootdir', '.git', '.hg', '.svn', 'bzr', '_darcs', 'build.xml']
+			if filereadable(path.marker) || isdirectory(path.marker)
+				return path
+			endif
+		endfor
+
+		let split_directories = split_directories[0:-2] " Go up a directory
+	endwhile
+
+	" Fallback to current working directory
+	return getcwd()
+endfunction
+" }}}
+
 " }}}
 
 if filereadable(expand("~/.vimrc_local"))
