@@ -753,6 +753,18 @@ augroup END
 
 au BufRead,BufNewFile *.twig set filetype=jinja
 
+    " -- Search Project Command {{{
+command! -nargs=1 L call Search(<f-args>)
+function! Search(search_string)
+	execute ":Ack ".a:search_string." ".GetProjectRoot()
+endfunction
+
+command! -nargs=1 LK call SearchAdd(<f-args>)
+function! SearchAdd(search_string)
+	execute ":AckAdd ".a:search_string." ".GetProjectRoot()
+endfunction
+" }}}
+
     " -- Get project root {{{
 " Adapted from:
 " s:guessProjectRoot() in
