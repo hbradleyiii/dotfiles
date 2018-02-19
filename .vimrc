@@ -327,7 +327,11 @@ noremap <silent> <Leader>go :Git checkout<SPACE>
 noremap <silent> <Leader>g- :Silent Git stash<CR>:e<CR>
 noremap <silent> <Leader>g+ :Silent Git stash pop<CR>:e<CR>
 
-" Gundo
+"" Git Gutter
+let g:gitgutter_max_signs = 1500
+let g:gitgutter_grep = 'grep'
+
+"" Gundo
 noremap <Leader>u :GundoToggle<CR>
 
 "" PHP Manual
@@ -377,6 +381,7 @@ set virtualedit=all
 set fillchars=""  " separator chars
 set mousehide
 set mouse=a
+set updatetime=100
 set wildignore+=*~,*.bak,*.pyc,*.swp,*.tmp,.git
 set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.so,*.zip
 set wildignore+=.sass-cache
