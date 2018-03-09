@@ -122,7 +122,7 @@ fi
 #
 #   Note: Use this command to clear keys:
 #       keychain --clear
-if [[ -f /usr/bin/keychain ]] ; then
+if [[ -f /usr/bin/keychain && -f ~/.ssh/id_rsa ]] ; then
     /usr/bin/keychain ~/.ssh/id_rsa
     source ~/.keychain/$(hostname)-sh > /dev/null
 fi
