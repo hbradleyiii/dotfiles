@@ -503,7 +503,7 @@ if &t_Co >= 256 || has("gui_running")  " For 256color Terminals or GVim
     highlight SpecialKey guifg=#151515
     highlight Normal guibg=#090909
     " Highlight lines over 80 chars
-    highlight OverLength ctermbg=234 ctermfg=white guibg=#592929
+    highlight OverLength ctermbg=234 ctermfg=red guibg=#592929
     match OverLength /\%81v./
 endif
 " }}}
