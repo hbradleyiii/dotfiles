@@ -201,16 +201,21 @@ function gitstate() {
             state=$state"+"
         elif [[ $git_status =~ "Untracked files:" ]] ; then
             state=$state"*"
-        elif [[ $git_status =~ "unmerged paths" ]] ; then
-            state=$state"|MERGING"
         fi
     fi
 
+	# Check if we are doing anything special like merging or bisecting
+	if [[ $git_status =~ "unmerged paths" ]] ; then
+		extended_state=$extended_state"(MERGING) "
+	elif [[ $git_status =~ "currently bisecting" ]] ; then
+		extended_state=$extended_state"(BISECTING) "
+	fi
+
     # Check against remote
     if [[ $git_status =~ "Your branch is ahead of" ]] ; then
-        extended_state="(ahead of origin)"
+        extended_state=$extended_state"(ahead of origin) "
     elif [[ $git_status =~ "Your branch is behind" ]] ; then
-        ended_state="(behind origin)"
+        ended_state=$extended_state"(behind origin) "
     fi
 
     echo -e "[git\x3A"$git_branch$state"] "$extended_state$perms
