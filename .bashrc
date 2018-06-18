@@ -201,6 +201,8 @@ function gitstate() {
             state=$state"+"
         elif [[ $git_status =~ "Untracked files:" ]] ; then
             state=$state"*"
+        elif [[ $git_status =~ "unmerged paths" ]] ; then
+            state=$state"|MERGING"
         fi
     fi
 
