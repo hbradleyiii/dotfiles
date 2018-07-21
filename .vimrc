@@ -523,7 +523,7 @@ function! ToggleGeneralEdits()
             " Remove all trailing whitespace before saving
             autocmd BufWritePre * if &ft != 'diff' && getline('$') !~ "allow_trailing_whitespace" | :%s/\s\+$//e | endif
             " Replace tabs with spaces before saving
-            autocmd BufWritePre * :1,$retab<CR>
+            autocmd BufWritePre * :1,$retab
             autocmd BufWritePre * :call PromptSetUnixLineEndings()
             autocmd BufWritePre * :call winrestview(b:winview)
         augroup END
