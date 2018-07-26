@@ -22,9 +22,11 @@ shopt -s extglob # Turn on extended globbing
 shopt -s checkwinsize  # Fix text wrap when resizing screen
 bind Space:magic-space # auto-expand history 'magic' (!!)
     # PROMPT_COMMAND is executed before displaying $PS1
+PROMPT_COMMAND='if [[ "$?" != "127" ]] ; then history -a ~/.bash_history && history -n ; fi;'
 PROMPT_COMMAND='history -a ~/.bash_history'
 HISTIGNORE='clear:ls:mutt:[bf]g:exit'
-HISTCONTROL=ignoredups:ignorespace
+HISTCONTROL=ignoredups:ignorespace:erasedups
+HISTSIZE=10000
 # }}}
 
 ## SECTION: Bash Aliases {{{1
