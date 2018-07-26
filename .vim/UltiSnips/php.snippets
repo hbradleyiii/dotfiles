@@ -3,6 +3,10 @@ extends html
 
 ### GENERIC PHP SNIPPETS ###
 
+snippet ddd "debug in console" b
+eval(\Psy\sh());
+endsnippet
+
 snippet php "php tag" iw
 <?php $1 ?>$0
 endsnippet
@@ -15,6 +19,14 @@ snippet class "php class definition" b
  * @date ${3:Harold Bradley III}
  */
 class $1 {
+	$0
+}
+endsnippet
+
+snippet ts "function test" b
+/** @test */
+public function $1()
+{
 	$0
 }
 endsnippet
