@@ -523,7 +523,7 @@ function! ToggleGeneralEdits()
             " Remove all trailing whitespace before saving
             autocmd BufWritePre * if &ft != 'diff' && getline('$') !~ "allow_trailing_whitespace" | :%s/\s\+$//e | endif
             " Replace tabs with spaces before saving
-            autocmd BufWritePre * :1,$retab<CR>
+            autocmd BufWritePre * :1,$retab
             autocmd BufWritePre * :call PromptSetUnixLineEndings()
             autocmd BufWritePre * :call winrestview(b:winview)
         augroup END
@@ -761,12 +761,12 @@ au BufRead,BufNewFile *.twig set filetype=jinja
     " -- Search Project Command {{{
 command! -nargs=1 L call Search(<f-args>)
 function! Search(search_string)
-	execute ":Ack ".a:search_string." ".GetProjectRoot()
+    execute ":Ack ".a:search_string." ".GetProjectRoot()
 endfunction
 
 command! -nargs=1 LK call SearchAdd(<f-args>)
 function! SearchAdd(search_string)
-	execute ":AckAdd ".a:search_string." ".GetProjectRoot()
+    execute ":AckAdd ".a:search_string." ".GetProjectRoot()
 endfunction
 " }}}
 
@@ -776,22 +776,22 @@ endfunction
 " https://github.com/rking/ag.vim/blob/master/autoload/ag.vim
 " Attempts to guess the root directory.
 function! GetProjectRoot()
-	let split_directories = split(getcwd(), "/")
+    let split_directories = split(getcwd(), "/")
 
-	while len(split_directories) > 2
-		let path = '/'.join(split_directories, '/').'/'
+    while len(split_directories) > 2
+        let path = '/'.join(split_directories, '/').'/'
 
-		for marker in ['.rootdir', '.git', '.hg', '.svn', 'bzr', '_darcs', 'build.xml']
-			if filereadable(path.marker) || isdirectory(path.marker)
-				return path
-			endif
-		endfor
+        for marker in ['.rootdir', '.git', '.hg', '.svn', 'bzr', '_darcs', 'build.xml']
+            if filereadable(path.marker) || isdirectory(path.marker)
+                return path
+            endif
+        endfor
 
-		let split_directories = split_directories[0:-2] " Go up a directory
-	endwhile
+        let split_directories = split_directories[0:-2] " Go up a directory
+    endwhile
 
-	" Fallback to current working directory
-	return getcwd()
+    " Fallback to current working directory
+    return getcwd()
 endfunction
 " }}}
 
