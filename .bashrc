@@ -455,7 +455,7 @@ function gitfetch() {
     else
         local last_fetch=$(stat -c %Y $git_fetch_file)
     fi
-    local next_fetch=$(($last_fetch + 2000))
+    local next_fetch=$(($last_fetch + 3000))
 
     # Wait until next time
     if [[ $current_time -lt $next_fetch  ]] ; then return ; fi
