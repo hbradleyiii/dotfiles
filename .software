@@ -32,6 +32,9 @@ zip
 parcellite
 xdotool
 
+*Ubuntu
+ubuntu-restricted-extras
+
 *Mac
 brew
 **Mac with brew
