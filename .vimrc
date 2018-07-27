@@ -756,7 +756,8 @@ augroup php_syntax
 augroup END
 " }}}
 
-au BufRead,BufNewFile *.twig set filetype=jinja
+autocmd BufRead,BufNewFile *.twig set filetype=jinja
+autocmd BufRead,BufNewFile *.rasi setlocal filetype=css
 
     " -- Search Project Command {{{
 command! -nargs=1 L call Search(<f-args>)
