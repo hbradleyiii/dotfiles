@@ -23,7 +23,7 @@ URxvt*termName:                  rxvt-unicode-256color
 URxvt*font:                      xft:Pragmata:size=16:antialias=true:hinting=true
 
 
-URxvt*geometry:                   100x40
+URxvt*geometry:                   60x30
 URxvt*borderless:                 true
 URxvt*internalBorder:             2
 
