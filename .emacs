@@ -34,7 +34,33 @@
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")))
-
+(add-hook 'org-mode-hook (lambda () (modify-syntax-entry (string-to-char "\u25bc") "w"))) ; Down arrow for collapsed drawer.
+(setq org-startup-indented t)
+(setq org-hide-leading-stars t)
+; (setq org-odd-level-only nil)
+; (setq org-insert-heading-respect-content nil)
+; (setq org-M-RET-may-split-line '((item) (default . t)))
+; (setq org-special-ctrl-a/e t)
+; (setq org-return-follows-link nil)
+; (setq org-use-speed-commands t)
+; (setq org-startup-align-all-tables nil)
+; (setq org-log-into-drawer nil)
+; (setq org-tags-column 1)
+(setq org-ellipsis " \u25bc" )
+; (setq org-speed-commands-user nil)
+; (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
+; (setq org-completion-use-ido t)
+(setq org-indent-mode t)
+; (setq org-startup-truncated nil)
+; (setq auto-fill-mode -1)
+; (setq-default fill-column 99999)
+; (setq fill-column 99999)
+; (global-auto-revert-mode t)
+; (prefer-coding-system 'utf-8)
+; (cua-mode t) ;; keep the cut and paste shortcut keys people are used to.
+; (setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
+; (transient-mark-mode nil)               ;; No region when it is not highlighted
+; (setq cua-keep-region-after-copy t)
 (setq org-agenda-files '("~/journal"))
 (setq org-todo-keywords
       '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d!)")
@@ -52,6 +78,7 @@
         ("CANCELED" . (:foreground "red" :weight bold))))
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
+(setq org-log-done 'note)
 
 
 (unless (package-installed-p 'use-package)
