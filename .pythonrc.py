@@ -93,17 +93,21 @@ sys.ps2 = '%s... %s' % (_c['Red'], _c['Normal'])
 # Enable Pretty Printing for stdout
 ###################################
 
-def my_displayhook(value):
-    """ """
+def pprint_displayhook(value):
+    """PrettyPrints the value of variables."""
     if value is not None:
         try:
             import __builtin__
             __builtin__._ = value
+            pprint.pprint(value)
         except ImportError:
-            __builtins__._ = value
+            try:
+                __builtins__._ = value
+                pprint.pprint(value)
+            except:
+                print(value)
 
-        pprint.pprint(value)
-sys.displayhook = my_displayhook
+sys.displayhook = pprint_displayhook
 
 # Welcome message
 #################
