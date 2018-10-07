@@ -221,5 +221,8 @@ class EditableInteractiveConsole(InteractiveConsole):
             line = lines[-1]
         return line
 
-c = EditableInteractiveConsole(locals=locals())
-c.interact(banner=WELCOME)
+# If we're not working with a Flask project, set up the editable interactive
+# console:
+if 'FLASK_APP' not in os.environ:
+    c = EditableInteractiveConsole(locals=locals())
+    c.interact(banner=WELCOME)
