@@ -23,6 +23,7 @@ set mark-symlinked-directories on
 set prefer-visible-bell on
 set expand-tilde off
 set bell-style visible
+set enable-bracketed-paste on
 
 set visible-stats on
 
