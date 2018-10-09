@@ -118,45 +118,45 @@ URxvt*urlLauncher:                google-chrome
 !
 ! URxvt*background:            S_base03
 
-*background:              S_black
-*foreground:              S_base0
+*background:              #000010
+*foreground:              #839496
 *fading:                  15
-*fadeColor:               S_base03
-*cursorColor:             S_base1
-*pointerColorBackground:  S_base01
-*pointerColorForeground:  S_base1
+*fadeColor:               #002b36
+*cursorColor:             #93a1a1
+*pointerColorBackground:  #586e75
+*pointerColorForeground:  #93a1a1
 
 ! black
-*color0:                  S_black
-*color8:                  S_base03
+*color0:                  #000010
+*color8:                  #002b36
 
 ! red
-*color1:                  S_red
-*color9:                  S_orange
+*color1:                  #dc322f
+*color9:                  #cb4b16
 
 ! green
-*color2:                  S_green
-*color10:                 S_base01
+*color2:                  #859900
+*color10:                 #586e75
 
 ! yellow
-*color3:                  S_yellow
-*color11:                 S_base00
+*color3:                  #b58900
+*color11:                 #657b83
 
 ! blue
-*color4:                  S_blue
-*color12:                 S_base0
+*color4:                  #268bd2
+*color12:                 #839496
 
 ! magenta
-*color5:                  S_magenta
-*color13:                 S_violet
+*color5:                  #d33682
+*color13:                 #6c71c4
 
 ! cyan
-*color6:                  S_cyan
-*color14:                 S_base1
+*color6:                  #2aa198
+*color14:                 #93a1a1
 
 ! white
-*color7:                  S_base2
-*color15:                 S_base3
+*color7:                  #eee8d5
+*color15:                 #fdf6e3
 
 
 URxvt.perl-ext-common: default,clipboard
