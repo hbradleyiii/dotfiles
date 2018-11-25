@@ -110,7 +110,7 @@ if [[ -d "$HOME/.config/composer/vendor/bin" ]] ; then
 fi
 
 if [[ -d "$HOME/.yarn/bin" ]] ; then
-	export PATH=$PATH:~/.yarn/bin
+    export PATH=$PATH:~/.yarn/bin
 fi
 # }}}
 
