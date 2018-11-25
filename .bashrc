@@ -152,12 +152,12 @@ _artisan()
     local OLD_IFS="$IFS"
     local CURRENT_STR=${COMP_WORDS[COMP_CWORD]}
 
-	IFS=$'\n';
-	local opts=$(art | sed '/Available commands:/,$!d' | tail -n+2 | awk '{$1=$1};1' | cut -d' ' -f1 | awk '$1 ~ /^'$CURRENT_STR'/')
-	COMPREPLY=( ${opts[*]} )
+    IFS=$'\n';
+    local opts=$(art | sed '/Available commands:/,$!d' | tail -n+2 | awk '{$1=$1};1' | cut -d' ' -f1 | awk '$1 ~ /^'$CURRENT_STR'/')
+    COMPREPLY=( ${opts[*]} )
 
-	IFS="$OLD_IFS"
-	return 0
+    IFS="$OLD_IFS"
+    return 0
 }
 complete -F _artisan art
 
@@ -206,12 +206,12 @@ function gitstate() {
         fi
     fi
 
-	# Check if we are doing anything special like merging or bisecting
-	if [[ $git_status =~ "unmerged paths" ]] ; then
-		extended_state=$extended_state"(MERGING) "
-	elif [[ $git_status =~ "currently bisecting" ]] ; then
-		extended_state=$extended_state"(BISECTING) "
-	fi
+    # Check if we are doing anything special like merging or bisecting
+    if [[ $git_status =~ "unmerged paths" ]] ; then
+        extended_state=$extended_state"(MERGING) "
+    elif [[ $git_status =~ "currently bisecting" ]] ; then
+        extended_state=$extended_state"(BISECTING) "
+    fi
 
     # Check against remote
     if [[ $git_status =~ "Your branch is ahead of" ]] ; then
@@ -267,7 +267,7 @@ function art() {
         echo 'Artisan command not found. Are you inside a laravel project?'
     else
         # run the artisan command
-		php $current_dir/artisan $@
+        php $current_dir/artisan $@
     fi
 } # }}}
 
@@ -595,7 +595,7 @@ function sv() {
         DIR='./*'
     fi
 
-	vim -c "bufdo call search('$1')" -c "syntax on" $(grep -rl --color=never --exclude="*vendor*" --exclude="*node_modules*" -- "$1" $DIR)
+    vim -c "bufdo call search('$1')" -c "syntax on" $(grep -rl --color=never --exclude="*vendor*" --exclude="*node_modules*" -- "$1" $DIR)
 } # }}}
 
 ### sudoh - sudo with my environment
@@ -607,11 +607,11 @@ function sudoh() {
 ### vim - vim wrapper (allows vim to understand Ctrl-s)
 # vim() {{{2
 function vim() {
-	if [[ $MAC_OS ]] ; then
-		local STTYOPTS="$(stty -g)"
-	else
-		local STTYOPTS="$(stty --save)"
-	fi
+    if [[ $MAC_OS ]] ; then
+        local STTYOPTS="$(stty -g)"
+    else
+        local STTYOPTS="$(stty --save)"
+    fi
     stty stop '' -ixoff
     command vim "$@"
     stty "$STTYOPTS"
