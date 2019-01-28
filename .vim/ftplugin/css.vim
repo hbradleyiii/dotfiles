@@ -5,6 +5,8 @@ setlocal formatoptions=ro
 
 setlocal omnifunc=csscomplete#CompleteCSS
 
+setlocal tabstop=4
+
 function! PutDeclarationsOnIndividualLines()
     execute "normal! 0f}i\<CR>\<ESC>k0f{a\<CR>\<ESC>"
     while getline(".") =~ ";.*;"
