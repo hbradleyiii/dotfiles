@@ -220,7 +220,7 @@ set rtp+=$HOME/.vim/bundle/Vundle.vim
 " Install Vundle if it isn't already installed {{{
 let g:InstallVundlePlugins = 0
 if empty(glob("$HOME/.vim/bundle/Vundle.vim"))
-    execute "!git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim"
+    silent! execute "!git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim"
     let g:InstallVundlePlugins = 1
 endif  " }}}
 
@@ -268,15 +268,16 @@ call vundle#end()  " Must be AFTER plugin list
 
 " If this is a fresh install, install all initialized plugins {{{
 if g:InstallVundlePlugins == 1
-    execute 'VundleInstall'
+    silent! execute 'VundleInstall'
+    :q
 endif  " }}}
 
 " Once a month, update and clean plugins {{{
 let g:last_plugin_update = getftime($HOME . "/.vim/bundle/Vundle.vim/doc/tags")
 if g:last_plugin_update + 2628000 < localtime()
     echom 'Last updated: ' . strftime('%c', g:last_plugin_update)
-    execute 'VundleClean'
-    execute 'VundleUpdate'
+    silent! execute 'VundleClean'
+    silent! execute 'VundleUpdate'
     :q
 endif  " }}}
 " }}}
