@@ -87,4 +87,8 @@ if [[ $MAC_OS ]] ; then
     cp -r ~/.dotfiles/Library/ ~/
 fi
 
+printf "Installing vim plugins..."
+vim -c ":qa"
+printf "[OK]\n"
+
 # vim:set ft=sh fdm=marker:
