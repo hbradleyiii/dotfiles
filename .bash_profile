@@ -91,13 +91,13 @@ fi
 # running tmux.) This is particularly important on a Mac since /etc/profile runs
 # 'path_helper' which mangles the path.
 
-if [[ -z "$_PATH" ]] ; then
+if [[ -z "$ORIGINAL_PATH" ]] ; then
     # Save the default (original) path only once This is used so that when
     # doing a 'rebash', paths aren't duplicated.
-    export _PATH=$PATH
+    export ORIGINAL_PATH=$PATH
 fi
 
-export PATH=$_PATH:~/.bash_lib:~/.bash_lib/local
+export PATH=$ORIGINAL_PATH:~/.bash_lib:~/.bash_lib/local
 
 if [[ $MAC_OS && -d "/usr/local/opt/coreutils/libexec/gnubin" ]] ; then
     # Coreutils path must be first to override default binaries
