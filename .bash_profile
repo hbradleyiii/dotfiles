@@ -113,7 +113,7 @@ if [[ -d "$HOME/.config/composer/vendor/bin" ]] ; then
     export PATH=$PATH:~/.config/composer/vendor/bin
 fi
 
-if [[ -d "$HOME/.nvm" ]] && [[ -z "$NVM_DIR" ]] ; then
+if [[ -d "$HOME/.nvm" ]] ; then
     export NVM_DIR="$HOME/.nvm"
 
     # Load nvm
