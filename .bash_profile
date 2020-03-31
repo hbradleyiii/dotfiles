@@ -61,7 +61,11 @@ if [[ $EXPORTS_SET != 1 ]] ; then
     export CDPATH=".:~/"
     export EDITOR=vim
     export EXPORTS_SET=1
-    export IP=$(curl -s https://utilities.bradleystudio.net/myip/)
+
+    if [[ -z "$IP" ]] ; then
+        export IP=$(curl -s https://utilities.bradleystudio.net/myip/)
+    fi
+
     export LESS="-isMR"
     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
     export PYTHONSTARTUP=~/.pythonrc.py
