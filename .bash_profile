@@ -113,6 +113,14 @@ if [[ -d "$HOME/.config/composer/vendor/bin" ]] ; then
     export PATH=$PATH:~/.config/composer/vendor/bin
 fi
 
+if [[ -d "$HOME/.nvm" ]] && [[ -z "$NVM_DIR" ]] ; then
+    export NVM_DIR="$HOME/.nvm"
+
+    # Load nvm
+    [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
+    [[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
+fi
+
 if [[ -d "$HOME/.yarn/bin" ]] ; then
     export PATH=$PATH:~/.yarn/bin
 fi
