@@ -16,7 +16,8 @@
 _COLORS_DEFINED=true
 
 # Only define colors if supported
-[[ $(tput colors) -lt 8 ]] && return
+# (if tput command doesn't exist, assume we are SSHed into a embedded device)
+[[ -x $(command -v tput) ]] && [[ $(tput colors) -lt 8 ]] && return
 
 ## SECTION: Color Definitions {{{1
 _colorreset="\e[m"

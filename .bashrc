@@ -11,8 +11,7 @@
 # Exit if this is a non-interactive terminal
 if ! [[ $- =~ "i" ]] && ! [[ -n $USE_BASHRC ]] ; then return; fi
 
-# Check if terminal supports colors, if so, source colors
-[[ $(tput colors) -ge 8 ]] && [[ -z $_COLORS_DEFINED ]] && source $HOME/.bash_lib/colors
+source $HOME/.bash_lib/colors
 
 ## SECTION: Bash Settings {{{1
 set -o vi
