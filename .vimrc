@@ -507,6 +507,11 @@ if &t_Co >= 256 || has("gui_running")  " For 256color Terminals or GVim
     " Highlight lines over 80 chars
     highlight OverLength ctermbg=234 ctermfg=red guibg=#592929
     match OverLength /\%81v./
+
+    highlight GitGutterAdd    guifg=#009900 ctermfg=2 ctermbg=235
+    highlight GitGutterChange guifg=#bbbb00 ctermfg=166 ctermbg=235
+    highlight GitGutterDelete guifg=#ff2222 ctermfg=1 ctermbg=235
+    highlight SignColumn ctermbg=235
 endif
 " }}}
 " }}}
