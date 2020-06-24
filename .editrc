@@ -1,13 +1,42 @@
 #
-# name:             .inputrc
+# name:             .editrc
 # author:           Harold Bradley III
 # email:            harold@bradleystudio.net
 # created:          Jan 12 2017
 #
 # description:      This file is sourced during editline initilization.  Any
 #                   program that uses editline (including mysql) sources it.
-
-
+#
+# 					NOTE: Do not put blank lines in this file. It won't be read
+# 					correctly.
+#
+bind -v
+bind \\t rl_complete
+#
+# Keybinding
+## Up
+bind "\e[A" ed-search-prev-history
+bind -k up ed-search-prev-history
+## Down
+bind  "\e[B" ed-search-next-history
+bind -k down ed-search-next-history
+## Home
+bind "\e[1~" ed-move-to-beg
+## End
+bind "\e[4~" ed-move-to-end
+## Page Up
+bind "\e[5~" ed-search-prev-history
+## Page Down
+bind "\e[6~" ed-search-next-history
+## Delete
+bind "\e[3~" ed-delete-next-char
+## Kill word forward
+bind "\e(" em-delete-next-word
+## ^K  to Copy prev shell word
+bind "^K" em-copy-prev-word
+## Inc search backwards
+bind "^R" em-inc-search-prev
+#
 set bind-tty-special-chars on
 set blink-matching-paren on
 set byte-oriented off
@@ -36,30 +65,5 @@ set comment-begin #
 set completion-query-items 100
 set editing-mode vi
 set keymap vi-insert
-
-bind -v
-bind \\t rl_complete
-
-# Keybinding
-## Up
-bind "\e[A" ed-prev-history
-## Down
-bind  "\e[B" ed-next-history
-## Home
-bind "\e[1~" ed-move-to-beg
-## End
-bind "\e[4~" ed-move-to-end
-## Page Up
-bind "\e[5~" ed-search-prev-history
-## Page Down
-bind "\e[6~" ed-search-next-history
-## Delete
-bind "\e[3~" ed-delete-next-char
-## Kill word forward
-bind "\e(" em-delete-next-word
-## ^K  to Copy prev shell word
-bind "^K" em-copy-prev-word
-## Inc search backwards
-bind "^R" em-inc-search-prev
-
+#
 # vim:set ft=sh:
