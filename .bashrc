@@ -594,7 +594,7 @@ function sv() {
         DIR='./*'
     fi
 
-    vim -c "bufdo call search('$1')" -c "syntax on" $(grep -rl --color=never --exclude="*vendor*" --exclude="*node_modules*" -- "$1" $DIR)
+    vim -c "bufdo call search('$1')" -c "syntax on" $(grep -rl --color=never --exclude-dir="vendor" --exclude-dir="node_modules" -- "$1" $DIR)
 } # }}}
 
 ### sudoh - sudo with my environment
