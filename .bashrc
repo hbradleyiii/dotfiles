@@ -573,7 +573,7 @@ function s() {
         DIR='./*'
     fi
 
-    grep -rnI --exclude="*vendor*" --exclude="*node_modules*" -- "$1" $DIR | GREP_COLOR="0;39" grep --color=always -ox "^.\{0,250\}"
+    grep -rnI --exclude-dir="vendor" --exclude-dir="node_modules" -- "$1" $DIR | GREP_COLOR="0;39" grep --color=always -ox "^.\{0,250\}"
 } # }}}
 
 ### sv - Open files from search results in vim
@@ -594,7 +594,7 @@ function sv() {
         DIR='./*'
     fi
 
-    vim -c "bufdo call search('$1')" -c "syntax on" $(grep -rl --color=never --exclude="*vendor*" --exclude="*node_modules*" -- "$1" $DIR)
+    vim -c "bufdo call search('$1')" -c "syntax on" $(grep -rl --color=never --exclude-dir="vendor" --exclude-dir="node_modules" -- "$1" $DIR)
 } # }}}
 
 ### sudoh - sudo with my environment
