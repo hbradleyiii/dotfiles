@@ -317,7 +317,7 @@ let g:comfortable_motion_air_drag = 0.0
 
 "" Fugitive
 noremap <silent> <Leader>ga :Git add %<CR>
-noremap <silent> <Leader>gc :Gcommit -v -q<CR>
+noremap <silent> <Leader>gc :Git commit -v -q<CR>
 noremap <silent> <Leader>gt :!git add --patch %<CR>
 noremap <silent> <Leader>gl :Git l1<CR>
 noremap <silent> <Leader>gs :Gstatus<CR>
