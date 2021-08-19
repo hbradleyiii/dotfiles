@@ -724,7 +724,7 @@ else
 endif
 command! RangerExplorer call RangerExplorer()
 function! RangerExplorer()
-    exec "silent !ranger --choosefiles=$HOME/.vim/ranger_selected_file " .expand("%:p:h")
+    exec "silent !ranger --choosefiles=$HOME/.vim/ranger_selected_file \"" . expand("%:p:h") . '"'
     if filereadable($HOME.'/.vim/ranger_selected_file')
         let first_file = 1
         for file in readfile($HOME.'/.vim/ranger_selected_file', '', 10)
