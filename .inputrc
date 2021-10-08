@@ -78,7 +78,8 @@ set keymap vi-command
 "G":        end-of-history
 "dd":       kill-whole-line
 
-set keymap vi-insert # Insert keymaps
+# Insert keymaps
+set keymap vi-insert
 "\C-w":     backward-kill-word          # Ctrl + w
 "\C-l":     clear-screen                # Ctrl + l
 
