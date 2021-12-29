@@ -160,6 +160,10 @@ _artisan()
 }
 complete -F _artisan art
 
+# terraform tab completion
+[[ -f /usr/bin/terraform ]] && complete -C /usr/bin/terraform terraform
+[[ -f /usr/local/bin/terraform ]] && complete -C /usr/local/bin/terraform terraform
+
 # Mac tab completion
 if [[ $MAC_OS && -f $(brew --prefix)/etc/bash_completion ]]; then
     source $(brew --prefix)/etc/bash_completion
