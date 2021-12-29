@@ -65,3 +65,5 @@
     insteadOf = gh:
 [include]
     path = ~/.gitconfig_local
+[init]
+	defaultBranch = master
