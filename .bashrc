@@ -615,7 +615,7 @@ function sudoh() {
 ### vim - vim wrapper (allows vim to understand Ctrl-s)
 # vim() {{{2
 function vim() {
-    if [[ $MAC_OS ]] ; then
+    if [[ $MAC_OS || $BSD ]] ; then
         local STTYOPTS="$(stty -g)"
     else
         local STTYOPTS="$(stty --save)"
