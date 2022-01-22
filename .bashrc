@@ -92,8 +92,7 @@ if [[ $MAC_OS && ! $COREUTILS ]] ; then
     alias ls='ls -A'
     unalias lsg
     alias lsg='ls -Agh'
-fi
-if [[ $BSD ]] ; then
+elif [[ $BSD ]] ; then
     unalias ls
     alias ls='ls -A --color'
     unalias lsg
