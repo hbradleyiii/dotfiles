@@ -93,6 +93,12 @@ if [[ $MAC_OS && ! $COREUTILS ]] ; then
     unalias lsg
     alias lsg='ls -Agh'
 fi
+if [[ $BSD ]] ; then
+    unalias ls
+    alias ls='ls -A --color'
+    unalias lsg
+    alias lsg='ls -Agh'
+fi
 # }}}
 
 ## SECTION: Bash Variables {{{1
@@ -452,7 +458,7 @@ function gitfetch() {
     # Exit if no internet
     if ! ping -c 1 github.com &> /dev/null ; then return ; fi
 
-    if [[ $MAC_OS && ! $COREUTILS ]] ; then
+    if [[ $MAC_OS && ! $COREUTILS ]] || [[ $BSD ]] ; then
         eval local `stat -s $git_fetch_file`
         local last_fetch=$st_mtime
     else
