@@ -57,7 +57,7 @@
 if [[ $EXPORTS_SET != 1 ]] ; then
     # Check what os we are running
     [[ "$(uname)" == "Darwin" ]] && export MAC_OS=true
-    [[ "$(uname)" == "BSD" ]] && export BSD=true
+    [[ "$(uname)" =~ "BSD" ]] && export BSD=true
 
     export CDPATH=".:~/"
     export EDITOR=vim
