@@ -57,6 +57,7 @@
 if [[ $EXPORTS_SET != 1 ]] ; then
     # Check what os we are running
     [[ "$(uname)" == "Darwin" ]] && export MAC_OS=true
+    [[ "$(uname)" == "BSD" ]] && export BSD=true
 
     export CDPATH=".:~/"
     export EDITOR=vim
@@ -70,7 +71,7 @@ if [[ $EXPORTS_SET != 1 ]] ; then
     export PYTHONPATH=$PYTHONPATH:/usr/local/lib/
     export PYTHONSTARTUP=~/.pythonrc.py
 
-    if [[ $MAC_OS && -f "/usr/local/bin/bash" ]] ; then
+    if [[ $MAC_OS || $BSD ]] && [[ -f "/usr/local/bin/bash" ]] ; then
         export SHELL="/usr/local/bin/bash"
     fi
 
