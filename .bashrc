@@ -92,6 +92,11 @@ if [[ $MAC_OS && ! $COREUTILS ]] ; then
     alias ls='ls -A'
     unalias lsg
     alias lsg='ls -Agh'
+elif [[ $BSD ]] ; then
+    unalias ls
+    alias ls='ls -A --color'
+    unalias lsg
+    alias lsg='ls -Agh'
 fi
 # }}}
 
@@ -159,6 +164,10 @@ _artisan()
     return 0
 }
 complete -F _artisan art
+
+# terraform tab completion
+[[ -f /usr/bin/terraform ]] && complete -C /usr/bin/terraform terraform
+[[ -f /usr/local/bin/terraform ]] && complete -C /usr/local/bin/terraform terraform
 
 # Mac tab completion
 if [[ $MAC_OS && -f $(brew --prefix)/etc/bash_completion ]]; then
@@ -448,7 +457,7 @@ function gitfetch() {
     # Exit if no internet
     if ! ping -c 1 github.com &> /dev/null ; then return ; fi
 
-    if [[ $MAC_OS && ! $COREUTILS ]] ; then
+    if [[ $MAC_OS && ! $COREUTILS ]] || [[ $BSD ]] ; then
         eval local `stat -s $git_fetch_file`
         local last_fetch=$st_mtime
     else
@@ -606,7 +615,7 @@ function sudoh() {
 ### vim - vim wrapper (allows vim to understand Ctrl-s)
 # vim() {{{2
 function vim() {
-    if [[ $MAC_OS ]] ; then
+    if [[ $MAC_OS || $BSD ]] ; then
         local STTYOPTS="$(stty -g)"
     else
         local STTYOPTS="$(stty --save)"

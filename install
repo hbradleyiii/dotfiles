@@ -13,6 +13,12 @@ DOTFILES_ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 source $DOTFILES_ROOT_DIR/.bash_lib/msg || { echo "'msg' does not exist!" >&2 ; exit 1; }
 
+if [[ $1 == 'noprompt' ]]; then
+    function msg_ask() {
+        return 0
+    }
+fi
+
 ### creat_link()
 # create_link() {{{1
 function create_link() {
