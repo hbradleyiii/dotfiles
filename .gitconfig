@@ -66,4 +66,6 @@
 [include]
     path = ~/.gitconfig_local
 [init]
-	defaultBranch = master
+    defaultBranch = master
+[safe]
+    directory = /home/harold/.dotfiles
