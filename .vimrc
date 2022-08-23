@@ -623,6 +623,11 @@ function! Write()
         return
     endif
 
+    if file[0:5] == 'scp://'
+        write  " Using SCP, do not try with SudoWrite
+        return
+    endif
+
     if !filereadable(file) && filewritable(directory)
         write  " File does not exist, but directory is writable
         return
