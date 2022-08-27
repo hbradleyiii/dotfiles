@@ -287,7 +287,7 @@ function cl() {
 
 ### cp - Copy Wrapper
 # cp() {{{2
-function cp() {
+function xcp() {
         echo $1
         echo $2
         echo $3
