@@ -64,7 +64,7 @@ if [[ $EXPORTS_SET != 1 ]] ; then
     export EXPORTS_SET=1
 
     if [[ -z "$IP" ]] ; then
-        export IP=$(curl -s https://utilities.bradleystudio.net/myip/)
+        export IP=$(curl --max-time 5 -s https://utilities.bradleystudio.net/myip/)
     fi
 
     export LESS="-isMR"
