@@ -68,7 +68,6 @@ alias header='curl -I'
 alias headerc='curl -I --compress'
 alias hosts='sudo HOME="$HOME" vim /etc/hosts'
 alias inchroot='env-update && source /etc/profile && export PS1="(chroot) $PS1"'
-alias ip='curl https://utilities.bradleystudio.net/myip/ && echo'
 alias lip='ifconfig | sed -En "s/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p"'
 alias ls='ls -A --color --group-directories-first'
 alias lsg='ls -g -h | awk "{k=0;for(i=0;i<=8;i++)k+=((substr(\$1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf(\"%0o \",k);print}"'
@@ -531,6 +530,17 @@ function extract() {
     else
         echo "'$1' cannot be extracted."
     fi
+} # }}}
+
+### ip - IP wrapper
+# ip() {{{2
+function ip() {
+    if [[ "$1" == "" ]] ; then
+        curl https://utilities.bradleystudio.net/myip/ && echo
+        return
+    fi
+
+    $(which ip) "$@"
 } # }}}
 
 ### manf - search man page $1 for flag $2
