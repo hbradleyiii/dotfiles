@@ -711,7 +711,7 @@ endfunction
 " }}}
 
     " -- Automatically source vimrc changes {{{
-augroup general_edit_group
+augroup vim_auto_source
     autocmd!
     autocmd BufWritePost .vimrc source %
     autocmd BufWritePost .gvimrc source %
