@@ -59,7 +59,7 @@ if [[ $EXPORTS_SET != 1 ]] ; then
     [[ "$(uname)" == "Darwin" ]] && export MAC_OS=true
     [[ "$(uname)" =~ "BSD" ]] && export BSD=true
 
-    export CDPATH=".:~/"
+    export CDPATH="."
     export EDITOR=vim
     export EXPORTS_SET=1
 
