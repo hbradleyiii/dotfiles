@@ -538,7 +538,7 @@ function ip() {
         return
     fi
 
-    $(which ip) "$@"
+    $(which ip) -c "$@"
 } # }}}
 
 ### manf - search man page $1 for flag $2
