@@ -160,16 +160,16 @@ if [[ "$ip" = "" ]] ; then
 fi
 
 if [[ $MAC_OS ]] ; then
-    printf " \e[1;39m*\e[39m Welcome to \e[32m $(hostname) \e[39m [ $ip ]\n"
+    printf "\n \e[1;39m*\e[39m Welcome to \e[32m $(hostname) \e[39m [ $ip ]\n"
 else
-	[ -r /etc/lsb-release ] && . /etc/lsb-release
+    [ -r /etc/lsb-release ] && . /etc/lsb-release
 
-	if [ -z "$DISTRIB_DESCRIPTION" ] && [ -x /usr/bin/lsb_release ]; then
-			# Fall back to using the very slow lsb_release utility
-			DISTRIB_DESCRIPTION=$(lsb_release -s -d)
-	fi
+    if [ -z "$DISTRIB_DESCRIPTION" ] && [ -x /usr/bin/lsb_release ]; then
+            # Fall back to using the very slow lsb_release utility
+            DISTRIB_DESCRIPTION=$(lsb_release -s -d)
+    fi
 
-    echo -e " \e[1;39m*\e[39m Welcome to \e[32m $(hostname) \e[39m [ $ip ]"
+    echo -e "\n \e[1;39m*\e[39m Welcome to \e[32m $(hostname) \e[39m [ $ip ]"
     echo -e "$DISTRIB_DESCRIPTION ($(uname -o) $(uname -r) $(uname -m))\n"
 fi
 # }}}
