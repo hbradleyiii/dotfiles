@@ -25,7 +25,7 @@ PROMPT_COMMAND='if [[ "$?" != "127" ]] ; then history -a ~/.bash_history && hist
 PROMPT_COMMAND='history -a ~/.bash_history'
 HISTIGNORE='clear:ls:mutt:[bf]g:exit'
 HISTCONTROL=ignoredups:ignorespace:erasedups
-HISTSIZE=10000
+HISTSIZE=100000
 # }}}
 
 ## SECTION: Bash Aliases {{{1
