@@ -114,6 +114,10 @@ if [[ -d "$HOME/.config/composer/vendor/bin" ]] ; then
     export PATH=$PATH:~/.config/composer/vendor/bin
 fi
 
+if [[ -d "$HOME/.local/bin" ]] ; then
+    export PATH=$PATH:~/.local/bin
+fi
+
 if [[ -d "$HOME/.nvm" ]] ; then
     export NVM_DIR="$HOME/.nvm"
 
