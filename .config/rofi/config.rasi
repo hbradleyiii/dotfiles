@@ -1,11 +1,10 @@
 /******************************************************************************
  * ROFI Configuration File
  ******************************************************************************/
+
 configuration {
-	combi-modi:         "window,drun,ssh";
-	modi:               "combi,drun,window,ssh";
-	theme:              "theme";
-    drun-icon-theme:    "Paper";
+    combi-modi:         "window,drun,ssh";
+    modi:               "combi,drun,window,ssh";
     matching:           "fuzzy";
     parse-hosts:        true;
     show-icons:         true;
