@@ -85,6 +85,7 @@ alias ssu='sudo HOME="$HOME" SSH_AUTH_SOCK="$SSH_AUTH_SOCK" SSH_CLIENT="$SSH_CLI
 alias ta='tmux attach'
 alias uup='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade'
 alias wget='wget -c'
+alias ytd='docker run --rm -it --pull always -v "$(pwd):/downloads:rw" ghcr.io/jauderho/yt-dlp:latest'
 if [[ $MAC_OS && ! $COREUTILS ]] ; then
     unalias ls
     alias ls='ls -A'
