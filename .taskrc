@@ -1,0 +1,72 @@
+# [Created by task 2.6.1 4/18/2025 09:32:39]
+# Taskwarrior program configuration file.
+# For more documentation, see https://taskwarrior.org or try 'man task', 'man task-color',
+# 'man task-sync' or 'man taskrc'
+
+# Here is an example of entries that use the default, override and blank values
+#   variable=foo   -- By specifying a value, this overrides the default
+#   variable=      -- By specifying no value, this means no default
+#   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
+
+# You can also refence environment variables:
+#   variable=$HOME/task
+#   variable=$VALUE
+
+editor=vim
+
+# Use the command 'task show' to see all defaults and overrides
+
+# Files
+data.location=/home/harold/.task
+
+# To use the default location of the XDG directories,
+# move this configuration file from ~/.taskrc to ~/.config/task/taskrc and uncomment below
+
+#data.location=~/.local/share/task
+#hooks.location=~/.config/task/hooks
+
+# Color theme
+include solarized-dark-256.theme
+
+uda.effort.type=string
+uda.effort.label=Effort
+uda.effort.values=sm,md,pom,2pom,4pom
+
+
+###
+# Priority Attribute
+uda.priority.type=string
+uda.priority.label=Priority
+uda.priority.values=VH,H,M,L,,VL
+
+color.uda.priority.VH=bold underline red
+color.uda.priority.H=bold red
+color.uda.priority.M=bold white
+color.uda.priority.L=blue
+color.uda.priority.VL=cyan
+
+urgency.uda.priority.VH.coefficient=8.1
+urgency.uda.priority.H.coefficient=4.1
+urgency.uda.priority.M.coefficient=2.1
+urgency.uda.priority.L.coefficient=1.1
+urgency.uda.priority.VL.coefficient=0.5
+###
+
+
+news.version=2.6.0
+
+context.prestix.read=project~Prestix or project:Prestix
+context.prestix.write=project:Prestix
+
+context.wycliffe.read=project~Wycliffe or project:Wycliffe
+context.wycliffe.write=project:Wycliffe
+
+
+
+
+report.list.columns=id,depends.indicator,priority,project.parent,project.indented,tags,recur.indicator,scheduled.countdown,due,until.remaining,description.count,urgency
+report.list.context=1
+report.list.description=Most details of tasks
+report.list.filter=status:pending -WAITING
+report.list.labels=ID,D,P,Category,Project,Tags,R,Sch,Due,Until,Description,Urg
+report.list.sort=start-,due+,project+,urgency-

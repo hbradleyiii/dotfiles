@@ -1,4 +1,4 @@
-snippet (-> "Smart Parens" i
+snippet (- "Smart Parens" i
 (${1}`!p
 if t[1].startswith(')'):
     snip.rv = ''
@@ -9,7 +9,7 @@ elif t[1] != '':
 `$0
 endsnippet
 
-snippet [-> "Smart Brackets" i
+snippet [- "Smart Brackets" i
 [${1}`!p
 if t[1].startswith(']'):
     snip.rv = ''
@@ -20,7 +20,7 @@ elif t[1] != '':
 `$0
 endsnippet
 
-snippet {-> "Smart Braces" i
+snippet {- "Smart Braces" i
 {${1}`!p
 if t[1].startswith('}'):
     snip.rv = ''
