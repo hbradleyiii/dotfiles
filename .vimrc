@@ -260,7 +260,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-vinegar'
 "Plugin 'yuttie/comfortable-motion.vim'
-Plugin 'vim-scripts/timestamp.vim'
+"Plugin 'vim-scripts/timestamp.vim'
 call vundle#end()  " Must be AFTER plugin list
 
 " If this is a fresh install, install all initialized plugins {{{
@@ -328,7 +328,6 @@ noremap <silent> <Leader>g+ :Silent Git stash pop<CR>:e<CR>
 
 "" Git Gutter
 let g:gitgutter_max_signs = 1500
-let g:gitgutter_grep = 'grep'
 
 "" Gundo
 noremap <Leader>u :GundoToggle<CR>
