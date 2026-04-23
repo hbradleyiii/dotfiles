@@ -118,7 +118,7 @@ URxvt*urlLauncher:                google-chrome
 !
 ! URxvt*background:            S_base03
 
-*background:              #000010
+*background:              #000000
 *foreground:              #839496
 *fading:                  15
 *fadeColor:               #002b36
