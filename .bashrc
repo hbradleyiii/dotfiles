@@ -446,6 +446,8 @@ function gitcp() {
 ### gitfetch - git fetch
 # gitfetch() {{{2
 function gitfetch() {
+    ## TODO :: significant slowdown!!!!
+    return
     local current_time=$(date +%s)
     local git_root=$(git rev-parse --show-toplevel)
     local git_fetch_file=$git_root"/.git/FETCH_HEAD"
