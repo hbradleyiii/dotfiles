@@ -73,6 +73,16 @@ URvxt*urlButton:                  2
 
 URxvt*urlLauncher:                google-chrome
 
+URxvt*perl-lib: /usr/lib/urxvt/perl/
+URxvt*perl-ext-common: default,clipboard,matcher
+URxvt*urlLauncher: google-chrome
+URxvt.url-select.launcher: google-chrome
+URxvt.url-launcher: google-chrome
+URxvt*matcher.button: 1
+URxvt*matcher.pattern.1: \\bwww\\.[\\w-]+\\.[\\w./?&@#-]*[\\w/-]
+
+URxvt.matcher.button: 1
+
 
 ! Solarized color scheme for the X Window System
 !
@@ -159,7 +169,7 @@ URxvt*urlLauncher:                google-chrome
 *color15:                 #fdf6e3
 
 
-URxvt.perl-ext-common: default,clipboard
+URxvt.perl-ext-common: default,clipboard,matcher
 URxvt.keysym.C-S-c: perl:clipboard:copy
 URxvt.keysym.C-v: perl:clipboard:paste
 URxvt.keysym.C-a-v: perl:clipboard:paste_escaped
