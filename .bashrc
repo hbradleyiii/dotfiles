@@ -594,7 +594,7 @@ function s() {
         DIR='./*'
     fi
 
-    grep -rnI --exclude-dir="vendor" --exclude-dir="node_modules" -- "$1" $DIR | GREP_COLOR="mt=0;39" grep --color=always -ox "^.\{0,250\}"
+    grep -rnI --exclude-dir="vendor" --exclude-dir="node_modules" -- "$1" $DIR | GREP_COLOR="0;39" grep --color=always -ox "^.\{0,250\}"
 } # }}}
 
 ### sv - Open files from search results in vim
